@@ -1,0 +1,133 @@
+.navbar {
+    background: rgba(255, 255, 255, 0.85);
+    height: 85px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(21, 50, 44, 0.05);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+}
+
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1280px;
+    padding: 0 2rem;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    transition: transform 0.3s;
+}
+
+.logo-container:hover {
+    transform: scale(1.02);
+}
+
+.logo-img {
+    height: 60px;
+    width: auto;
+    object-fit: contain;
+}
+
+
+.nav-menu {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    gap: var(--spacing-md);
+}
+
+.nav-link {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    letter-spacing: -0.01em;
+    position: relative;
+    padding: 0.5rem 0;
+    transition: color 0.3s;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--secondary);
+    transition: width 0.3s;
+}
+
+.nav-link:hover {
+    color: var(--primary);
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+.mobile-icon {
+    display: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--text-main);
+}
+
+@media screen and (max-width: 768px) {
+    .nav-menu {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100vh;
+        position: absolute;
+        top: 85px;
+        left: -100%;
+        opacity: 1;
+        transition: all 0.5s ease;
+        background: white;
+        padding-top: var(--spacing-xl);
+    }
+
+    .nav-menu.active {
+        left: 0;
+    }
+
+    .mobile-icon {
+        display: block;
+    }
+}
+
+/* Adjust mobile icon to not be alone if needed, but user-actions handles it */
+/* Adjust mobile icon to not be alone if needed, but user-actions handles it */
+.mobile-icon {
+    margin-left: 0;
+}
+
+.desktop-lang-switch {
+    display: block !important;
+}
+
+@media screen and (max-width: 768px) {
+    .desktop-lang-switch {
+        display: none !important;
+    }
+
+    .mobile-lang-switch {
+        display: block;
+    }
+}
+
+@media screen and (min-width: 769px) {
+    .mobile-lang-switch {
+        display: none;
+    }
+}
