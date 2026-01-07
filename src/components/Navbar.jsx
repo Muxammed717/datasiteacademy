@@ -39,6 +39,7 @@ const WorldClock = ({ language }) => {
 
   return (
     <div className="world-clock">
+      <div className="clock-pulse"></div>
       <img
         src={getFlagImg(language)}
         alt={language}
@@ -51,20 +52,19 @@ const WorldClock = ({ language }) => {
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { t, language, toggleLanguage } = useLanguage();
+  const [langOpen, setLangOpen] = useState(false);
+  const { t, language, changeLanguage } = useLanguage();
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
-  const getNextLang = (lang) => {
-    if (lang === 'uz') return 'RU';
-    if (lang === 'ru') return 'EN';
-    return 'UZ';
-  };
-
   const getLangFull = (lang) => {
-    if (lang === 'uz') return 'O\'zbekcha';
+    if (lang === 'uz') return 'Uzbek';
     if (lang === 'ru') return 'Русский';
     return 'English';
+  };
+
+  const getLangShort = (lang) => {
+    return lang.toUpperCase();
   };
 
   return (
@@ -75,32 +75,34 @@ const Navbar = () => {
         </Link>
 
         {/* Dynamic World Clock with Flag */}
-        <div className="clock-wrapper" style={{ marginLeft: '3rem' }}>
+        <div className="clock-wrapper">
           <WorldClock language={language} />
         </div>
 
-        {/* Desktop Admin & Language */}
-        <div style={{ marginLeft: 'auto', marginRight: '1rem', display: 'flex', alignItems: 'center', gap: '1rem' }} className="desktop-nav-extras">
-
-          <button
-            onClick={toggleLanguage}
-            style={{
-              background: 'white',
-              border: '1px solid var(--border)',
-              borderRadius: '8px',
-              padding: '0.5rem 1rem',
-              cursor: 'pointer',
-              color: 'var(--primary)',
-              fontWeight: 700,
-              minWidth: '50px',
-              boxShadow: '0 2px 4px rgba(0,0,0,0.05)',
-              transition: 'all 0.2s ease'
-            }}
-            onMouseOver={(e) => e.currentTarget.style.transform = 'translateY(-1px)'}
-            onMouseOut={(e) => e.currentTarget.style.transform = 'translateY(0)'}
-          >
-            {getNextLang(language)}
-          </button>
+        {/* Desktop Extras */}
+        <div className="desktop-nav-extras">
+          {/* Language Dropdown */}
+          <div className="lang-dropdown-wrapper">
+            <button
+              className="lang-select-btn"
+              onClick={() => setLangOpen(!langOpen)}
+            >
+              <img src={language === 'uz' ? flagUz : language === 'ru' ? flagRu : flagEn} alt="" className="current-flag" />
+              <span>{getLangShort(language)}</span>
+              <span className={`arrow ${langOpen ? 'up' : 'down'}`}>▾</span>
+            </button>
+            <div className={`lang-dropdown-menu ${langOpen ? 'open' : ''}`}>
+              <div className="lang-option" onClick={() => { changeLanguage('uz'); setLangOpen(false); }}>
+                <img src={flagUz} alt="" /> Uzbek
+              </div>
+              <div className="lang-option" onClick={() => { changeLanguage('ru'); setLangOpen(false); }}>
+                <img src={flagRu} alt="" /> Русский
+              </div>
+              <div className="lang-option" onClick={() => { changeLanguage('en'); setLangOpen(false); }}>
+                <img src={flagEn} alt="" /> English
+              </div>
+            </div>
+          </div>
         </div>
 
         <div className="mobile-icon" onClick={toggleMenu}>
@@ -124,23 +126,26 @@ const Navbar = () => {
             <Link to="/news" className="nav-link" onClick={toggleMenu}>{t.nav.news}</Link>
           </li>
           <li className="nav-item">
-            <button
-              onClick={() => { toggleLanguage(); toggleMenu(); }}
-              style={{
-                background: 'var(--bg-secondary)',
-                border: 'none',
-                padding: '0.5rem 1rem',
-                cursor: 'pointer',
-                color: 'var(--primary)',
-                fontWeight: 600,
-                width: '100%',
-                textAlign: 'left',
-                marginTop: '0.5rem'
-              }}
-              className="mobile-lang-switch"
-            >
-              🌐 {getLangFull(language)}
-            </button>
+            <div className="mobile-lang-grid">
+              <button
+                className={`mobile-lang-btn ${language === 'uz' ? 'active' : ''}`}
+                onClick={() => { changeLanguage('uz'); toggleMenu(); }}
+              >
+                UZ
+              </button>
+              <button
+                className={`mobile-lang-btn ${language === 'ru' ? 'active' : ''}`}
+                onClick={() => { changeLanguage('ru'); toggleMenu(); }}
+              >
+                RU
+              </button>
+              <button
+                className={`mobile-lang-btn ${language === 'en' ? 'active' : ''}`}
+                onClick={() => { changeLanguage('en'); toggleMenu(); }}
+              >
+                EN
+              </button>
+            </div>
           </li>
 
           <li className="nav-item">

@@ -18,16 +18,13 @@ import InstructorDetails from './pages/InstructorDetails';
 import { LanguageProvider } from './context/LanguageContext';
 
 const Layout = ({ children }) => {
-  const location = useLocation();
-  const isMonitoring = location.pathname.startsWith('/monitoring');
-
   return (
     <div className="app">
-      {!isMonitoring && <Navbar />}
+      <Navbar />
       <main>
         {children}
       </main>
-      {!isMonitoring && <Footer />}
+      <Footer />
     </div>
   );
 };

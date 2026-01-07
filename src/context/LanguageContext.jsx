@@ -771,12 +771,18 @@ export const LanguageProvider = ({ children }) => {
         });
     };
 
+    const changeLanguage = (lang) => {
+        setLanguage(lang);
+    };
+
     const currentTrans = translations[language];
     const t = currentTrans || translations['uz'];
 
     const value = {
         language,
         toggleLanguage,
+        changeLanguage,
+        setLanguage,
         t,
         translations
     };
