@@ -75,6 +75,23 @@ const MonitoringLogin = () => {
                         LOG IN TO SYSTEM
                     </button>
 
+                    <div
+                        onClick={() => navigate('/')}
+                        style={{
+                            textAlign: 'center',
+                            color: '#64748b',
+                            fontSize: '0.75rem',
+                            cursor: 'pointer',
+                            marginTop: '1rem',
+                            fontWeight: 700,
+                            letterSpacing: '1px'
+                        }}
+                        onMouseOver={(e) => e.target.style.color = '#f8fafc'}
+                        onMouseOut={(e) => e.target.style.color = '#64748b'}
+                    >
+                        &larr; BACK TO WEBSITE
+                    </div>
+
                     <div style={footerText}>
                         AUTHORIZED PERSONNEL ONLY. ALL ACTIONS ARE LOGGED.
                     </div>

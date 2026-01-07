@@ -5,7 +5,7 @@ import { mockStudents as initialStudents } from '../data/students';
 import { coursesData } from '../data/courses';
 import {
     FaUsers, FaMoneyBillWave, FaBookOpen, FaChartPie,
-    FaSignOutAlt, FaShieldAlt, FaDatabase
+    FaSignOutAlt, FaShieldAlt, FaDatabase, FaHome
 } from 'react-icons/fa';
 
 const MonitoringDashboard = () => {
@@ -71,9 +71,14 @@ const MonitoringDashboard = () => {
                         <h1 style={titleStyle}>{t.monitoring.title.toUpperCase()}</h1>
                         <p style={{ color: '#64748b', fontSize: '0.8rem', marginTop: '0.5rem' }}>{t.monitoring.subtitle}</p>
                     </div>
-                    <button style={logoutBtn} onClick={() => { localStorage.removeItem('monitorSession'); navigate('/monitoring'); }}>
-                        <FaSignOutAlt /> {t.admin.close}
-                    </button>
+                    <div style={{ display: 'flex', gap: '1rem' }}>
+                        <button style={logoutBtn} onClick={() => navigate('/')}>
+                            <FaHome /> {t.nav.home}
+                        </button>
+                        <button style={logoutBtn} onClick={() => { localStorage.removeItem('monitorSession'); navigate('/monitoring'); }}>
+                            <FaSignOutAlt /> {t.admin.close}
+                        </button>
+                    </div>
                 </header>
 
                 <div style={topGrid}>
