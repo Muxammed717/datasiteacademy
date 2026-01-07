@@ -62,8 +62,10 @@ const Navbar = () => {
     return 'English';
   };
 
-  const getLangShort = (lang) => {
-    return lang.toUpperCase();
+  const getNextLang = (lang) => {
+    if (lang === 'uz') return 'RU';
+    if (lang === 'ru') return 'EN';
+    return 'UZ';
   };
 
   return (
@@ -80,28 +82,30 @@ const Navbar = () => {
 
         {/* Desktop Extras */}
         <div className="desktop-nav-extras">
-          {/* Language Dropdown */}
-          <div className="lang-dropdown-wrapper">
-            <button
-              className="lang-select-btn"
-              onClick={() => setLangOpen(!langOpen)}
-            >
-              <img src={language === 'uz' ? flagUz : language === 'ru' ? flagRu : flagEn} alt="" className="current-flag" />
-              <span>{getLangShort(language)}</span>
-              <span className={`arrow ${langOpen ? 'up' : 'down'}`}>▾</span>
-            </button>
-            <div className={`lang-dropdown-menu ${langOpen ? 'open' : ''}`}>
-              <div className="lang-option" onClick={() => { changeLanguage('uz'); setLangOpen(false); }}>
-                <img src={flagUz} alt="" /> Uzbek
-              </div>
-              <div className="lang-option" onClick={() => { changeLanguage('ru'); setLangOpen(false); }}>
-                <img src={flagRu} alt="" /> Русский
-              </div>
-              <div className="lang-option" onClick={() => { changeLanguage('en'); setLangOpen(false); }}>
-                <img src={flagEn} alt="" /> English
-              </div>
-            </div>
-          </div>
+          <button
+            onClick={() => {
+              if (language === 'uz') changeLanguage('ru');
+              else if (language === 'ru') changeLanguage('en');
+              else changeLanguage('uz');
+            }}
+            style={{
+              background: 'white',
+              border: '1px solid var(--border)',
+              borderRadius: '8px',
+              padding: '0.5rem 1rem',
+              cursor: 'pointer',
+              color: 'var(--primary)',
+              fontWeight: 700,
+              minWidth: '50px',
+              boxShadow: '0 2px 4px rgba(0,0,0,0.05)',
+              transition: 'all 0.2s ease'
+            }}
+            onMouseOver={(e) => e.currentTarget.style.transform = 'translateY(-1px)'}
+            onMouseOut={(e) => e.currentTarget.style.transform = 'translateY(0)'}
+            className="desktop-lang-switch"
+          >
+            {getNextLang(language)}
+          </button>
         </div>
 
         <div className="mobile-icon" onClick={toggleMenu}>
@@ -125,26 +129,28 @@ const Navbar = () => {
             <Link to="/news" className="nav-link" onClick={toggleMenu}>{t.nav.news}</Link>
           </li>
           <li className="nav-item">
-            <div className="mobile-lang-grid">
-              <button
-                className={`mobile-lang-btn ${language === 'uz' ? 'active' : ''}`}
-                onClick={() => { changeLanguage('uz'); toggleMenu(); }}
-              >
-                UZ
-              </button>
-              <button
-                className={`mobile-lang-btn ${language === 'ru' ? 'active' : ''}`}
-                onClick={() => { changeLanguage('ru'); toggleMenu(); }}
-              >
-                RU
-              </button>
-              <button
-                className={`mobile-lang-btn ${language === 'en' ? 'active' : ''}`}
-                onClick={() => { changeLanguage('en'); toggleMenu(); }}
-              >
-                EN
-              </button>
-            </div>
+            <button
+              onClick={() => {
+                if (language === 'uz') changeLanguage('ru');
+                else if (language === 'ru') changeLanguage('en');
+                else changeLanguage('uz');
+                toggleMenu();
+              }}
+              style={{
+                background: 'var(--bg-secondary)',
+                border: 'none',
+                padding: '0.5rem 1rem',
+                cursor: 'pointer',
+                color: 'var(--primary)',
+                fontWeight: 600,
+                width: '100%',
+                textAlign: 'left',
+                marginTop: '0.5rem'
+              }}
+              className="mobile-lang-switch"
+            >
+              🌐 {getLangFull(language)}
+            </button>
           </li>
 
           <li className="nav-item">
