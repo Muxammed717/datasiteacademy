@@ -262,9 +262,10 @@
 .lang-options-3row {
     position: absolute;
     top: calc(100% + 10px);
-    right: 0;
+    left: 0;
+    /* Align straight under the button */
     background: white;
-    min-width: 150px;
+    min-width: 160px;
     border-radius: 12px;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
     border: 1px solid rgba(0, 0, 0, 0.06);
@@ -336,23 +337,17 @@
     color: #64748b;
     cursor: pointer;
     transition: all 0.2s ease;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    display: block;
+    /* Simpler block layout */
 }
 
+/* Icons removed as requested by user */
 .mobile-lang-option::after {
-    content: '→';
-    opacity: 0.3;
+    display: none !important;
 }
 
 .mobile-lang-option.active {
     background: var(--primary);
     color: white;
     border-color: var(--primary);
-}
-
-.mobile-lang-option.active::after {
-    content: '✓';
-    opacity: 1;
 }
