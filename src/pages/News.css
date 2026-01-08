@@ -1,80 +1,101 @@
-/* Light Theme News Page (Restored) */
+/* Light Theme News Page (Marquee Edition) */
 .news-page {
     min-height: 100vh;
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%);
     color: var(--text-main);
-    padding: 80px 0;
+    padding: 60px 0;
     font-family: 'Inter', sans-serif;
+    /* overflow: hidden;  <-- Removed to prevent clipping issues */
 }
 
-.news-container {
-    max-width: 1200px;
-    margin: 0 auto;
+/* ... existing code ... */
+
+/* Marquee Container -> Now Horizontal Scroll Grid */
+.news-marquee {
+    width: 100%;
+    /* Horizontal scroll */
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 20px 0;
+
+    /* Hide scrollbar for clean look (Drag to scroll enabled) */
+    scrollbar-width: none;
+    /* Firefox */
+    -ms-overflow-style: none;
+    /* IE 10+ */
+
+    /* Drag Interaction Cursor */
+    cursor: grab;
+    /* Prevent text selection during drag */
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.news-marquee.active {
+    cursor: grabbing;
+    cursor: -webkit-grabbing;
+}
+
+.news-marquee::-webkit-scrollbar {
+    display: none;
+    /* Chrome, Safari */
+}
+
+.news-track {
+    display: grid;
+    /* 2 rows of height 240px each = ~500px total height with gap */
+    grid-template-rows: repeat(2, 240px);
+    grid-auto-flow: column;
+    /* Items fill columns first, moving right */
+    gap: 16px;
+    width: max-content;
     padding: 0 20px;
 }
 
-.news-header {
-    text-align: center;
-    margin-bottom: 50px;
-    animation: fadeInDown 0.8s ease;
-}
-
-.news-title {
-    font-size: 3.5rem;
-    font-weight: 900;
-    margin-bottom: 15px;
-    color: var(--primary);
-    letter-spacing: -0.02em;
-}
-
-.news-desc {
-    font-size: 1.3rem;
-    color: var(--text-secondary);
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-/* Bento Grid */
-.news-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: 250px 250px;
-    gap: 20px;
-    height: 520px;
-    /* approx total height */
-}
-
-/* Specific Card Placements */
-.grid-tall {
-    grid-row: span 2;
-}
-
-.grid-wide {
-    grid-column: 2;
-    grid-row: 1;
-}
-
-.grid-box {
-    grid-column: 2;
-    grid-row: 2;
-}
+/* Hover Pause Effect - Removed (no animation to pause) */
 
 /* Card Styles */
-.news-card {
+.news-card-marquee {
     position: relative;
-    border-radius: 20px;
+    height: 100%;
+    /* Fill the grid cell (240px or spanned) */
+    border-radius: 24px;
     overflow: hidden;
-    background: #fff;
-    /* Light card background */
+    background: #000;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    /* Lighter shadow */
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    /* Default width fallback */
+    width: 380px;
 }
 
-.news-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-    /* Lighter hover shadow */
+/* Span classes for layout */
+.span-row-2 {
+    grid-row: span 2;
+    height: 100%;
+    /* Fills both rows + gap */
+}
+
+.span-row-1 {
+    grid-row: span 1;
+    height: 100%;
+}
+
+.news-card-marquee:hover {
+    transform: scale(0.98);
+}
+
+/* Width Variations - Restored */
+.wide {
+    width: 600px;
+}
+
+.normal {
+    width: 400px;
+}
+
+.tall {
+    width: 300px;
 }
 
 .media-wrapper {
@@ -88,157 +109,176 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.6s ease;
+    transition: transform 0.5s ease;
 }
 
-.news-card:hover .media-wrapper img,
-.news-card:hover .media-wrapper video {
-    transform: scale(1.05);
-}
-
-/* Overlays */
-.card-overlay,
-.video-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.2) 60%, rgba(0, 0, 0, 0) 100%);
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 24px;
-    z-index: 2;
-}
-
-.video-overlay {
-    justify-content: space-between;
-    background: rgba(0, 0, 0, 0.3);
-}
-
-/* Content Styles */
-.card-content {
-    color: #fff;
-    z-index: 3;
-    text-align: left;
-}
-
-.card-content.centered {
-    text-align: center;
+/* Play Button Overlay */
+.play-btn-marquee {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 80%;
-}
-
-.subtitle-tag {
-    display: block;
-    font-size: 0.9rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 8px;
-    opacity: 0.9;
-    font-weight: 500;
-}
-
-.main-title {
-    font-size: 2.2rem;
-    font-weight: 800;
-    line-height: 1.1;
-    text-transform: uppercase;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-}
-
-.card-content h3 {
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-bottom: 4px;
-}
-
-.card-content p {
-    font-size: 1rem;
-    opacity: 0.8;
-}
-
-/* Video specific */
-.play-btn {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
+    width: 80px;
+    height: 80px;
     background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(5px);
-    border: none;
-    color: #fff;
-    font-size: 1.5rem;
-    cursor: pointer;
+    backdrop-filter: blur(10px);
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
+    color: white;
+    font-size: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    z-index: 5;
     transition: all 0.3s ease;
+    pointer-events: none;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
-.play-btn:hover {
-    background: #fff;
-    color: #000;
+.play-btn-marquee svg {
+    margin-left: 5px;
+    /* Visual centering adjustment for play icon */
+}
+
+.news-card-marquee:hover .play-btn-marquee {
+    background: rgba(255, 255, 255, 0.3);
     transform: translate(-50%, -50%) scale(1.1);
 }
 
-/* Responsive */
-@media (max-width: 900px) {
-    .news-grid {
-        grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: auto;
-        height: auto;
-    }
-
-    .grid-tall.left {
-        grid-column: 1 / span 2;
-        height: 300px;
-    }
-
-    .grid-tall.right {
-        grid-column: 1 / span 2;
-        height: 300px;
-        order: 4;
-    }
-
-    .grid-wide {
-        grid-column: 1;
-        height: 250px;
-    }
-
-    .grid-box {
-        grid-column: 2;
-        height: 250px;
-    }
+/* Hide play button when video is playing (handled by React state class or CSS trick) */
+/* We will toggle a class 'is-playing' on the wrapper */
+.media-wrapper.playing .play-btn-marquee {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
 }
 
-@media (max-width: 600px) {
-    .news-grid {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .news-card {
-        height: 300px;
-        width: 100%;
-    }
+.news-card-marquee:hover .media-wrapper img {
+    transform: scale(1.05);
 }
 
-@keyframes fadeInDown {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
+/* Overlay Styles */
+.card-overlay-marquee {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 30px 20px 20px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.5) 50%, transparent 100%);
+    color: white;
+    z-index: 2;
+    transform: translateY(10px);
+    opacity: 0.9;
+    transition: all 0.3s ease;
+}
+
+.news-card-marquee:hover .card-overlay-marquee {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.card-content h3 {
+    font-size: 1rem;
+    font-weight: 800;
+    margin-bottom: 5px;
+    line-height: 1.2;
+    text-transform: uppercase;
+}
+
+.card-content p {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.news-header {
+    text-align: center;
+    margin-bottom: 50px;
+    padding: 0 20px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.news-title {
+    font-size: 4rem;
+    font-weight: 800;
+    margin-bottom: 15px;
+    color: #044d29;
+    /* Solid Dark Green (Toq Yashil) */
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    /* Gradient removed for solid color clarity */
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.news-desc {
+    font-size: 1.2rem;
+    color: #666;
+    line-height: 1.6;
+    margin: 0 auto;
+    font-weight: 400;
+}
+
+/* Remove button styles, assuming hover autoplay for videos */
+video {
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .news-page {
+        padding: 40px 0;
     }
 
-    to {
-        opacity: 1;
-        transform: translateY(0);
+    .news-header {
+        margin-bottom: 30px;
+    }
+
+    .news-title {
+        font-size: 2.5rem;
+        /* Smaller title on mobile */
+    }
+
+    .news-desc {
+        font-size: 1rem;
+        padding: 0 10px;
+    }
+
+    .news-track {
+        /* Smaller rows for mobile */
+        grid-template-rows: repeat(2, 180px);
+        gap: 12px;
+    }
+
+    .news-card-marquee {
+        /* Height handled by grid, focusing on width */
+        border-radius: 16px;
+        width: 280px;
+        /* Default mobile width */
+    }
+
+    .wide {
+        width: 300px;
+        /* Slightly wider */
+    }
+
+    .normal {
+        width: 260px;
+    }
+
+    .tall {
+        width: 200px;
+    }
+
+    .play-btn-marquee {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+    }
+
+    .card-content h3 {
+        font-size: 1rem;
+    }
+
+    .card-content p {
+        font-size: 0.8rem;
     }
 }

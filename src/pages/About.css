@@ -31,6 +31,7 @@
     margin-bottom: 24px;
     background: linear-gradient(to right, #fff, var(--accent));
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     letter-spacing: -0.02em;
 }
@@ -282,5 +283,27 @@
 
     to {
         opacity: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .banner-content h1 {
+        font-size: 2.5rem;
+    }
+
+    .banner-content p {
+        font-size: 1rem;
+    }
+
+    .vision-card h2 {
+        font-size: 2rem;
+    }
+
+    .vision-card {
+        padding: 30px 20px;
+    }
+
+    .stat-number {
+        font-size: 3rem;
     }
 }

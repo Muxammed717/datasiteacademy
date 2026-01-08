@@ -39,11 +39,6 @@ const WorldClock = ({ language }) => {
 
   return (
     <div className="world-clock">
-      <img
-        src={getFlagImg(language)}
-        alt={language}
-        className="clock-flag"
-      />
       <span className="clock-time">{formattedTime}</span>
     </div>
   );
@@ -70,7 +65,7 @@ const Navbar = () => {
     <nav className="navbar">
       <div className="container navbar-container">
         <Link to="/" className="logo-container" onClick={() => setIsOpen(false)}>
-          <img src="/brand-logo.png" alt="DataSite Academy" className="logo-img" />
+          <img src="/datasite-logo.png" alt="DataSite Academy" className="logo-img" />
         </Link>
 
         {/* Dynamic World Clock with Flag */}

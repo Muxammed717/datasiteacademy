@@ -17,6 +17,8 @@ import Snowfall from './components/Snowfall';
 import InstructorDetails from './pages/InstructorDetails';
 import { LanguageProvider } from './context/LanguageContext';
 
+import ScrollToTop from './components/ScrollToTop';
+
 const Layout = ({ children }) => {
   return (
     <div className="app">
@@ -25,6 +27,7 @@ const Layout = ({ children }) => {
         {children}
       </main>
       <Footer />
+      <ScrollToTop />
     </div>
   );
 };
@@ -32,7 +35,6 @@ const Layout = ({ children }) => {
 function App() {
   return (
     <LanguageProvider>
-      <Snowfall />
       <Router>
         <Layout>
           <Routes>

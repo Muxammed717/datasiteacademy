@@ -44,18 +44,22 @@ const MainBanner = ({ t, language }) => {
             </div>
             <div className="container banner-inner">
                 <h1 className="banner-heading" data-lang={language}>
-                    <span className="lead-text">{t.home.hero.titlePrefix}</span>
-                    <div className="phrase-slider">
-                        {phrases.map((phrase, idx) => (
-                            <span
-                                key={idx}
-                                className={`phrase-item ${idx === activePhrase ? 'is-visible' : ''}`}
-                            >
-                                {phrase}
-                            </span>
-                        ))}
+                    <div className="banner-row-top">
+                        <span className="lead-text">{t.home.hero.titlePrefix}</span>
                     </div>
-                    <span className="lead-text">{t.home.hero.titleSuffix}</span>
+                    <div className="banner-row-bottom">
+                        <div className="phrase-slider">
+                            {phrases.map((phrase, idx) => (
+                                <span
+                                    key={idx}
+                                    className={`phrase-item ${idx === activePhrase ? 'is-visible' : ''}`}
+                                >
+                                    {phrase}
+                                </span>
+                            ))}
+                        </div>
+                        <span className="lead-text">{t.home.hero.titleSuffix}</span>
+                    </div>
                 </h1>
                 <p className="banner-subtext">{t.home.hero.subtitle}</p>
                 <div className="banner-btns">
@@ -69,8 +73,6 @@ const MainBanner = ({ t, language }) => {
 
 const Home = () => {
     const { t, language } = useLanguage();
-    console.log('Current Language:', language);
-    console.log('Current Translations (t):', t);
 
     const ROADMAP_STEPS = [
         { icon: FaRocket, title: t.home.path.step1, desc: t.home.path.step1Desc },

@@ -9,10 +9,25 @@ const Courses = () => {
     const { t, language } = useLanguage();
     const navigate = useNavigate();
     const [filter, setFilter] = useState('All');
+    const [activeIndex, setActiveIndex] = useState(0);
 
     const filteredCourses = filter === 'All'
         ? coursesData
         : coursesData.filter(course => course.category === filter);
+
+    // Auto-cycle for a fast, dynamic feel
+    React.useEffect(() => {
+        if (filteredCourses.length <= 1) return;
+        const timer = setInterval(() => {
+            setActiveIndex((prev) => (prev + 1) % filteredCourses.length);
+        }, 2500);
+        return () => clearInterval(timer);
+    }, [filteredCourses.length]);
+
+    const handleFilterChange = (key) => {
+        setFilter(key);
+        setActiveIndex(0);
+    };
 
     const categories = [
         { key: 'All', label: t.courses.filter.all },
@@ -58,7 +73,7 @@ const Courses = () => {
                             <button
                                 key={cat.key}
                                 className={`filter-btn ${filter === cat.key ? 'active' : 'inactive'}`}
-                                onClick={() => setFilter(cat.key)}
+                                onClick={() => handleFilterChange(cat.key)}
                             >
                                 {cat.label}
                             </button>
@@ -66,54 +81,51 @@ const Courses = () => {
                     </div>
                 </div>
 
-                <div className="courses-grid">
-                    {filteredCourses.map(course => (
-                        <div key={course.id} className="course-card">
-                            <div className="course-image-wrapper">
-                                <img
-                                    src={course.image}
-                                    alt={getCourseTitle(course)}
-                                    className="course-image"
-                                />
-                                <span className="category-badge">
-                                    {getCategoryLabel(course.category)}
-                                </span>
-                            </div>
+                <div className="courses-spotlight-scene">
+                    <div className="spotlight-slider">
+                        {filteredCourses.map((course, index) => {
+                            const isActive = index === activeIndex;
+                            const isPrev = filteredCourses.length > 1 && (index === (activeIndex - 1 + filteredCourses.length) % filteredCourses.length);
+                            const isNext = filteredCourses.length > 1 && (index === (activeIndex + 1) % filteredCourses.length);
 
-                            <div className="course-content">
-                                <h3 className="course-title">{getCourseTitle(course)}</h3>
+                            let positionClass = 'is-hidden';
+                            if (isActive) {
+                                positionClass = 'is-active';
+                            } else if (isPrev) {
+                                positionClass = 'is-prev';
+                            } else if (isNext) {
+                                positionClass = 'is-next';
+                            }
 
+                            return (
                                 <div
-                                    className="instructor-panel"
+                                    key={course.id}
+                                    className={`spotlight-card-wrap ${positionClass}`}
                                     onClick={() => navigate(`/instructor/${course.instructorSlug}`)}
                                 >
-                                    <img
-                                        src={course.instructorImg}
-                                        alt={course.instructor}
-                                        className="instructor-img"
-                                    />
-                                    <span className="instructor-name">{course.instructor}</span>
+                                    <div className="rectangular-card-3d">
+                                        <div className="instructor-hero">
+                                            <img src={course.instructorImg} alt={course.instructor} className="main-instructor-img" />
+                                            <span className="card-category-tag">{getCategoryLabel(course.category)}</span>
+                                        </div>
+                                        <div className="card-details">
+                                            <h3 className="course-name-3d">{getCourseTitle(course)}</h3>
+                                            <p className="instructor-name-3d">{course.instructor}</p>
+                                            <div className="card-stats-row">
+                                                <span><FaClock /> {getDurationText(course.duration)}</span>
+                                                <span><FaUsers /> {course.students}</span>
+                                            </div>
+                                            <div className="price-tag-3d">
+                                                {course.oldPrice && <span className="old-price">{course.oldPrice}</span>}
+                                                <span>{course.price}</span>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
+                            );
+                        })}
+                    </div>
 
-                                <div className="course-footer">
-                                    <div className="course-meta">
-                                        <span className="meta-item">
-                                            <FaClock /> {getDurationText(course.duration)}
-                                        </span>
-                                        <span className="meta-item">
-                                            <FaUsers /> {course.students} {t.courses.card.students}
-                                        </span>
-                                    </div>
-                                    <div className="price-box">
-                                        {course.oldPrice && (
-                                            <p className="old-price">{course.oldPrice}</p>
-                                        )}
-                                        <p className="current-price">{course.price}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    ))}
                 </div>
             </div>
         </div>
