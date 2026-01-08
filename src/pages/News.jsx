@@ -177,7 +177,7 @@ const News = () => {
             id: '11',
             type: 'image',
             span: 'span-row-1',
-            src: '/news/dasturchilar.png',
+            src: '/news/dasturchilar.jpg',
             title: { uz: 'Yosh Dasturchilar', en: 'Youth Programmers', ru: 'Молодые программисты' },
             subtitle: { uz: 'Mavsumiy', en: 'Seasonal', ru: 'Сезонные' }
         },
@@ -187,7 +187,7 @@ const News = () => {
             id: '12',
             type: 'image',
             span: 'span-row-1',
-            src: '/news/team.png',
+            src: '/news/team.jpg',
             title: { uz: 'Bizning Jamoa', en: 'Our Team', ru: 'Наша команда' },
             subtitle: { uz: 'Yutuqli o\'yinlar', en: 'Prize games', ru: 'Игры с призами' }
         },
