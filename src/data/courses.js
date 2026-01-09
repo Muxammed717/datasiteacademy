@@ -6,6 +6,13 @@ import img3281 from '../assets/IMG_3281.JPG';
 import imgSardorbek from '../assets/serdorbek.jpg';
 import imgNemis from '../assets/nemis.png';
 import koreanImg from '../assets/korean.png';
+import imgFrontEnd from '../assets/yaxyobek.JPG';
+import imgmx from '../assets/mx.png';
+import samir from '../assets/xamir.png';
+import imgibo from '../assets/ibrohim.png';
+import imgnurillox from '../assets/nurillo.JPG';
+import imgjavohir from '../assets/javohir.png';
+import imgMuhammad from '../assets/muxammad.png';
 
 // Kurslar va Mentorlar ma'lumotlari
 export const coursesData = [
@@ -18,26 +25,30 @@ export const coursesData = [
         instructorSlug: 'datasite-ustozi',
         instructorBio: {
             uz: 'Kompyuter texnologiyalari va ofis dasturlari bo\'yicha ko\'p yillik tajribaga ega mutaxassis. Yuqori natijalarga erishgan 500 dan ortiq shogirdlar tayyorlagan.',
-            en: 'Specialist with years of experience in computer technology and office programs. Taught over 500 highly successful students.'
+            en: 'Specialist with years of experience in computer technology and office programs. Taught over 500 highly successful students.',
+            ru: 'Специалист с многолетним опытом работы в области компьютерных технологий и офисных программ. Подготовил более 500 успешных учеников.'
         },
         instructorSkills: {
             uz: ['Microsoft Office', 'Windows OS', 'Apparat diagnostikasi', 'Tarmoq asoslari'],
-            en: ['Microsoft Office', 'Windows OS', 'Hardware Diagnostics', 'Basic Networking']
+            en: ['Microsoft Office', 'Windows OS', 'Hardware Diagnostics', 'Basic Networking'],
+            ru: ['Microsoft Office', 'Windows OS', 'Аппаратная диагностика', 'Основы сетей']
         },
         instructorEdu: {
             uz: 'TATU - Axborot texnologiyalari fakulteti',
-            en: 'TUIT - Information Technology Faculty'
+            en: 'TUIT - Information Technology Faculty',
+            ru: 'ТУИТ - Факультет информационных технологий'
         },
         instructorAchieve: {
             uz: 'Yilning eng yaxshi o\'qituvchisi (2022)',
-            en: 'Instructor of the Year (2022)'
+            en: 'Instructor of the Year (2022)',
+            ru: 'Учитель года (2022)'
         },
         rating: 5.0,
         students: 200,
         duration: '3 Oy',
         price: '299 000 UZS',
         oldPrice: '500 000 UZS',
-        category: 'Boshlang\'ich',
+        category: 'Kompyuter savodxonligi',
         image: 'https://images.unsplash.com/photo-1484417894907-623942c8ee29?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
         instructorImg: img3230,
     },
@@ -50,19 +61,23 @@ export const coursesData = [
         instructorSlug: 'frontend-eksperti',
         instructorBio: {
             uz: 'Zamonaviy veb-texnologiyalar (React, Vue, Next.js) bo\'yicha chuqur bilimga ega. Ko\'plab xalqaro loyihalarda ishtirok etgan Senior dasturchi.',
-            en: 'In-depth knowledge of modern web technologies (React, Vue, Next.js). Senior developer who has worked on many international projects.'
+            en: 'In-depth knowledge of modern web technologies (React, Vue, Next.js). Senior developer who has worked on many international projects.',
+            ru: 'Глубокие знания современных веб-технологий (React, Vue, Next.js). Senior разработчик, участвовавший во многих международных проектах.'
         },
         instructorSkills: {
             uz: ['HTML5 & CSS3', 'JavaScript (ES6+)', 'React.js', 'Next.js', 'Tailwind CSS'],
-            en: ['HTML5 & CSS3', 'JavaScript (ES6+)', 'React.js', 'Next.js', 'Tailwind CSS']
+            en: ['HTML5 & CSS3', 'JavaScript (ES6+)', 'React.js', 'Next.js', 'Tailwind CSS'],
+            ru: ['HTML5 & CSS3', 'JavaScript (ES6+)', 'React.js', 'Next.js', 'Tailwind CSS']
         },
         instructorEdu: {
             uz: 'Inha Universiteti - Kompyuter injiniringi',
-            en: 'Inha University - Computer Science'
+            en: 'Inha University - Computer Science',
+            ru: 'Университет Инха - Компьютерный инжиниринг'
         },
         instructorAchieve: {
             uz: 'Jamoa Bilan Ishlash Uzoq Yillik Tajriba. Samarali va Tez ishlash',
-            en: 'Many Years of Experience in Teamwork. Efficient and Fast Work'
+            en: 'Many Years of Experience in Teamwork. Efficient and Fast Work',
+            ru: 'Многолетний опыт работы в команде. Эффективная и быстрая работа'
         },
         rating: 5.0,
         students: 150,
@@ -78,23 +93,27 @@ export const coursesData = [
         title: 'Backend Dasturlash',
         titleEn: 'Backend Development',
         titleRu: 'Backend Разработка',
-        instructor: 'Backend Senyori',
+        instructor: 'Aliyev Samir',
         instructorSlug: 'backend-senyori',
         instructorBio: {
-            uz: 'Node.js va Python (Django) bo\'yicha yuqori malakali mutaxassis. Masshtablanuvchi tizimlar va micro-servislar qurishda katta tajribaga ega.',
-            en: 'Highly qualified specialist in Node.js and Python (Django). Extensive experience in building scalable systems and micro-services.'
+            uz: 'Node.js va Python (Django) bo\'yicha yuqori malakali mutaxassis. IELTS 8+ Natija. ',
+            en: 'Highly qualified specialist in Node.js and Python (Django). Extensive experience in building scalable systems and micro-services.',
+            ru: 'Высококвалифицированный специалист по Node.js и Python (Django). Имеет высокий результат IELTS 8+. Большой опыт в построении масштабируемых систем и микросервисов.'
         },
         instructorSkills: {
             uz: ['Node.js', 'Python', 'PostgreSQL', 'Docker', 'AWS'],
-            en: ['Node.js', 'Python', 'PostgreSQL', 'Docker', 'AWS']
+            en: ['Node.js', 'Python', 'PostgreSQL', 'Docker', 'AWS'],
+            ru: ['Node.js', 'Python', 'PostgreSQL', 'Docker', 'AWS']
         },
         instructorEdu: {
-            uz: 'Amity Universiteti - Dasturiy ta\'minot injiniringi',
-            en: 'Amity University - Software Engineering'
+            uz: '1-maktab o\'quvchisi ',
+            en: '1st grade student',
+            ru: 'Ученик 1-й школы'
         },
         instructorAchieve: {
-            uz: 'Zamin loyihasi bosh backend me\'mori',
-            en: 'Lead backend architect of the Zamin project'
+            uz: 'NamanganMash loyihasi bosh backend me\'mori',
+            en: 'Lead backend architect of the NamanganMash project',
+            ru: 'Ведущий Backend-архитектор проекта NamanganMash'
         },
         rating: 5.0,
         students: 120,
@@ -103,7 +122,7 @@ export const coursesData = [
         oldPrice: '800 000 UZS',
         category: 'Dasturlash',
         image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
-        instructorImg: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80'
+        instructorImg: samir
     },
     {
         id: 4,
@@ -114,19 +133,23 @@ export const coursesData = [
         instructorSlug: 'senior-mentor',
         instructorBio: {
             uz: 'Individual yondashuv orqali har bir o\'quvchini qisqa vaqtda natijaga olib chiqish bo\'yicha ekspert. IT sohasidagi turli yo\'nalishlarni uyg\'unlashtirgan.',
-            en: 'Expert in leading students to results in a short time through an individual approach. Bridges various fields in IT.'
+            en: 'Expert in leading students to results in a short time through an individual approach. Bridges various fields in IT.',
+            ru: 'Эксперт по быстрому достижению результатов для каждого ученика через индивидуальный подход. Объединяет различные направления в IT.'
         },
         instructorSkills: {
             uz: ['Karyera bo\'yicha mentorlik', 'Full-stack umumiy ko\'rinishi', 'Loyihalarni boshqarish', 'Soft Skills'],
-            en: ['Career Mentoring', 'Full-stack Overview', 'Project Management', 'Soft Skills']
+            en: ['Career Mentoring', 'Full-stack Overview', 'Project Management', 'Soft Skills'],
+            ru: ['Карьерное менторство', 'Обзор Full-stack', 'Управление проектами', 'Soft Skills']
         },
         instructorEdu: {
             uz: 'Vestminster xalqaro universiteti',
-            en: 'Westminster International University'
+            en: 'Westminster International University',
+            ru: 'Международный Вестминстерский университет'
         },
         instructorAchieve: {
             uz: 'O\'zbekistondagi eng kuchli 10 ta IT mentori ro\'yxatida',
-            en: 'Top 10 IT Mentors list in Uzbekistan'
+            en: 'Top 10 IT Mentors list in Uzbekistan',
+            ru: 'В списке топ-10 IT-менторов Узбекистана'
         },
         rating: 5.0,
         students: 50,
@@ -146,19 +169,23 @@ export const coursesData = [
         instructorSlug: 'bosh-hisobchi',
         instructorBio: {
             uz: '1C: Buxgalteriya va milliy soliq tizimi bo\'yicha kuchli bilimga ega. Ko\'plab yirik korxonalarda moliyaviy maslahatchi sifatida faoliyat yuritgan.',
-            en: 'Strong knowledge of 1C: Accounting and national tax system. Financial advisor for many large enterprises.'
+            en: 'Strong knowledge of 1C: Accounting and national tax system. Financial advisor for many large enterprises.',
+            ru: 'Глубокие знания 1C: Бухгалтерия и национальной налоговой системы. Финансовый консультант во многих крупных предприятиях.'
         },
         instructorSkills: {
             uz: ['1C Korxona', 'Soliq hisobi', 'Audit', 'Moliyaviy rejalashtirish'],
-            en: ['1C Enterprise', 'Tax Accounting', 'Audit', 'Financial Planning']
+            en: ['1C Enterprise', 'Tax Accounting', 'Audit', 'Financial Planning'],
+            ru: ['1C Предприятие', 'Налоговый учет', 'Аудит', 'Финансовое планирование']
         },
         instructorEdu: {
             uz: 'Toshkent Davlat Iqtisodiyot Universiteti',
-            en: 'Tashkent State University of Economics'
+            en: 'Tashkent State University of Economics',
+            ru: 'Ташкентский Государственный Экономический Университет'
         },
         instructorAchieve: {
             uz: 'Professional Buxgalter sertifikati egasi',
-            en: 'Holder of Professional Accountant Certificate'
+            en: 'Holder of Professional Accountant Certificate',
+            ru: 'Обладатель сертификата профессионального бухгалтера'
         },
         rating: 5.0,
         students: 300,
@@ -177,26 +204,30 @@ export const coursesData = [
         instructorSlug: 'ielts-instruktori',
         instructorBio: {
             uz: 'IELTS 8.5 sohibi. O\'quvchilariga intensiv metodika orqali til o\'rganish sirlarini o\'rgatadi. Ko\'plab o\'quvchilari IELTS 7.5+ ball olgan.',
-            en: 'IELTS 8.5 holder. Teaches language secrets through intensive methodology. Many students scored 7.5+ in IELTS.'
+            en: 'IELTS 8.5 holder. Teaches language secrets through intensive methodology. Many students scored 7.5+ in IELTS.',
+            ru: 'Обладатель IELTS 8.5. Обучает секретам языка по интенсивной методике. Многие ученики получили IELTS 7.5+.'
         },
         instructorSkills: {
             uz: ['IELTS tayyorgarlik', 'Akademik yozish', 'Notiqlik san\'ati', 'Grammatika'],
-            en: ['IELTS Preparation', 'Academic Writing', 'Public Speaking', 'Grammar']
+            en: ['IELTS Preparation', 'Academic Writing', 'Public Speaking', 'Grammar'],
+            ru: ['Подготовка к IELTS', 'Академическое письмо', 'Ораторское искусство', 'Грамматика']
         },
         instructorEdu: {
             uz: 'O\'zDJTU - Filologiya',
-            en: 'UzSWLU - Philology'
+            en: 'UzSWLU - Philology',
+            ru: 'УзГУМЯ - Филология'
         },
         instructorAchieve: {
             uz: 'TESOL & CELTA sertifikati egasi',
-            en: 'TESOL & CELTA Certified'
+            en: 'TESOL & CELTA Certified',
+            ru: 'Сертифицирован TESOL & CELTA'
         },
         rating: 5.0,
         students: 500,
         duration: '10 Oy',
         price: '199 000 UZS',
         oldPrice: '350 000 UZS',
-        category: 'Til',
+        category: 'Ingliz tili',
         badge: 'MOCK Tekin',
         image: 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
         instructorImg: img3206
@@ -210,26 +241,30 @@ export const coursesData = [
         instructorSlug: 'koreys-mutaxassisi',
         instructorBio: {
             uz: 'TOPIK 6 sohibi. Koreya universitetlariga grantlar yutish va til o\'rganishda yordam beradi. Janubiy Koreyada 4 yil yashab tahsil olgan.',
-            en: 'TOPIK 6 holder. Helps win grants for Korean universities and learn the language. Studied and lived in South Korea for 4 years.'
+            en: 'TOPIK 6 holder. Helps win grants for Korean universities and learn the language. Studied and lived in South Korea for 4 years.',
+            ru: 'Обладатель TOPIK 6. Помогает выиграть гранты в корейские университеты и изучить язык. Жил и учился в Южной Корее 4 года.'
         },
         instructorSkills: {
             uz: ['TOPIK tayyorgarlik', 'Koreys madaniyati', 'So\'zlashuv amaliyoti', 'Tarjima'],
-            en: ['TOPIK Preparation', 'Korean Culture', 'Speaking Practice', 'Translation']
+            en: ['TOPIK Preparation', 'Korean Culture', 'Speaking Practice', 'Translation'],
+            ru: ['Подготовка к TOPIK', 'Корейская культура', 'Разговорная практика', 'Перевод']
         },
         instructorEdu: {
             uz: 'Seul Milliy Universiteti (Talabalar almashinuvi)',
-            en: 'Seoul National University (Exchange)'
+            en: 'Seoul National University (Exchange)',
+            ru: 'Сеульский национальный университет (Обмен студентами)'
         },
         instructorAchieve: {
             uz: 'GKS stipendiyasi g\'olibi',
-            en: 'GKS Scholarship Winner'
+            en: 'GKS Scholarship Winner',
+            ru: 'Победитель стипендии GKS'
         },
         rating: 5.0,
         students: 250,
         duration: '6 Oy',
         price: '299 000 UZS',
         oldPrice: '350 000 UZS',
-        category: 'Til',
+        category: 'Koreys tili',
         image: koreanImg,
         instructorImg: img3216
     },
@@ -242,26 +277,249 @@ export const coursesData = [
         instructorSlug: 'nemis-tili-oqituvchisi',
         instructorBio: {
             uz: 'Goethe-Zertifikat C1 sohibi. Nemis tili grammatikasini oson va mazmunli tushuntirib berishda juda mohir.',
-            en: 'Goethe-Zertifikat C1 holder. Skilled in explaining German grammar clearly and meaningfully.'
+            en: 'Goethe-Zertifikat C1 holder. Skilled in explaining German grammar clearly and meaningfully.',
+            ru: 'Обладатель Goethe-Zertifikat C1. Мастерски объясняет грамматику немецкого языка просто и доступно.'
         },
         instructorSkills: {
             uz: ['TestDaF tayyorgarlik', 'Nemis tili grammatikasi', 'Suhbatlashuv', 'Goethe imtihoniga tayyorlov'],
-            en: ['TestDaF Preparation', 'German Grammar', 'Conversation', 'Goethe Exam Prep']
+            en: ['TestDaF Preparation', 'German Grammar', 'Conversation', 'Goethe Exam Prep'],
+            ru: ['Подготовка к TestDaF', 'Грамматика немецкого языка', 'Разговорная практика', 'Подготовка к экзамену Goethe']
         },
         instructorEdu: {
             uz: 'Toshkent Davlat Sharqshunoslik Universiteti',
-            en: 'Tashkent State University of Oriental Studies'
+            en: 'Tashkent State University of Oriental Studies',
+            ru: 'Ташкентский государственный университет востоковедения'
         },
         instructorAchieve: {
             uz: 'DAAD Alumni a\'zosi',
-            en: 'DAAD Alumni Member'
+            en: 'DAAD Alumni Member',
+            ru: 'Член DAAD Alumni'
         },
         rating: 5.0,
         students: 150,
         duration: '6 Oy',
         price: '350 000 UZS',
-        category: 'Til',
+        category: 'Nemis tili',
         image: imgNemis,
         instructorImg: img3281
-    }
+    },
+    {
+        id: 11,
+        title: 'Front-end Dasturlash',
+        titleEn: 'Front-end Development',
+        titleRu: 'Frontend Разработка',
+        instructor: 'Yaxyobek Abduqahharov ',
+        instructorSlug: 'frontend-eksperti',
+        instructorBio: {
+            uz: 'Zamonaviy veb-texnologiyalar (React, Vue, Next.js) bo\'yicha chuqur bilimga ega. Ko\'plab xalqaro loyihalarda ishtirok etgan Senior dasturchi.',
+            en: 'In-depth knowledge of modern web technologies (React, Vue, Next.js). Senior developer who has worked on many international projects.',
+            ru: 'Глубокие знания современных веб-технологий (React, Vue, Next.js). Senior разработчик, участвовавший во многих международных проектах.'
+        },
+        instructorSkills: {
+            uz: ['HTML5 & CSS3', 'JavaScript (ES6+)', 'React.js', 'Next.js', 'Tailwind CSS'],
+            en: ['HTML5 & CSS3', 'JavaScript (ES6+)', 'React.js', 'Next.js', 'Tailwind CSS'],
+            ru: ['HTML5 & CSS3', 'JavaScript (ES6+)', 'React.js', 'Next.js', 'Tailwind CSS']
+        },
+        instructorEdu: {
+            uz: 'Inha Universiteti - Kompyuter injiniringi',
+            en: 'Inha University - Computer Science',
+            ru: 'Университет Инха - Компьютерный инжиниринг'
+        },
+        instructorAchieve: {
+            uz: 'Jamoa Bilan Ishlash Uzoq Yillik Tajriba. Samarali va Tez ishlash',
+            en: 'Many Years of Experience in Teamwork. Efficient and Fast Work',
+            ru: 'Многолетний опыт работы в команде. Эффективная и быстрая работа'
+        },
+        rating: 5.0,
+        students: 150,
+        duration: '9 Oy',
+        price: '399 000 UZS',
+        oldPrice: '700 000 UZS',
+        category: 'Dasturlash',
+        image: 'https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
+        instructorImg: imgFrontEnd
+    },
+    {
+        id: 12,
+        title: 'Front-end Dasturlash',
+        titleEn: 'Front-end Development',
+        titleRu: 'Frontend Разработка',
+        instructor: 'Muhammadbobur Abdumutallimov',
+        instructorSlug: 'frontend-eksperti',
+        instructorBio: {
+            uz: 'Zamonaviy veb-texnologiyalar (React, Vue, Next.js) bo\'yicha chuqur bilimga ega. Ko\'plab real loyihalarda ishtirok etgan yosh dasturchi.',
+            en: 'In-depth knowledge of modern web technologies (React, Vue, Next.js). A young programmer who has participated in many real-world projects.',
+            ru: 'Глубокие знания современных веб-технологий (React, Vue, Next.js). Молодой программист, участвовавший во многих реальных проектах.'
+        },
+        instructorSkills: {
+            uz: ['HTML5 & CSS3', 'JavaScript (ES5+)', 'React.js', 'Next.js', 'Bootstrap', 'Gaming'],
+            en: ['HTML5 & CSS3', 'JavaScript (ES5+)', 'React.js', 'Next.js', 'Bootstrap', 'Gaming'],
+            ru: ['HTML5 & CSS3', 'JavaScript (ES5+)', 'React.js', 'Next.js', 'Bootstrap', 'Gaming']
+        },
+        instructorEdu: {
+            uz: 'Maktab o\'quvchisi',
+            en: 'School student',
+            ru: 'Школьник'
+        },
+        instructorAchieve: {
+            uz: 'Jamoa Bilan Ishlash Uzoq Yillik Tajriba. Samarali va Tez ishlash',
+            en: 'Many Years of Experience in Teamwork. Efficient and Fast Work',
+            ru: 'Многолетний опыт работы в команде. Эффективная и быстрая работа'
+        },
+        rating: 5.0,
+        students: 250,
+        duration: '9 Oy',
+        price: '399 000 UZS',
+        oldPrice: '700 000 UZS',
+        category: 'Dasturlash',
+        image: 'https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
+        instructorImg: imgmx
+    },
+    {
+        id: 13,
+        title: 'Front-end Dasturlash',
+        titleEn: 'Front-end Development',
+        titleRu: 'Frontend Разработка',
+        instructor: 'Ibrohim Sadriddinov ',
+        instructorSlug: 'frontend-eksperti',
+        instructorBio: {
+            uz: 'Zamonaviy veb-texnologiyalar (React, Vue, Next.js) bo\'yicha chuqur bilimga ega. Ko\'plab xalqaro loyihalarda ishtirok etgan Senior dasturchi.',
+            en: 'In-depth knowledge of modern web technologies (React, Vue, Next.js). Senior developer who has worked on many international projects.',
+            ru: 'Глубокие знания современных веб-технологий (React, Vue, Next.js). Senior разработчик, участвовавший во многих международных проектах.'
+        },
+        instructorSkills: {
+            uz: ['HTML5 & CSS3', 'JavaScript (ES5+)', 'React.js', 'Next.js', 'Bootstrap', 'Gaming'],
+            en: ['HTML5 & CSS3', 'JavaScript (ES5+)', 'React.js', 'Next.js', 'Bootstrap', 'Gaming'],
+            ru: ['HTML5 & CSS3', 'JavaScript (ES5+)', 'React.js', 'Next.js', 'Bootstrap', 'Gaming']
+        },
+        instructorEdu: {
+            uz: 'Maktab o\'quvchisi',
+            en: 'School student',
+            ru: 'Школьник'
+        },
+        instructorAchieve: {
+            uz: 'Jamoa Bilan Ishlash Uzoq Yillik Tajriba. Samarali va Tez ishlash',
+            en: 'Many Years of Experience in Teamwork. Efficient and Fast Work',
+            ru: 'Многолетний опыт работы в команде. Эффективная и быстрая работа'
+        },
+        rating: 5.0,
+        students: 100,
+        duration: '9 Oy',
+        price: '399 000 UZS',
+        oldPrice: '700 000 UZS',
+        category: 'Dasturlash',
+        image: 'https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
+        instructorImg: imgibo
+    },
+    {
+        id: 14,
+        title: 'Ingliz tili',
+        titleEn: 'English Language',
+        titleRu: 'Английский язык',
+        instructor: 'Nurilloh Khayitboev',
+        instructorSlug: 'ielts-instruktori',
+        instructorBio: {
+            uz: 'IELTS 8.5 sohibi. O\'quvchilariga intensiv metodika orqali til o\'rganish sirlarini o\'rgatadi. Ko\'plab o\'quvchilari IELTS 7.5+ ball olgan.',
+            en: 'IELTS 8.5 holder. Teaches language secrets through intensive methodology. Many students scored 7.5+ in IELTS.',
+            ru: 'Обладатель IELTS 8.5. Обучает секретам языка по интенсивной методике. Многие ученики получили IELTS 7.5+.'
+        },
+        instructorSkills: {
+            uz: ['IELTS tayyorgarlik', 'Akademik yozish', 'Notiqlik san\'ati', 'Grammatika'],
+            en: ['IELTS Preparation', 'Academic Writing', 'Public Speaking', 'Grammar'],
+            ru: ['Подготовка к IELTS', 'Академическое письмо', 'Ораторское искусство', 'Грамматика']
+        },
+        instructorEdu: {
+            uz: 'O\'zDJTU - Filologiya',
+            en: 'UzSWLU - Philology',
+            ru: 'УзГУМЯ - Филология'
+        },
+        instructorAchieve: {
+            uz: 'TESOL & CELTA sertifikati egasi',
+            en: 'TESOL & CELTA Certified',
+            ru: 'Сертифицирован TESOL & CELTA'
+        },
+        rating: 5.0,
+        students: 500,
+        duration: '10 Oy',
+        price: '199 000 UZS',
+        oldPrice: '350 000 UZS',
+        category: 'Ingliz tili',
+        badge: 'MOCK Tekin',
+        image: 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
+        instructorImg: imgnurillox
+    },
+    {
+        id: 15,
+        title: 'Ingliz tili',
+        titleEn: 'English Language',
+        titleRu: 'Английский язык',
+        instructor: 'Javohir Qosimov',
+        instructorSlug: 'ielts-instruktori',
+        instructorBio: {
+            uz: 'IELTS 8.5 sohibi. O\'quvchilariga intensiv metodika orqali til o\'rganish sirlarini o\'rgatadi. Ko\'plab o\'quvchilari IELTS 7.5+ ball olgan.',
+            en: 'IELTS 8.5 holder. Teaches language secrets through intensive methodology. Many students scored 7.5+ in IELTS.',
+            ru: 'Обладатель IELTS 8.5. Обучает секретам языка по интенсивной методике. Многие ученики получили IELTS 7.5+.'
+        },
+        instructorSkills: {
+            uz: ['IELTS tayyorgarlik', 'Akademik yozish', 'Notiqlik san\'ati', 'Grammatika'],
+            en: ['IELTS Preparation', 'Academic Writing', 'Public Speaking', 'Grammar'],
+            ru: ['Подготовка к IELTS', 'Академическое письмо', 'Ораторское искусство', 'Грамматика']
+        },
+        instructorEdu: {
+            uz: 'O\'zDJTU - Filologiya',
+            en: 'UzSWLU - Philology',
+            ru: 'УзГУМЯ - Филология'
+        },
+        instructorAchieve: {
+            uz: 'TESOL & CELTA sertifikati egasi',
+            en: 'TESOL & CELTA Certified',
+            ru: 'Сертифицирован TESOL & CELTA'
+        },
+        rating: 5.0,
+        students: 500,
+        duration: '10 Oy',
+        price: '199 000 UZS',
+        oldPrice: '350 000 UZS',
+        category: 'Ingliz tili',
+        badge: 'MOCK Tekin',
+        image: 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
+        instructorImg: imgjavohir
+    },
+    {
+        id: 16,
+        title: 'Front-end Dasturlash',
+        titleEn: 'Front-end Development',
+        titleRu: 'Frontend Разработка',
+        instructor: 'Muhammadjon Abduqahharov ',
+        instructorSlug: 'frontend-eksperti',
+        instructorBio: {
+            uz: 'Zamonaviy veb-texnologiyalar (React, Vue, Next.js) bo\'yicha chuqur bilimga ega. Ko\'plab xalqaro loyihalarda ishtirok etgan Senior dasturchi.',
+            en: 'In-depth knowledge of modern web technologies (React, Vue, Next.js). Senior developer who has worked on many international projects.',
+            ru: 'Глубокие знания современных веб-технологий (React, Vue, Next.js). Senior разработчик, участвовавший во многих международных проектах.'
+        },
+        instructorSkills: {
+            uz: ['HTML5 & CSS3', 'JavaScript (ES6+)', 'React.js', 'Next.js', 'Tailwind CSS'],
+            en: ['HTML5 & CSS3', 'JavaScript (ES6+)', 'React.js', 'Next.js', 'Tailwind CSS'],
+            ru: ['HTML5 & CSS3', 'JavaScript (ES6+)', 'React.js', 'Next.js', 'Tailwind CSS']
+        },
+        instructorEdu: {
+            uz: 'Inha Universiteti - Kompyuter injiniringi',
+            en: 'Inha University - Computer Science',
+            ru: 'Университет Инха - Компьютерный инжиниринг'
+        },
+        instructorAchieve: {
+            uz: 'Jamoa Bilan Ishlash Uzoq Yillik Tajriba. Samarali va Tez ishlash',
+            en: 'Many Years of Experience in Teamwork. Efficient and Fast Work',
+            ru: 'Многолетний опыт работы в команде. Эффективная и быстрая работа'
+        },
+        rating: 5.0,
+        students: 150,
+        duration: '9 Oy',
+        price: '399 000 UZS',
+        oldPrice: '700 000 UZS',
+        category: 'Dasturlash',
+        image: 'https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
+        instructorImg: imgMuhammad
+    },
+
 ];

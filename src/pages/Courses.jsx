@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaClock, FaUsers } from 'react-icons/fa';
+import { FaClock, FaUsers, FaStar, FaStarHalfAlt, FaRegStar } from 'react-icons/fa';
 import { useLanguage } from '../context/LanguageContext';
 import { coursesData } from '../data/courses';
 import { useNavigate } from 'react-router-dom';
@@ -15,14 +15,16 @@ const Courses = () => {
         ? coursesData
         : coursesData.filter(course => course.category === filter);
 
+    const [isPaused, setIsPaused] = useState(false);
+
     // Auto-cycle for a fast, dynamic feel
     React.useEffect(() => {
-        if (filteredCourses.length <= 1) return;
+        if (filteredCourses.length <= 1 || isPaused) return;
         const timer = setInterval(() => {
             setActiveIndex((prev) => (prev + 1) % filteredCourses.length);
         }, 2500);
         return () => clearInterval(timer);
-    }, [filteredCourses.length]);
+    }, [filteredCourses.length, isPaused]);
 
     const handleFilterChange = (key) => {
         setFilter(key);
@@ -31,22 +33,26 @@ const Courses = () => {
 
     const categories = [
         { key: 'All', label: t.courses.filter.all },
-        { key: 'Boshlang\'ich', label: t.courses.filter.beginner },
+        { key: 'Kompyuter savodxonligi', label: t.courses.filter.computerLiteracy },
         { key: 'Dasturlash', label: t.courses.filter.dev },
         { key: 'Individual', label: t.courses.filter.individual },
-        { key: 'Boshqa', label: t.courses.filter.other },
-        { key: 'Til', label: t.courses.filter.language }
+        { key: 'Ingliz tili', label: t.courses.filter.english },
+        { key: 'Koreys tili', label: t.courses.filter.korean },
+        { key: 'Nemis tili', label: t.courses.filter.german },
+        { key: 'Boshqa', label: t.courses.filter.other }
     ];
 
     const getCategoryLabel = (category) => {
         const categoryMap = {
-            'Boshlang\'ich': 'beginner',
-            'Dasturlash': 'dev',
-            'Individual': 'individual',
-            'Boshqa': 'other',
-            'Til': 'language'
+            'Kompyuter savodxonligi': t.courses.filter.computerLiteracy,
+            'Dasturlash': t.courses.filter.dev,
+            'Individual': t.courses.filter.individual,
+            'Boshqa': t.courses.filter.other,
+            'Ingliz tili': t.courses.filter.english,
+            'Koreys tili': t.courses.filter.korean,
+            'Nemis tili': t.courses.filter.german
         };
-        return t.courses.filter[categoryMap[category]] || category;
+        return categoryMap[category] || category;
     };
 
     const getCourseTitle = (course) => {
@@ -59,6 +65,20 @@ const Courses = () => {
         if (language === 'en') return duration.replace('Oy', 'Months');
         if (language === 'ru') return duration.replace('Oy', 'Мес.');
         return duration;
+    };
+
+    const renderStars = (rating) => {
+        const stars = [];
+        for (let i = 1; i <= 5; i++) {
+            if (i <= Math.floor(rating)) {
+                stars.push(<FaStar key={i} className="star-icon full" />);
+            } else if (i === Math.ceil(rating) && !Number.isInteger(rating)) {
+                stars.push(<FaStarHalfAlt key={i} className="star-icon half" />);
+            } else {
+                stars.push(<FaRegStar key={i} className="star-icon empty" />);
+            }
+        }
+        return stars;
     };
 
     return (
@@ -81,7 +101,11 @@ const Courses = () => {
                     </div>
                 </div>
 
-                <div className="courses-spotlight-scene">
+                <div
+                    className="courses-spotlight-scene"
+                    onMouseEnter={() => setIsPaused(true)}
+                    onMouseLeave={() => setIsPaused(false)}
+                >
                     <div className="spotlight-slider">
                         {filteredCourses.map((course, index) => {
                             const isActive = index === activeIndex;
@@ -101,12 +125,22 @@ const Courses = () => {
                                 <div
                                     key={course.id}
                                     className={`spotlight-card-wrap ${positionClass}`}
-                                    onClick={() => navigate(`/instructor/${course.instructorSlug}`)}
+                                    onClick={(e) => {
+                                        if (isActive) {
+                                            navigate(`/instructor/${course.instructorSlug}`);
+                                        } else {
+                                            e.preventDefault();
+                                            setActiveIndex(index);
+                                        }
+                                    }}
                                 >
                                     <div className="rectangular-card-3d">
                                         <div className="instructor-hero">
                                             <img src={course.instructorImg} alt={course.instructor} className="main-instructor-img" />
                                             <span className="card-category-tag">{getCategoryLabel(course.category)}</span>
+                                            <div className="card-rating">
+                                                {renderStars(course.rating || 5.0)}
+                                            </div>
                                         </div>
                                         <div className="card-details">
                                             <h3 className="course-name-3d">{getCourseTitle(course)}</h3>

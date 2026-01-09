@@ -14,21 +14,19 @@ const InstructorDetails = () => {
     if (!instructorData) {
         return (
             <div style={{ padding: '10rem 0', textAlign: 'center' }}>
-                <h2>{language === 'uz' ? "O'qituvchi topilmadi" : "Instructor not found"}</h2>
-                <Link to="/courses" className="btn btn-primary">{language === 'uz' ? "Kurslarga qaytish" : "Back to courses"}</Link>
+                <h2>{t.instructor.notFound}</h2>
+                <Link to="/courses" className="btn btn-primary">{t.instructor.backToCourses}</Link>
             </div>
         );
     }
 
-    const labels = {
-        back: language === 'uz' ? 'Orqaga' : 'Back',
-        students: language === 'uz' ? 'O\'quvchilar' : 'Students',
-        education: language === 'uz' ? 'Ma\'lumoti' : 'Education',
-        about: language === 'uz' ? 'Mentor haqida' : 'About Mentor',
-        skills: language === 'uz' ? 'Ko\'nikmalar' : 'Skills',
-        achievements: language === 'uz' ? 'Yutuqlar' : 'Achievements',
-        courses: language === 'uz' ? 'O\'tadigan kurslari' : 'Courses taught'
+    const getCourseTitle = (course) => {
+        if (language === 'ru' && course.titleRu) return course.titleRu;
+        if (language === 'en' && course.titleEn) return course.titleEn;
+        return course.title;
     };
+
+    const courseTitle = getCourseTitle(instructorData);
 
     return (
         <div style={{ backgroundColor: '#f8fafc', minHeight: '100vh', paddingBottom: '5rem' }}>
@@ -38,7 +36,7 @@ const InstructorDetails = () => {
                         onClick={() => navigate(-1)}
                         style={{ background: 'none', border: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--text-secondary)', fontWeight: 600, cursor: 'pointer' }}
                     >
-                        <FaArrowLeft /> {labels.back}
+                        <FaArrowLeft /> {t.instructor.back}
                     </button>
                 </div>
             </div>
@@ -82,7 +80,7 @@ const InstructorDetails = () => {
                             border: '1px solid #e2e8f0'
                         }}>
                             <h3 style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', fontSize: '1.2rem', marginBottom: '1.5rem' }}>
-                                <FaGraduationCap style={{ color: 'var(--primary)' }} /> {labels.education}
+                                <FaGraduationCap style={{ color: 'var(--primary)' }} /> {t.instructor.education}
                             </h3>
                             <p style={{ color: 'var(--text-secondary)', lineHeight: 1.6, fontSize: '0.95rem' }}>
                                 {instructorData.instructorEdu[language]}
@@ -99,7 +97,7 @@ const InstructorDetails = () => {
                             border: '1px solid #e2e8f0'
                         }}>
                             <h2 style={{ fontSize: '1.8rem', fontWeight: 900, marginBottom: '1.5rem', color: 'var(--text-main)', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                                <FaUserTie style={{ color: 'var(--primary)' }} /> {labels.about}
+                                <FaUserTie style={{ color: 'var(--primary)' }} /> {t.instructor.about}
                             </h2>
                             <p style={{ fontSize: '1.1rem', lineHeight: 1.8, color: 'var(--text-secondary)', whiteSpace: 'pre-line' }}>
                                 {instructorData.instructorBio[language]}
@@ -115,7 +113,7 @@ const InstructorDetails = () => {
                                 border: '1px solid #e2e8f0'
                             }}>
                                 <h3 style={{ fontSize: '1.3rem', fontWeight: 800, marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                    <FaCheckCircle style={{ color: '#10b981' }} /> {labels.skills}
+                                    <FaCheckCircle style={{ color: '#10b981' }} /> {t.instructor.skills}
                                 </h3>
                                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem' }}>
                                     {instructorData.instructorSkills[language].map((skill, idx) => (
@@ -139,7 +137,7 @@ const InstructorDetails = () => {
                                 border: '1px solid #e2e8f0'
                             }}>
                                 <h3 style={{ fontSize: '1.3rem', fontWeight: 800, marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                    <FaAward style={{ color: '#f59e0b' }} /> {labels.achievements}
+                                    <FaAward style={{ color: '#f59e0b' }} /> {t.instructor.achievements}
                                 </h3>
                                 <div style={{
                                     padding: '1rem',
@@ -159,7 +157,7 @@ const InstructorDetails = () => {
                             boxShadow: '0 10px 30px rgba(0,0,0,0.05)',
                             border: '1px solid #e2e8f0'
                         }}>
-                            <h3 style={{ fontSize: '1.3rem', fontWeight: 800, marginBottom: '1.5rem' }}>{labels.courses}</h3>
+                            <h3 style={{ fontSize: '1.3rem', fontWeight: 800, marginBottom: '1.5rem' }}>{t.instructor.courses}</h3>
                             <div style={{
                                 display: 'flex',
                                 alignItems: 'center',
@@ -170,9 +168,9 @@ const InstructorDetails = () => {
                                 textDecoration: 'none',
                                 color: 'inherit'
                             }}>
-                                <img src={instructorData.image} style={{ width: '120px', height: '80px', borderRadius: '1rem', objectFit: 'cover' }} alt={instructorData.title} />
+                                <img src={instructorData.image} style={{ width: '120px', height: '80px', borderRadius: '1rem', objectFit: 'cover' }} alt={courseTitle} />
                                 <div>
-                                    <h4 style={{ margin: '0 0 0.5rem 0', fontSize: '1.1rem' }}>{instructorData.title}</h4>
+                                    <h4 style={{ margin: '0 0 0.5rem 0', fontSize: '1.1rem' }}>{courseTitle}</h4>
                                     <p style={{ margin: 0, color: 'var(--primary)', fontWeight: 700 }}>{instructorData.price}</p>
                                 </div>
                             </div>

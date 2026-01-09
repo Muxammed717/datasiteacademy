@@ -61,6 +61,20 @@ const Navbar = () => {
     return lang.toUpperCase();
   };
 
+  // Click outside to close lang menu
+  const langMenuRef = React.useRef(null);
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (langMenuRef.current && !langMenuRef.current.contains(event.target)) {
+        setLangOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   return (
     <nav className="navbar">
       <div className="container navbar-container">
@@ -75,7 +89,7 @@ const Navbar = () => {
 
         {/* Desktop Extras */}
         <div className="desktop-nav-extras">
-          <div className="lang-menu-container">
+          <div className="lang-menu-container" ref={langMenuRef}>
             <button
               className="lang-main-btn"
               onClick={() => setLangOpen(!langOpen)}
