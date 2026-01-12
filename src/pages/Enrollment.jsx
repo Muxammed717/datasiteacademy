@@ -1,6 +1,10 @@
+import React, { useState } from 'react';
+import { useLanguage } from '../context/LanguageContext';
 import { coursesData } from '../data/courses';
 import { db } from '../firebase';
-import { ref, get, set, push } from 'firebase/database';
+import { ref, get, set } from 'firebase/database';
+import { FaCheckCircle, FaUser, FaPhone, FaBookOpen, FaCommentDots, FaPaperPlane } from 'react-icons/fa';
+import './Enrollment.css';
 
 const Enrollment = () => {
     const { t, language } = useLanguage();
