@@ -151,10 +151,10 @@ const translations = {
                 instagram: 'https://instagram.com/datasite_academy',
                 youtube: 'https://youtube.com/@datasite_academy'
             },
-            phone: '+998 95 061 64 66',
-            email: 'datasite_academy@gmail.com',
-            address: '📍 Manzil: A.Xo\'jayev 38',
-            landmark: '📍 Mo\'ljal: Chorsu, Davlat Xizmatlari binosi, 4-qavat',
+            phone: '📞 +998 95 061 64 66',
+            email: '📧 datasite_academy@gmail.com',
+            address: '📍 A.Xo\'jayev 38',
+            landmark: '📍 Chorsu, Davlat Xizmatlari binosi, 4-qavat',
             newsletter: {
                 title: 'Telegram Kanalimiz',
                 desc: 'Kanalimizga obuna bo\'ling va eng so\'nggi yangiliklardan xabardor bo\'ling.',
@@ -423,10 +423,10 @@ const translations = {
                 instagram: 'https://instagram.com/datasite_academy',
                 youtube: 'https://youtube.com/@datasite_academy'
             },
-            phone: '+998 95 061 64 66',
-            email: 'datasite_academy@gmail.com',
-            address: '📍 Адрес: А.Ходжаев 38',
-            landmark: '📍 Ориентир: Чорсу, Здание Госуслуг, 4-й этаж',
+            phone: '📞 +998 95 061 64 66',
+            email: '📧 datasite_academy@gmail.com',
+            address: '📍 А.Ходжаев 38',
+            landmark: '📍 Чорсу, Здание Госуслуг, 4-й этаж',
             newsletter: {
                 title: 'Наш Telegram Канал',
                 desc: 'Подписывайтесь на наш канал и будьте в курсе последних новостей.',
@@ -695,10 +695,10 @@ const translations = {
                 instagram: 'https://instagram.com/datasite_academy',
                 youtube: 'https://youtube.com/@datasite_academy'
             },
-            phone: '+998 95 061 64 66',
-            email: 'datasite_academy@gmail.com',
-            address: '📍 Address: A.Xo\'jayev 38',
-            landmark: '📍 Landmark: Chorsu, Public Services Building, 4th floor',
+            phone: '📞 +998 95 061 64 66',
+            email: '📧 datasite_academy@gmail.com',
+            address: '📍 A.Xo\'jayev 38',
+            landmark: '📍 Chorsu, Public Services Building, 4th floor',
             newsletter: {
                 title: 'Telegram Channel',
                 desc: 'Subscribe to our channel and stay updated with the latest news.',
