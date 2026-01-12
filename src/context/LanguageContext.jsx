@@ -12,7 +12,7 @@ const translations = {
             about: 'Biz Haqimizda',
             status: 'Holat',
             russian: 'Rus tili',
-            contact: 'Aloqa',
+            contact: 'Manzil',
             enroll: 'Kursga yozilish',
             news: 'Yangiliklar',
             getStarted: 'Boshlash'
@@ -238,7 +238,7 @@ const translations = {
             }
         },
         contact: {
-            title: 'Bog\'lanish',
+            title: 'Manzil',
             subtitle: 'Savollaringiz bormi? Sizdan eshitishni xohlaymiz.',
             labels: {
                 phone: 'Telefon',
@@ -284,7 +284,7 @@ const translations = {
             about: 'О Нас',
             status: 'Статус',
             russian: 'Русский язык',
-            contact: 'Контакты',
+            contact: 'Адрес',
             enroll: 'Записаться',
             news: 'Новости',
             getStarted: 'Начать'
@@ -510,7 +510,7 @@ const translations = {
             }
         },
         contact: {
-            title: 'Свяжитесь с Нами',
+            title: 'Адрес',
             subtitle: 'Есть вопросы? Мы будем рады ответить.',
             labels: {
                 phone: 'Телефон',
@@ -556,7 +556,7 @@ const translations = {
             about: 'About Us',
             status: 'Status',
             russian: 'Russian',
-            contact: 'Contact',
+            contact: 'Location',
             enroll: 'Enroll Now',
             news: 'News',
             getStarted: 'Get Started'
@@ -782,7 +782,7 @@ const translations = {
             }
         },
         contact: {
-            title: 'Get In Touch',
+            title: 'Location',
             subtitle: "Have questions? We'd love to hear from you.",
             labels: {
                 phone: 'Phone',
