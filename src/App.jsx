@@ -17,6 +17,7 @@ import RussianLanguage from './pages/RussianLanguage';
 import Snowfall from './components/Snowfall';
 import InstructorDetails from './pages/InstructorDetails';
 import { LanguageProvider } from './context/LanguageContext';
+import { ThemeProvider } from './context/ThemeContext';
 
 import ScrollToTop from './components/ScrollToTop';
 import PlexusBackground from './components/PlexusBackground';
@@ -39,28 +40,30 @@ import Preloader from './components/Preloader';
 
 function App() {
   return (
-    <LanguageProvider>
-      <Preloader />
-      <Router>
-        <Layout>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/courses" element={<Courses />} />
+    <ThemeProvider>
+      <LanguageProvider>
+        <Preloader />
+        <Router>
+          <Layout>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/courses" element={<Courses />} />
 
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/admin" element={<AdminLogin />} />
-            <Route path="/admin/dashboard" element={<AdminDashboard />} />
-            <Route path="/enrollment" element={<Enrollment />} />
-            <Route path="/news" element={<News />} />
-            <Route path="/russian-language" element={<RussianLanguage />} />
-            <Route path="/monitoring" element={<MonitoringLogin />} />
-            <Route path="/monitoring/dashboard" element={<MonitoringDashboard />} />
-            <Route path="/instructor/:slug" element={<InstructorDetails />} />
-          </Routes>
-        </Layout>
-      </Router>
-    </LanguageProvider>
+              <Route path="/about" element={<About />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/admin" element={<AdminLogin />} />
+              <Route path="/admin/dashboard" element={<AdminDashboard />} />
+              <Route path="/enrollment" element={<Enrollment />} />
+              <Route path="/news" element={<News />} />
+              <Route path="/russian-language" element={<RussianLanguage />} />
+              <Route path="/monitoring" element={<MonitoringLogin />} />
+              <Route path="/monitoring/dashboard" element={<MonitoringDashboard />} />
+              <Route path="/instructor/:slug" element={<InstructorDetails />} />
+            </Routes>
+          </Layout>
+        </Router>
+      </LanguageProvider>
+    </ThemeProvider>
   );
 }
 

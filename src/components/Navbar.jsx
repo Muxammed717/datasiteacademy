@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FaBars, FaTimes, FaSnowflake, FaCog } from 'react-icons/fa';
+import { FaBars, FaTimes, FaMoon, FaSun } from 'react-icons/fa';
 import { useLanguage } from '../context/LanguageContext';
+import { useTheme } from '../context/ThemeContext';
 import './Navbar.css';
 
 import flagUz from '../assets/flag-uz.png';
@@ -48,6 +49,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
   const { t, language, changeLanguage } = useLanguage();
+  const { theme, toggleTheme } = useTheme();
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
@@ -89,6 +91,10 @@ const Navbar = () => {
 
         {/* Desktop Extras */}
         <div className="desktop-nav-extras">
+          <button className="theme-toggle-btn" onClick={toggleTheme} aria-label="Toggle theme">
+            {theme === 'light' ? <FaMoon /> : <FaSun />}
+          </button>
+
           <div className="lang-menu-container" ref={langMenuRef}>
             <button
               className="lang-main-btn"
