@@ -19,10 +19,12 @@ import InstructorDetails from './pages/InstructorDetails';
 import { LanguageProvider } from './context/LanguageContext';
 
 import ScrollToTop from './components/ScrollToTop';
+import PlexusBackground from './components/PlexusBackground';
 
 const Layout = ({ children }) => {
   return (
     <div className="app">
+      <PlexusBackground />
       <Navbar />
       <main>
         {children}
