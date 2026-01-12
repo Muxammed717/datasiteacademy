@@ -18,6 +18,8 @@ const RoadmapStep = ({ icon: Icon, title, desc, stepNumber }) => (
     </div>
 );
 
+import ParticleBackground from '../components/ParticleBackground';
+
 const MainBanner = ({ t, language }) => {
     const [activePhrase, setActivePhrase] = useState(0);
     const phrases = t.home.hero.keywords;
@@ -37,6 +39,7 @@ const MainBanner = ({ t, language }) => {
     return (
         <section className="banner-wrap">
             <Snowfall />
+            <ParticleBackground />
             <div className="background-elements">
                 <div className="glow-orb orb-1"></div>
                 <div className="glow-orb orb-2"></div>

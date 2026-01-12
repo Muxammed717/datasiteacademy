@@ -6,15 +6,23 @@
 
 .banner-wrap {
     position: relative;
-    min-height: 80vh;
-    padding: 120px 0 80px;
-    /* Increased padding to avoid navbar overlap */
+    min-height: 90vh;
+    padding: 140px 0 100px;
     display: flex;
     align-items: center;
-    background: radial-gradient(circle at 10% 20%, rgba(232, 240, 214, 0.2) 0%, transparent 40%),
-        radial-gradient(circle at 90% 80%, rgba(16, 185, 129, 0.05) 0%, transparent 40%),
-        var(--bg-main);
+    background: radial-gradient(circle at 50% 50%, #15322c 0%, #0a0a0a 100%);
     overflow: hidden;
+    color: white;
+}
+
+.home-layout .title-text,
+.home-layout .lead-text,
+.home-layout .banner-subtext {
+    color: white;
+}
+
+.banner-heading {
+    text-shadow: 0 0 30px rgba(255, 221, 0, 0.1);
 }
 
 .banner-inner {

@@ -33,9 +33,12 @@ const Layout = ({ children }) => {
   );
 };
 
+import Preloader from './components/Preloader';
+
 function App() {
   return (
     <LanguageProvider>
+      <Preloader />
       <Router>
         <Layout>
           <Routes>
