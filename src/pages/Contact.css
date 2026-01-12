@@ -45,6 +45,10 @@
     flex-shrink: 0;
 }
 
+.icon-box svg {
+    transform: scaleX(-1);
+}
+
 .info-content h3 {
     margin: 0;
     font-size: 1rem;
