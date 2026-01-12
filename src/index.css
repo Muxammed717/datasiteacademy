@@ -55,12 +55,12 @@ body {
 
 .app {
   position: relative;
-  z-index: 1;
+  z-index: 2;
 }
 
 main {
   position: relative;
-  z-index: 1;
+  z-index: 2;
 }
 
 a {

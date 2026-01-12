@@ -42,7 +42,7 @@ const PlexusBackground = () => {
             draw() {
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
-                ctx.fillStyle = 'rgba(4, 77, 41, 0.6)';
+                ctx.fillStyle = 'rgba(4, 77, 41, 0.9)';
                 ctx.fill();
             }
 
@@ -74,13 +74,13 @@ const PlexusBackground = () => {
 
         function init() {
             particles = [];
-            let numberOfParticles = (canvas.width * canvas.height) / 12000;
+            let numberOfParticles = (canvas.width * canvas.height) / 8000;
             for (let i = 0; i < numberOfParticles; i++) {
-                let size = Math.random() * 2 + 1;
+                let size = Math.random() * 3 + 1.5;
                 let x = Math.random() * canvas.width;
                 let y = Math.random() * canvas.height;
-                let directionX = (Math.random() * 0.4) - 0.2;
-                let directionY = (Math.random() * 0.4) - 0.2;
+                let directionX = (Math.random() * 0.6) - 0.3;
+                let directionY = (Math.random() * 0.6) - 0.3;
                 particles.push(new Particle(x, y, directionX, directionY, size));
             }
             particlesRef.current = particles;
@@ -95,7 +95,7 @@ const PlexusBackground = () => {
 
                     if (distance < (canvas.width / 7) * (canvas.height / 7)) {
                         opacityValue = 1 - (distance / 20000);
-                        ctx.strokeStyle = `rgba(4, 77, 41, ${opacityValue * 0.3})`;
+                        ctx.strokeStyle = `rgba(4, 77, 41, ${opacityValue * 0.6})`;
                         ctx.lineWidth = 1;
                         ctx.beginPath();
                         ctx.moveTo(particles[a].x, particles[a].y);
