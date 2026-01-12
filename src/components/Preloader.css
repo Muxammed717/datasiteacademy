@@ -37,14 +37,14 @@
     width: 100%;
     height: auto;
     object-fit: contain;
-    filter: drop-shadow(0 0 20px rgba(255, 221, 0, 0.2));
+    filter: drop-shadow(0 0 20px rgba(4, 77, 41, 0.3));
     animation: logoPulse 2s infinite ease-in-out;
 }
 
 .logo-glow {
     position: absolute;
     inset: -20px;
-    background: radial-gradient(circle, rgba(255, 221, 0, 0.1) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(4, 77, 41, 0.15) 0%, transparent 70%);
     filter: blur(20px);
     border-radius: 50%;
     animation: glowMove 3s infinite alternate ease-in-out;
@@ -58,9 +58,9 @@
 .loading-dots span {
     width: 12px;
     height: 12px;
-    background: #ffdd00;
+    background: #044d29;
     border-radius: 50%;
-    opacity: 0.3;
+    opacity: 0.4;
 }
 
 .loading-dots span:nth-child(1) {
@@ -93,7 +93,7 @@
 .p-blob.blob-1 {
     top: -200px;
     right: -200px;
-    background: #ffdd00;
+    background: #044d29;
 }
 
 .p-blob.blob-2 {
@@ -107,12 +107,12 @@
     0%,
     100% {
         transform: scale(1);
-        filter: drop-shadow(0 0 20px rgba(255, 221, 0, 0.1));
+        filter: drop-shadow(0 0 20px rgba(4, 77, 41, 0.2));
     }
 
     50% {
         transform: scale(1.05);
-        filter: drop-shadow(0 0 40px rgba(255, 221, 0, 0.3));
+        filter: drop-shadow(0 0 40px rgba(4, 77, 41, 0.4));
     }
 }
 
@@ -132,7 +132,7 @@
     to {
         transform: translateY(-10px);
         opacity: 1;
-        box-shadow: 0 5px 15px rgba(255, 221, 0, 0.4);
+        box-shadow: 0 5px 15px rgba(4, 77, 41, 0.4);
     }
 }
 

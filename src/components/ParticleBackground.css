@@ -8,9 +8,9 @@
 
 .particle {
     position: absolute;
-    background: #ffdd00;
+    background: #044d29;
     border-radius: 50%;
-    opacity: 0.2;
+    opacity: 0.15;
     filter: blur(1px);
 }
 
