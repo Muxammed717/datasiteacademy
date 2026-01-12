@@ -12,7 +12,7 @@ const translations = {
             about: 'Biz Haqimizda',
             status: 'Holat',
             russian: 'Rus tili',
-            contact: 'Manzil',
+            contact: 'Aloqa',
             enroll: 'Kursga yozilish',
             news: 'Yangiliklar',
             getStarted: 'Boshlash'
@@ -238,12 +238,12 @@ const translations = {
             }
         },
         contact: {
-            title: 'Manzil',
+            title: 'Aloqa',
             subtitle: 'Savollaringiz bormi? Sizdan eshitishni xohlaymiz.',
             labels: {
                 phone: 'Telefon',
                 email: 'Email',
-                office: 'Ofis',
+                office: 'Manzil',
                 name: 'Ism Familiya',
                 emailAddr: 'Email Manzil',
                 message: 'Xabar',
@@ -284,7 +284,7 @@ const translations = {
             about: 'О Нас',
             status: 'Статус',
             russian: 'Русский язык',
-            contact: 'Адрес',
+            contact: 'Контакты',
             enroll: 'Записаться',
             news: 'Новости',
             getStarted: 'Начать'
@@ -510,12 +510,12 @@ const translations = {
             }
         },
         contact: {
-            title: 'Адрес',
+            title: 'Контакты',
             subtitle: 'Есть вопросы? Мы будем рады ответить.',
             labels: {
                 phone: 'Телефон',
                 email: 'Email',
-                office: 'Офис',
+                office: 'Адрес',
                 name: 'ФИО',
                 emailAddr: 'Email Адрес',
                 message: 'Сообщение',
@@ -556,7 +556,7 @@ const translations = {
             about: 'About Us',
             status: 'Status',
             russian: 'Russian',
-            contact: 'Location',
+            contact: 'Contact',
             enroll: 'Enroll Now',
             news: 'News',
             getStarted: 'Get Started'
@@ -782,12 +782,12 @@ const translations = {
             }
         },
         contact: {
-            title: 'Location',
+            title: 'Contact',
             subtitle: "Have questions? We'd love to hear from you.",
             labels: {
                 phone: 'Phone',
                 email: 'Email',
-                office: 'Office',
+                office: 'Location',
                 name: 'Full Name',
                 emailAddr: 'Email Address',
                 message: 'Message',
