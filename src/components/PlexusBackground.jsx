@@ -42,7 +42,7 @@ const PlexusBackground = () => {
             draw() {
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
-                ctx.fillStyle = 'rgba(4, 77, 41, 0.9)';
+                ctx.fillStyle = 'rgba(4, 77, 41, 1)';
                 ctx.fill();
             }
 
@@ -95,7 +95,7 @@ const PlexusBackground = () => {
 
                     if (distance < (canvas.width / 7) * (canvas.height / 7)) {
                         opacityValue = 1 - (distance / 20000);
-                        ctx.strokeStyle = `rgba(4, 77, 41, ${opacityValue * 0.6})`;
+                        ctx.strokeStyle = `rgba(4, 77, 41, ${opacityValue * 0.8})`;
                         ctx.lineWidth = 1;
                         ctx.beginPath();
                         ctx.moveTo(particles[a].x, particles[a].y);
