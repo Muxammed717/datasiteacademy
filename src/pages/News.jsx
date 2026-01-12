@@ -38,6 +38,8 @@ const NewsCard = ({ item, language, isPlaying, onPlay }) => {
                         poster={item.thumbnail}
                         playsInline
                         loop
+                        muted
+                        preload="metadata"
                     />
                     <div className="play-btn-marquee">
                         {isPlaying ? <FaPause /> : <FaPlay style={{ marginLeft: '4px' }} />}
@@ -73,7 +75,7 @@ const News = () => {
             id: '1',
             type: 'video',
             span: 'span-row-2',
-            src: '/news/Katta Dasturchi bilan Open day.mp4',
+            src: '/news/open_day.mp4',
             thumbnail: '',
             title: { uz: 'Katta Dasturchi bilan Open day', en: 'Open day with a big programmer', ru: 'Open day с большим программистом' },
             subtitle: { uz: 'Bugungi Open Day mehmoni — o‘z sohasida katta tajribaga ega, ko‘plab yosh dasturchilarga ilhom bo‘lib kelayotgan taniqli dasturchi.', en: 'Today’s Open Day guest is a well-known programmer with extensive experience who inspires many young developers.', ru: 'Сегодняшний гость нашего Open Day — известный программист с большим опытом, который вдохновляет многих молодых разработчиков.' }
@@ -104,7 +106,7 @@ const News = () => {
             id: '4',
             type: 'video',
             span: 'span-row-2',
-            src: '/news/mock imtihon.MP4',
+            src: '/news/mock_imtihon.mp4',
             thumbnail: '',
             title: { uz: 'Xar Xafta Mock Imtihoni', en: 'Weekly Mock Exam', ru: 'Еженедельный Mock-тест' },
             subtitle: { uz: 'MOCK', en: 'MOCK', ru: 'MOCK' }
@@ -166,7 +168,7 @@ const News = () => {
             id: '10',
             type: 'video',
             span: 'span-row-2',
-            src: '/news/Tez kunda.mp4',
+            src: '/news/tez_kunda.mp4',
             thumbnail: '',
             title: { uz: 'Tez kunda', en: 'Coming soon', ru: 'Скоро' },
             subtitle: { uz: 'Bitiruvchilar', en: 'Graduates', ru: 'Выпускники' }
@@ -197,7 +199,7 @@ const News = () => {
             id: '13',
             type: 'video',
             span: 'span-row-2',
-            src: '/news/video_2026-01-08_15-28-45.mp4',
+            src: '/news/success_story.mp4',
             thumbnail: '',
             title: { uz: 'Yosh uquvchimiz katta Natijalarga erishdi', en: 'Youth programmer', ru: 'Молодой программист' },
             subtitle: { uz: 'Yosh Dasturchi', en: 'Youth Programmer', ru: 'Молодой программист' }
