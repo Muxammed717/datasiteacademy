@@ -92,6 +92,10 @@ const Enrollment = () => {
 
     return (
         <div className="enrollment-page">
+            <div className="background-decor">
+                <div className="decor-blob blob-1"></div>
+                <div className="decor-blob blob-2"></div>
+            </div>
             <div className="container">
                 <div className="enrollment-header">
                     <h1 className="title-text">{t.enrollment.title}</h1>
@@ -103,21 +107,22 @@ const Enrollment = () => {
                     <form className="enrollment-form" onSubmit={handleSubmit}>
                         <div className="input-group">
                             <label><FaUser /> {t.enrollment.form.name}</label>
-                            <input type="text" placeholder={t.enrollment.form.name} required />
+                            <input type="text" placeholder={t.enrollment.form.name} name="name" required />
                         </div>
 
                         <div className="input-group">
                             <label><FaPhone /> {t.enrollment.form.phone}</label>
-                            <input type="tel" placeholder="+998 90 123 45 67" required />
+                            <input type="tel" name="phone" placeholder="+998 90 123 45 67" required />
                         </div>
 
                         <div className="input-group">
                             <label><FaBookOpen /> {t.enrollment.form.course}</label>
-                            <select required>
+                            <select name="course" required>
                                 <option value="">{t.enrollment.form.course}</option>
-                                {Array.from(new Set(coursesData.map(course =>
-                                    language === 'uz' ? course.title : (course.titleEn || course.title)
-                                ))).map(courseTitle => (
+                                {Array.from(new Set([
+                                    ...coursesData.map(course => language === 'uz' ? course.title : (course.titleEn || course.title)),
+                                    t.enrollment.courses.russian // Force add Russian Language option
+                                ])).map(courseTitle => (
                                     <option key={courseTitle} value={courseTitle}>
                                         {courseTitle}
                                     </option>
