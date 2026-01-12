@@ -115,9 +115,11 @@ const Enrollment = () => {
                             <label><FaBookOpen /> {t.enrollment.form.course}</label>
                             <select required>
                                 <option value="">{t.enrollment.form.course}</option>
-                                {coursesData.map(course => (
-                                    <option key={course.id} value={language === 'uz' ? course.title : (course.titleEn || course.title)}>
-                                        {language === 'uz' ? course.title : (course.titleEn || course.title)}
+                                {Array.from(new Set(coursesData.map(course =>
+                                    language === 'uz' ? course.title : (course.titleEn || course.title)
+                                ))).map(courseTitle => (
+                                    <option key={courseTitle} value={courseTitle}>
+                                        {courseTitle}
                                     </option>
                                 ))}
                             </select>
