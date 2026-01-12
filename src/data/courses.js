@@ -407,7 +407,7 @@ export const coursesData = [
         duration: '9 Oy',
         price: '399 000 UZS',
         oldPrice: '700 000 UZS',
-        category: ['Russ Tili'],
+        category: ['Dasturlash'],
         image: 'https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
         instructorImg: imgibo
     },
