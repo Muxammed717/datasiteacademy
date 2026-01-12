@@ -13,7 +13,7 @@ const Courses = () => {
 
     const filteredCourses = filter === 'All'
         ? coursesData
-        : coursesData.filter(course => course.category === filter);
+        : coursesData.filter(course => Array.isArray(course.category) ? course.category.includes(filter) : course.category === filter);
 
     const [isPaused, setIsPaused] = useState(false);
 
@@ -31,28 +31,26 @@ const Courses = () => {
         setActiveIndex(0);
     };
 
-    const categories = [
-        { key: 'All', label: t.courses.filter.all },
-        { key: 'Kompyuter savodxonligi', label: t.courses.filter.computerLiteracy },
-        { key: 'Dasturlash', label: t.courses.filter.dev },
-        { key: 'Individual', label: t.courses.filter.individual },
-        { key: 'Ingliz tili', label: t.courses.filter.english },
-        { key: 'Koreys tili', label: t.courses.filter.korean },
-        { key: 'Nemis tili', label: t.courses.filter.german },
-        { key: 'Boshqa', label: t.courses.filter.other }
+    // Dynamically get unique categories from data
+    const dynamicCategories = [
+        'All',
+        ...new Set(coursesData.flatMap(course => course.category || []))
     ];
 
-    const getCategoryLabel = (category) => {
+    const getCategoryLabel = (cat) => {
         const categoryMap = {
+            'All': t.courses.filter.all,
             'Kompyuter savodxonligi': t.courses.filter.computerLiteracy,
             'Dasturlash': t.courses.filter.dev,
             'Individual': t.courses.filter.individual,
             'Boshqa': t.courses.filter.other,
             'Ingliz tili': t.courses.filter.english,
             'Koreys tili': t.courses.filter.korean,
-            'Nemis tili': t.courses.filter.german
+            'Nemis tili': t.courses.filter.german,
+            'Russ Tili': t.courses.filter.russian
         };
-        return categoryMap[category] || category;
+
+        return categoryMap[cat] || cat;
     };
 
     const getCourseTitle = (course) => {
@@ -89,13 +87,13 @@ const Courses = () => {
                     <p className="courses-subtitle">{t.courses.subtitle}</p>
 
                     <div className="filter-container">
-                        {categories.map(cat => (
+                        {dynamicCategories.map(catKey => (
                             <button
-                                key={cat.key}
-                                className={`filter-btn ${filter === cat.key ? 'active' : 'inactive'}`}
-                                onClick={() => handleFilterChange(cat.key)}
+                                key={catKey}
+                                className={`filter-btn ${filter === catKey ? 'active' : 'inactive'}`}
+                                onClick={() => handleFilterChange(catKey)}
                             >
-                                {cat.label}
+                                {getCategoryLabel(catKey)}
                             </button>
                         ))}
                     </div>
@@ -137,7 +135,11 @@ const Courses = () => {
                                     <div className="rectangular-card-3d">
                                         <div className="instructor-hero">
                                             <img src={course.instructorImg} alt={course.instructor} className="main-instructor-img" />
-                                            <span className="card-category-tag">{getCategoryLabel(course.category)}</span>
+                                            <div className="card-category-tags">
+                                                {(Array.isArray(course.category) ? course.category : [course.category]).map(cat => (
+                                                    <span key={cat} className="card-category-tag">{getCategoryLabel(cat)}</span>
+                                                ))}
+                                            </div>
                                             <div className="card-rating">
                                                 {renderStars(course.rating || 5.0)}
                                             </div>

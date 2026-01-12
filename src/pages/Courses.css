@@ -31,7 +31,7 @@
 .filter-container {
     display: flex;
     justify-content: center;
-    gap: 1rem;
+    gap: 0.75rem;
     margin-top: 2rem;
     flex-wrap: wrap;
     position: relative;
@@ -39,11 +39,12 @@
 }
 
 .filter-btn {
-    padding: 0.6rem 1.8rem;
+    padding: 0.5rem 1.2rem;
     border-radius: var(--radius-full);
     font-weight: 600;
     transition: all 0.3s ease;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
+    white-space: nowrap;
     cursor: pointer;
 }
 
@@ -176,17 +177,28 @@
     object-fit: cover;
 }
 
-.card-category-tag {
+.card-category-tags {
     position: absolute;
-    top: 30px;
-    left: 30px;
+    top: 25px;
+    left: 25px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 8px;
+    z-index: 10;
+    max-width: 180px;
+    /* Forces long tags like "Kompyuter savodxonligi" to wrap tags below it */
+}
+
+.card-category-tag {
     background: var(--primary);
     color: white;
-    padding: 6px 16px;
+    padding: 4px 12px;
     border-radius: 40px;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     font-weight: 800;
-    z-index: 10;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    white-space: nowrap;
 }
 
 .card-rating {

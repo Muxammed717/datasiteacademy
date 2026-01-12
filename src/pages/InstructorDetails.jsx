@@ -14,8 +14,8 @@ const InstructorDetails = () => {
     if (!instructorData) {
         return (
             <div style={{ padding: '10rem 0', textAlign: 'center' }}>
-                <h2>{t.instructor.notFound}</h2>
-                <Link to="/courses" className="btn btn-primary">{t.instructor.backToCourses}</Link>
+                <h2>{t.courses.instructor.notFound}</h2>
+                <Link to="/courses" className="btn btn-primary">{t.courses.instructor.backToCourses}</Link>
             </div>
         );
     }
@@ -36,7 +36,7 @@ const InstructorDetails = () => {
                         onClick={() => navigate(-1)}
                         style={{ background: 'none', border: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--text-secondary)', fontWeight: 600, cursor: 'pointer' }}
                     >
-                        <FaArrowLeft /> {t.instructor.back}
+                        <FaArrowLeft /> {t.courses.instructor.back}
                     </button>
                 </div>
             </div>
@@ -80,7 +80,7 @@ const InstructorDetails = () => {
                             border: '1px solid #e2e8f0'
                         }}>
                             <h3 style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', fontSize: '1.2rem', marginBottom: '1.5rem' }}>
-                                <FaGraduationCap style={{ color: 'var(--primary)' }} /> {t.instructor.education}
+                                <FaGraduationCap style={{ color: 'var(--primary)' }} /> {t.courses.instructor.education}
                             </h3>
                             <p style={{ color: 'var(--text-secondary)', lineHeight: 1.6, fontSize: '0.95rem' }}>
                                 {instructorData.instructorEdu[language]}
@@ -97,7 +97,7 @@ const InstructorDetails = () => {
                             border: '1px solid #e2e8f0'
                         }}>
                             <h2 style={{ fontSize: '1.8rem', fontWeight: 900, marginBottom: '1.5rem', color: 'var(--text-main)', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                                <FaUserTie style={{ color: 'var(--primary)' }} /> {t.instructor.about}
+                                <FaUserTie style={{ color: 'var(--primary)' }} /> {t.courses.instructor.about}
                             </h2>
                             <p style={{ fontSize: '1.1rem', lineHeight: 1.8, color: 'var(--text-secondary)', whiteSpace: 'pre-line' }}>
                                 {instructorData.instructorBio[language]}
@@ -113,7 +113,7 @@ const InstructorDetails = () => {
                                 border: '1px solid #e2e8f0'
                             }}>
                                 <h3 style={{ fontSize: '1.3rem', fontWeight: 800, marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                    <FaCheckCircle style={{ color: '#10b981' }} /> {t.instructor.skills}
+                                    <FaCheckCircle style={{ color: '#10b981' }} /> {t.courses.instructor.skills}
                                 </h3>
                                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem' }}>
                                     {instructorData.instructorSkills[language].map((skill, idx) => (
@@ -137,7 +137,7 @@ const InstructorDetails = () => {
                                 border: '1px solid #e2e8f0'
                             }}>
                                 <h3 style={{ fontSize: '1.3rem', fontWeight: 800, marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                    <FaAward style={{ color: '#f59e0b' }} /> {t.instructor.achievements}
+                                    <FaAward style={{ color: '#f59e0b' }} /> {t.courses.instructor.achievements}
                                 </h3>
                                 <div style={{
                                     padding: '1rem',
@@ -157,7 +157,7 @@ const InstructorDetails = () => {
                             boxShadow: '0 10px 30px rgba(0,0,0,0.05)',
                             border: '1px solid #e2e8f0'
                         }}>
-                            <h3 style={{ fontSize: '1.3rem', fontWeight: 800, marginBottom: '1.5rem' }}>{t.instructor.courses}</h3>
+                            <h3 style={{ fontSize: '1.3rem', fontWeight: 800, marginBottom: '1.5rem' }}>{t.courses.instructor.courses}</h3>
                             <div style={{
                                 display: 'flex',
                                 alignItems: 'center',

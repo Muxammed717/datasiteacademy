@@ -11,6 +11,7 @@ const translations = {
             courses: 'Kurslar',
             about: 'Biz Haqimizda',
             status: 'Holat',
+            russian: 'Rus tili',
             contact: 'Aloqa',
             enroll: 'Kursga yozilish',
             news: 'Yangiliklar',
@@ -181,7 +182,8 @@ const translations = {
                 computerLiteracy: "Kompyuter savodxonligi",
                 english: "Ingliz tili",
                 korean: "Koreys tili",
-                german: "Nemis tili"
+                german: "Nemis tili",
+                russian: "Rus tili"
             },
             card: {
                 weeks: "Hafta",
@@ -281,6 +283,7 @@ const translations = {
             courses: 'Курсы',
             about: 'О Нас',
             status: 'Статус',
+            russian: 'Русский язык',
             contact: 'Контакты',
             enroll: 'Записаться',
             news: 'Новости',
@@ -451,7 +454,8 @@ const translations = {
                 computerLiteracy: "Компьютерная грамотность",
                 english: "Английский язык",
                 korean: "Корейский язык",
-                german: "Немецкий язык"
+                german: "Немецкий язык",
+                russian: "Русский язык"
             },
             card: {
                 weeks: "Недель",
@@ -551,6 +555,7 @@ const translations = {
             courses: 'Courses',
             about: 'About Us',
             status: 'Status',
+            russian: 'Russian',
             contact: 'Contact',
             enroll: 'Enroll Now',
             news: 'News',
@@ -721,7 +726,8 @@ const translations = {
                 computerLiteracy: "Computer Literacy",
                 english: "English",
                 korean: "Korean",
-                german: "German"
+                german: "German",
+                russian: "Russian"
             },
             card: {
                 weeks: "Weeks",

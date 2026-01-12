@@ -4,6 +4,8 @@ import { useLanguage } from '../context/LanguageContext';
 import { mockStudents as initialStudents } from '../data/students';
 import { coursesData } from '../data/courses';
 import { FaPlus, FaTrash, FaEdit, FaSave, FaTimes, FaSignOutAlt, FaHistory, FaCheckCircle, FaPrint, FaUsers, FaChalkboardTeacher } from 'react-icons/fa';
+import { db } from '../firebase';
+import { ref, onValue, set, push, update } from 'firebase/database';
 
 const AdminDashboard = () => {
     const { t } = useLanguage();
@@ -35,52 +37,65 @@ const AdminDashboard = () => {
         const session = localStorage.getItem('adminSession');
         if (!session) { navigate('/admin'); return; }
 
-        // Load Students
-        const storedStudents = localStorage.getItem('datasite_students');
-        if (storedStudents) {
-            setStudents(JSON.parse(storedStudents));
-        } else {
-            setStudents(initialStudents);
-            localStorage.setItem('datasite_students', JSON.stringify(initialStudents));
-        }
+        // Sync Students from Firebase
+        const studentsRef = ref(db, 'students');
+        onValue(studentsRef, (snapshot) => {
+            const data = snapshot.val();
+            if (data) {
+                // Convert object to array if needed, assuming it's stored as array or object
+                const studentsList = Array.isArray(data) ? data : Object.values(data);
+                setStudents(studentsList);
+            } else {
+                // If no data in Firebase, initialize with initialStudents
+                set(studentsRef, initialStudents);
+                setStudents(initialStudents);
+            }
+        });
 
-        // Load Groups
-        const storedGroups = localStorage.getItem('datasite_groups');
-        if (storedGroups) {
-            setGroups(JSON.parse(storedGroups));
-        } else {
-            // Default groups from coursesData if none exist
-            const initialGroups = coursesData.map(c => ({
-                id: `GRP${c.id}`,
-                name: `${c.title} - ${c.instructor}`,
-                courseId: c.id,
-                courseTitle: c.title,
-                teacherName: c.instructor,
-                revenue: 0
-            }));
-            setGroups(initialGroups);
-            localStorage.setItem('datasite_groups', JSON.stringify(initialGroups));
-        }
+        // Sync Groups from Firebase
+        const groupsRef = ref(db, 'groups');
+        onValue(groupsRef, (snapshot) => {
+            const data = snapshot.val();
+            if (data) {
+                const groupsList = Array.isArray(data) ? data : Object.values(data);
+                setGroups(groupsList);
+            } else {
+                const initialGroups = coursesData.map(c => ({
+                    id: `GRP${c.id}`,
+                    name: `${c.title} - ${c.instructor}`,
+                    courseId: c.id,
+                    courseTitle: c.title,
+                    teacherName: c.instructor,
+                    revenue: 0
+                }));
+                set(groupsRef, initialGroups);
+                setGroups(initialGroups);
+            }
+        });
 
-        // Load History
-        const storedHistory = localStorage.getItem('datasite_history');
-        if (storedHistory) setPaymentHistory(JSON.parse(storedHistory));
+        // Sync History from Firebase
+        const historyRef = ref(db, 'history');
+        onValue(historyRef, (snapshot) => {
+            const data = snapshot.val();
+            if (data) {
+                const historyList = Object.values(data).sort((a, b) => b.timestamp - a.timestamp);
+                setPaymentHistory(historyList);
+            }
+        });
     }, [navigate]);
 
     const saveStudents = (updated) => {
-        setStudents(updated);
-        localStorage.setItem('datasite_students', JSON.stringify(updated));
+        set(ref(db, 'students'), updated);
     };
 
     const saveGroups = (updated) => {
-        setGroups(updated);
-        localStorage.setItem('datasite_groups', JSON.stringify(updated));
+        set(ref(db, 'groups'), updated);
     };
 
     const saveHistory = (newEntry) => {
-        const updated = [newEntry, ...paymentHistory];
-        setPaymentHistory(updated);
-        localStorage.setItem('datasite_history', JSON.stringify(updated));
+        const historyRef = push(ref(db, 'history'));
+        const entryWithTimestamp = { ...newEntry, timestamp: Date.now() };
+        set(historyRef, entryWithTimestamp);
 
         // Update group revenue
         const student = students.find(s => s.id === newEntry.studentId);

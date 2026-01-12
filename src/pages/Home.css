@@ -106,10 +106,8 @@
     gap: 16px;
 }
 
-/* Nudge English bottom row left slightly to align 'Coding' under 'Future' */
-.banner-heading[data-lang="en"] .banner-row-bottom {
-    transform: translateX(-20px);
-}
+/* Nudge English bottom row removed for consistency */
+/* .banner-heading[data-lang="en"] .banner-row-bottom { transform: translateX(-20px); } <--- Removed */
 
 .phrase-slider {
     position: relative;
@@ -118,17 +116,26 @@
     justify-content: center;
     height: 1.8em;
     line-height: 1.8;
-    width: 420px;
-    /* Brining suffix closer to the center */
-    margin: 0;
+    width: auto;
+    /* Adaptive width */
+    min-width: unset;
+    /* Remove fixed constraint */
+    padding: 0;
+    /* remove container padding */
+    margin: 0 15px;
+    /* Add spacing around the slider itself */
     overflow: visible;
 }
 
 
 .phrase-item {
     position: absolute;
-    width: 100%;
-    left: 0;
+    width: auto;
+    /* Fit content */
+    left: 50%;
+    /* Center alignment fallback */
+    transform: translateX(-50%) translateY(0.5em);
+    /* Center and offset */
     top: 0;
     display: flex;
     align-items: center;
@@ -136,14 +143,14 @@
     height: 100%;
     text-align: center;
     opacity: 0;
-    transform: translateY(0.5em);
-    transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+    transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     font-weight: 1000;
-    /* Max boldness */
     white-space: nowrap;
+    padding: 0 5px;
+    /* Inner breathing room */
 }
 
 .phrase-item:nth-child(1) {
@@ -159,8 +166,12 @@
 }
 
 .phrase-item.is-visible {
+    position: relative;
+    /* Take up flow space */
+    left: auto;
+    transform: none;
+    /* Reset transforms */
     opacity: 1;
-    transform: translateY(0);
 }
 
 .banner-subtext {
@@ -412,34 +423,58 @@
 @media (max-width: 768px) {
     .banner-heading {
         font-size: 3rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .banner-row-top,
+    .banner-row-bottom {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        gap: 5px;
+    }
+
+    .banner-heading[data-lang="en"] .banner-row-bottom {
+        transform: none;
     }
 
     .phrase-slider {
-        min-width: 100%;
-        height: auto;
-        margin-top: 0 !important;
-        margin-left: 0 !important;
-        display: block;
-        overflow: visible;
+        min-width: auto;
+        width: 100%;
+        height: 1.5em;
+        margin: 5px 0 !important;
+        display: flex;
+        justify-content: center;
     }
 
     .banner-heading[data-lang] .lead-text:last-child {
-        margin-top: 0 !important;
+        margin-top: 5px !important;
         margin-left: 0 !important;
     }
 
     .phrase-item {
-        position: relative;
-        left: auto;
-        right: auto;
+        position: absolute;
         width: 100%;
-        transform: none !important;
-        opacity: 1 !important;
-        display: none;
+        left: 0;
+        top: 0;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        transform: translateY(10px);
+        transition: all 0.5s ease;
     }
 
     .phrase-item.is-visible {
-        display: block;
+        opacity: 1;
+        transform: translateY(0);
+        position: relative;
     }
 
     .highlights-grid {

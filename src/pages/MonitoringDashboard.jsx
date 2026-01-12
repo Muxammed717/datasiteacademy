@@ -7,6 +7,8 @@ import {
     FaUsers, FaMoneyBillWave, FaBookOpen, FaChartPie,
     FaSignOutAlt, FaShieldAlt, FaDatabase, FaHome
 } from 'react-icons/fa';
+import { db } from '../firebase';
+import { ref, onValue } from 'firebase/database';
 
 const MonitoringDashboard = () => {
     const { t } = useLanguage();
@@ -27,39 +29,40 @@ const MonitoringDashboard = () => {
         const session = localStorage.getItem('monitorSession');
         if (!session) { navigate('/monitoring'); return; }
 
-        const storedStudents = localStorage.getItem('datasite_students');
-        const students = storedStudents ? JSON.parse(storedStudents) : initialStudents;
+        const studentsRef = ref(db, 'students');
+        const groupsRef = ref(db, 'groups');
 
-        const storedGroups = localStorage.getItem('datasite_groups');
-        let groups = [];
-        if (storedGroups) {
-            groups = JSON.parse(storedGroups);
-        } else {
-            groups = coursesData.map(c => ({
-                id: `GRP${c.id}`,
-                name: `${c.title} - ${c.instructor}`,
-                courseId: c.id,
-                courseTitle: c.title,
-                teacherName: c.instructor,
-                revenue: 0
-            }));
-            localStorage.setItem('datasite_groups', JSON.stringify(groups));
-        }
+        onValue(studentsRef, (studentSnapshot) => {
+            const data = studentSnapshot.val() || initialStudents;
+            const students = Array.isArray(data) ? data : Object.values(data);
 
-        const paid = students.filter(s => s.status === 'paid');
-        const dist = {};
-        students.forEach(s => { dist[s.course] = (dist[s.course] || 0) + 1; });
+            onValue(groupsRef, (groupSnapshot) => {
+                const gData = groupSnapshot.val() || coursesData.map(c => ({
+                    id: `GRP${c.id}`,
+                    name: `${c.title} - ${c.instructor}`,
+                    courseId: c.id,
+                    courseTitle: c.title,
+                    teacherName: c.instructor,
+                    revenue: 0
+                }));
+                const groups = Array.isArray(gData) ? gData : Object.values(gData);
 
-        const totalRev = students.reduce((acc, s) => acc + (parseInt(s.totalPaid) || 0), 0);
+                const paid = students.filter(s => s.status === 'paid');
+                const dist = {};
+                students.forEach(s => { dist[s.course] = (dist[s.course] || 0) + 1; });
 
-        setStats({
-            totalStudents: students.length,
-            totalRevenue: totalRev,
-            activeCourses: coursesData.length,
-            paidCount: paid.length,
-            unpaidCount: students.length - paid.length,
-            courseDistribution: dist,
-            groupPerformance: groups.sort((a, b) => (b.revenue || 0) - (a.revenue || 0))
+                const totalRev = students.reduce((acc, s) => acc + (parseInt(s.totalPaid) || 0), 0);
+
+                setStats({
+                    totalStudents: students.length,
+                    totalRevenue: totalRev,
+                    activeCourses: coursesData.length,
+                    paidCount: paid.length,
+                    unpaidCount: students.length - paid.length,
+                    courseDistribution: dist,
+                    groupPerformance: groups.sort((a, b) => (b.revenue || 0) - (a.revenue || 0))
+                });
+            });
         });
     }, [navigate]);
 

@@ -128,6 +128,9 @@ const Navbar = () => {
             <Link to="/about" className="nav-link" onClick={toggleMenu}>{t.nav.about}</Link>
           </li>
           <li className="nav-item">
+            <Link to="/russian-language" className="nav-link" onClick={toggleMenu}>{t.nav.russian}</Link>
+          </li>
+          <li className="nav-item">
             <Link to="/contact" className="nav-link" onClick={toggleMenu}>{t.nav.contact}</Link>
           </li>
           <li className="nav-item">
@@ -137,6 +140,28 @@ const Navbar = () => {
           <li className="nav-item">
             <Link to="/enrollment" className="btn btn-primary nav-btn" onClick={toggleMenu}>{t.nav.enroll}</Link>
           </li>
+
+          {/* Mobile Language Switcher (Visible only on mobile via CSS) */}
+          <div className={`mobile-lang-grid ${isOpen ? 'active' : ''}`}>
+            <div
+              className={`mobile-lang-option ${language === 'uz' ? 'active' : ''}`}
+              onClick={() => { changeLanguage('uz'); setIsOpen(false); }}
+            >
+              O'zbek
+            </div>
+            <div
+              className={`mobile-lang-option ${language === 'ru' ? 'active' : ''}`}
+              onClick={() => { changeLanguage('ru'); setIsOpen(false); }}
+            >
+              Русский
+            </div>
+            <div
+              className={`mobile-lang-option ${language === 'en' ? 'active' : ''}`}
+              onClick={() => { changeLanguage('en'); setIsOpen(false); }}
+            >
+              English
+            </div>
+          </div>
         </ul>
       </div>
     </nav>

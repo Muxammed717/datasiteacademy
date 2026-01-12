@@ -151,7 +151,7 @@
     }
 
     .logo-img {
-        height: 35px;
+        height: 45px;
     }
 
     .clock-wrapper {
@@ -161,6 +161,11 @@
     .desktop-nav-extras {
         margin-left: auto !important;
         margin-right: 0.5rem !important;
+    }
+
+    .lang-menu-container {
+        margin-right: 15px;
+        /* Add spacing before the burger menu */
     }
 }
 
@@ -326,6 +331,20 @@
     padding: 10px 1rem;
     margin-top: 15px;
     border-top: 1px solid #f1f5f9;
+    display: none;
+    /* Hidden by default (desktop) */
+}
+
+/* Show in mobile menu */
+@media screen and (max-width: 1150px) {
+
+    .nav-menu.active~.mobile-lang-grid,
+    /* If sibling */
+    .nav-menu .mobile-lang-grid,
+    /* If child (depending on placement, but I put it as sibling in JSX fix above? No wait) */
+    .mobile-lang-grid {
+        display: flex;
+    }
 }
 
 .mobile-lang-option {

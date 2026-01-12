@@ -13,6 +13,7 @@ import MonitoringLogin from './pages/MonitoringLogin';
 import MonitoringDashboard from './pages/MonitoringDashboard';
 import Enrollment from './pages/Enrollment';
 import News from './pages/News';
+import RussianLanguage from './pages/RussianLanguage';
 import Snowfall from './components/Snowfall';
 import InstructorDetails from './pages/InstructorDetails';
 import { LanguageProvider } from './context/LanguageContext';
@@ -47,6 +48,7 @@ function App() {
             <Route path="/admin/dashboard" element={<AdminDashboard />} />
             <Route path="/enrollment" element={<Enrollment />} />
             <Route path="/news" element={<News />} />
+            <Route path="/russian-language" element={<RussianLanguage />} />
             <Route path="/monitoring" element={<MonitoringLogin />} />
             <Route path="/monitoring/dashboard" element={<MonitoringDashboard />} />
             <Route path="/instructor/:slug" element={<InstructorDetails />} />

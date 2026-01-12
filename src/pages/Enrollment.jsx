@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
-import { useLanguage } from '../context/LanguageContext';
-import { FaUser, FaPhone, FaBookOpen, FaCommentDots, FaPaperPlane, FaCheckCircle } from 'react-icons/fa';
-import './Enrollment.css';
 import { coursesData } from '../data/courses';
+import { db } from '../firebase';
+import { ref, get, set, push } from 'firebase/database';
 
 const Enrollment = () => {
     const { t, language } = useLanguage();
@@ -43,8 +41,10 @@ const Enrollment = () => {
         try {
             await sendTelegramMessage(telegramMessage);
 
-            const storedStudents = localStorage.getItem('datasite_students');
-            const students = storedStudents ? JSON.parse(storedStudents) : [];
+            const studentsRef = ref(db, 'students');
+            const snapshot = await get(studentsRef);
+            const students = snapshot.val() || [];
+            const studentsList = Array.isArray(students) ? students : Object.values(students);
 
             const newStudent = {
                 id: `DS${Math.floor(1000 + Math.random() * 9000)}`,
@@ -55,8 +55,8 @@ const Enrollment = () => {
                 registrationDate: new Date().toISOString().split('T')[0]
             };
 
-            const updatedStudents = [...students, newStudent];
-            localStorage.setItem('datasite_students', JSON.stringify(updatedStudents));
+            const updatedStudents = [...studentsList, newStudent];
+            await set(studentsRef, updatedStudents);
 
             setLoading(false);
             setSubmitted(true);

@@ -135,7 +135,7 @@ const News = () => {
             id: '7',
             type: 'video',
             span: 'span-row-2',
-            src: 'news/IMG_8504.MOV',
+            src: '/news/sayr.mp4',
             thumbnail: '',
             title: { uz: 'Uqituvchi va uquvchilar bilan dam olish ', en: 'Interview', ru: 'Интервью' },
             subtitle: { uz: 'DAM OLISH ', en: 'INTERVIEW', ru: 'ОТДЫХ' }
@@ -166,9 +166,9 @@ const News = () => {
             id: '10',
             type: 'video',
             span: 'span-row-2',
-            src: '/news/IMG_1424.MOV',
+            src: '/news/Tez kunda.mp4',
             thumbnail: '',
-            title: { uz: 'Bitiruvchilar', en: 'Graduates', ru: 'Выпускники' },
+            title: { uz: 'Tez kunda', en: 'Coming soon', ru: 'Скоро' },
             subtitle: { uz: 'Bitiruvchilar', en: 'Graduates', ru: 'Выпускники' }
         },
 
@@ -212,6 +212,7 @@ const News = () => {
     const [scrollLeft, setScrollLeft] = useState(0);
 
     const handleMouseDown = (e) => {
+        e.preventDefault(); // Prevent native drag behavior (sticky cursor fix)
         setIsDown(true);
         sliderRef.current.classList.add('active');
         setStartX(e.pageX - sliderRef.current.offsetLeft);
