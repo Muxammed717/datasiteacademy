@@ -127,9 +127,7 @@ const Navbar = () => {
           <li className="nav-item">
             <Link to="/about" className="nav-link" onClick={toggleMenu}>{t.nav.about}</Link>
           </li>
-          <li className="nav-item">
-            <Link to="/russian-language" className="nav-link" onClick={toggleMenu}>{t.nav.russian}</Link>
-          </li>
+
           <li className="nav-item">
             <Link to="/contact" className="nav-link" onClick={toggleMenu}>{t.nav.contact}</Link>
           </li>
