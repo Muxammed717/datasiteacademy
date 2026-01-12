@@ -29,10 +29,6 @@ const Preloader = () => {
                     <span></span>
                 </div>
             </div>
-            <div className="preloader-bg-decor">
-                <div className="p-blob blob-1"></div>
-                <div className="p-blob blob-2"></div>
-            </div>
         </div>
     );
 };
