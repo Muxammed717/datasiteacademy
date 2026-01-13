@@ -137,8 +137,8 @@
 
 /* Nudge for better visibility */
 .banner-heading[data-lang="uz"] .banner-row-bottom {
-    transform: translateX(-10px);
-    /* Shift left to show full "Yerda" */
+    transform: translateX(-25px);
+    /* Shift more left to show full "Yerda" */
 }
 
 .phrase-slider {
