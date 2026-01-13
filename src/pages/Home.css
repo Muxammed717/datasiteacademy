@@ -121,9 +121,14 @@
     flex-direction: column;
     align-items: center;
     gap: 8px;
-    color: #FFFFFF !important;
-    /* Force white for all banner text */
+    color: #15322c !important;
+    /* Dark green in light mode */
     transition: color 0.4s ease;
+}
+
+[data-theme="dark"] .banner-heading {
+    color: #FFFFFF !important;
+    /* White in dark mode */
 }
 
 .banner-row-top,
@@ -172,12 +177,16 @@
     font-weight: 900;
     white-space: nowrap;
     padding: 0 5px;
-    color: #FFFFFF !important;
-    /* Force WHITE in all modes */
-    /* Always white as requested */
-    text-shadow: 0 2px 10px rgba(21, 50, 44, 1);
-    /* Strong shadow for visibility on light backgrounds */
+    color: #15322c !important;
+    /* Dark green in light mode */
+    text-shadow: none;
     background: none;
+}
+
+[data-theme="dark"] .phrase-item {
+    color: #FFFFFF !important;
+    /* White in dark mode */
+    text-shadow: 0 2px 10px rgba(21, 50, 44, 1);
 }
 
 .phrase-item.is-visible {
@@ -191,8 +200,13 @@
 
 .lead-text {
     animation: fadeInUp 0.8s ease-out both;
+    color: #15322c !important;
+    /* Dark green in light mode */
+}
+
+[data-theme="dark"] .lead-text {
     color: #FFFFFF !important;
-    /* Force white */
+    /* White in dark mode */
 }
 
 .banner-subtext {

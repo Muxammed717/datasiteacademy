@@ -61,6 +61,8 @@
     background-color: var(--primary);
     transform: translateY(-3px);
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+    color: #FFFFFF !important;
+    /* White icon on hover */
 }
 
 .footer-heading {
@@ -142,7 +144,8 @@
     border: 1px solid rgba(255, 255, 255, 0.1);
     padding: 10px 15px;
     border-radius: 8px;
-    color: white;
+    color: var(--text-main);
+    /* Theme-aware text color */
     outline: none;
     font-size: 0.9rem;
     transition: border-color 0.2s;
@@ -151,8 +154,8 @@
     box-sizing: border-box;
 }
 
-.footer-newsletter input:focus {
-    border-color: var(--primary);
+.footer-newsletter input::placeholder {
+    color: var(--text-secondary);
 }
 
 .footer-newsletter .footer-subscribe-btn {
