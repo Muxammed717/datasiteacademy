@@ -63,36 +63,39 @@ const Enrollment = () => {
 <b>💬 Xabar:</b> ${formData.message || '—'}
         `;
 
-        // Send to telegram without waiting
+        // Send to telegram (fire and forget)
         sendTelegramMessage(telegramMessage);
 
-        // Try to save to Firebase (but don't block on it)
-        try {
-            const studentsRef = ref(db, 'students');
-            const snapshot = await get(studentsRef);
-            const students = snapshot.val() || [];
-            const studentsList = Array.isArray(students) ? students : Object.values(students);
-
-            const newStudent = {
-                id: `DS${Math.floor(1000 + Math.random() * 9000)}`,
-                name: formData.name,
-                course: formData.course,
-                status: 'unpaid',
-                totalPaid: 0,
-                registrationDate: new Date().toISOString().split('T')[0]
-            };
-
-            const updatedStudents = [...studentsList, newStudent];
-            await set(studentsRef, updatedStudents);
-        } catch (err) {
-            console.error('Firebase error:', err);
-        }
-
-        // Always show success after 3 seconds
+        // Start 3 second timer IMMEDIATELY - this will always run
         setTimeout(() => {
             setLoading(false);
             setSubmitted(true);
         }, 3000);
+
+        // Try to save to Firebase in background (don't wait for it)
+        const saveToFirebase = async () => {
+            try {
+                const studentsRef = ref(db, 'students');
+                const snapshot = await get(studentsRef);
+                const students = snapshot.val() || [];
+                const studentsList = Array.isArray(students) ? students : Object.values(students);
+
+                const newStudent = {
+                    id: `DS${Math.floor(1000 + Math.random() * 9000)}`,
+                    name: formData.name,
+                    course: formData.course,
+                    status: 'unpaid',
+                    totalPaid: 0,
+                    registrationDate: new Date().toISOString().split('T')[0]
+                };
+
+                const updatedStudents = [...studentsList, newStudent];
+                await set(studentsRef, updatedStudents);
+            } catch (err) {
+                console.error('Firebase error:', err);
+            }
+        };
+        saveToFirebase(); // Don't await - run in background
     };
 
     if (submitted) {
