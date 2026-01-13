@@ -67,11 +67,7 @@
 }
 
 .social-icon-box:hover {
-    background-color: var(--primary);
     transform: translateY(-3px);
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
-    color: #FFFFFF !important;
-    /* White icon on hover */
 }
 
 .footer-heading {
