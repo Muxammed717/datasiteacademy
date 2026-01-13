@@ -81,7 +81,7 @@ const Navbar = () => {
     <nav className="navbar">
       <div className="container navbar-container">
         <Link to="/" className="logo-container" onClick={() => setIsOpen(false)}>
-          <img src="/datasite-logo.png" alt="DataSite Academy" className="logo-img" />
+          <img src={theme === 'dark' ? "/datasite-logo-darkmode.png" : "/datasite-logo.png"} alt="DataSite Academy" className="logo-img" />
         </Link>
 
         {/* Dynamic World Clock with Flag */}
@@ -89,38 +89,40 @@ const Navbar = () => {
           <WorldClock language={language} />
         </div>
 
-        {/* Desktop Extras */}
-        <div className="desktop-nav-extras">
-          <button className="theme-toggle-btn" onClick={toggleTheme} aria-label="Toggle theme">
-            {theme === 'light' ? <FaMoon /> : <FaSun />}
-          </button>
+        <div className="nav-controls-wrapper">
+          {/* Controls that stay visible on mobile next to the burger */}
+          <div className="mobile-visible-extras">
+            <div className="lang-menu-container" ref={langMenuRef}>
+              <button
+                className="lang-main-btn"
+                onClick={() => setLangOpen(!langOpen)}
+              >
+                <img src={language === 'uz' ? flagUz : language === 'ru' ? flagRu : flagEn} alt="" className="lang-flag-mini" />
+                <span>{getLangShort(language)}</span>
+                <span className={`arrow-icon ${langOpen ? 'up' : 'down'}`}>▾</span>
+              </button>
 
-          <div className="lang-menu-container" ref={langMenuRef}>
-            <button
-              className="lang-main-btn"
-              onClick={() => setLangOpen(!langOpen)}
-            >
-              <img src={language === 'uz' ? flagUz : language === 'ru' ? flagRu : flagEn} alt="" className="lang-flag-mini" />
-              <span>{getLangShort(language)}</span>
-              <span className={`arrow-icon ${langOpen ? 'up' : 'down'}`}>▾</span>
-            </button>
-
-            <div className={`lang-options-3row ${langOpen ? 'open' : ''}`}>
-              <div className={`lang-row-item ${language === 'uz' ? 'active' : ''}`} onClick={() => { changeLanguage('uz'); setLangOpen(false); }}>
-                <img src={flagUz} alt="" /> Uzbek
-              </div>
-              <div className={`lang-row-item ${language === 'ru' ? 'active' : ''}`} onClick={() => { changeLanguage('ru'); setLangOpen(false); }}>
-                <img src={flagRu} alt="" /> Русский
-              </div>
-              <div className={`lang-row-item ${language === 'en' ? 'active' : ''}`} onClick={() => { changeLanguage('en'); setLangOpen(false); }}>
-                <img src={flagEn} alt="" /> English
+              <div className={`lang-options-3row ${langOpen ? 'open' : ''}`}>
+                <div className={`lang-row-item ${language === 'uz' ? 'active' : ''}`} onClick={() => { changeLanguage('uz'); setLangOpen(false); }}>
+                  <img src={flagUz} alt="" /> Uzbek
+                </div>
+                <div className={`lang-row-item ${language === 'ru' ? 'active' : ''}`} onClick={() => { changeLanguage('ru'); setLangOpen(false); }}>
+                  <img src={flagRu} alt="" /> Русский
+                </div>
+                <div className={`lang-row-item ${language === 'en' ? 'active' : ''}`} onClick={() => { changeLanguage('en'); setLangOpen(false); }}>
+                  <img src={flagEn} alt="" /> English
+                </div>
               </div>
             </div>
-          </div>
-        </div>
 
-        <div className="mobile-icon" onClick={toggleMenu}>
-          {isOpen ? <FaTimes /> : <FaBars />}
+            <button className="theme-toggle-btn" onClick={toggleTheme} aria-label="Toggle theme">
+              {theme === 'light' ? <FaMoon /> : <FaSun />}
+            </button>
+          </div>
+
+          <div className="mobile-icon" onClick={toggleMenu}>
+            {isOpen ? <FaTimes /> : <FaBars />}
+          </div>
         </div>
 
         <ul className={isOpen ? 'nav-menu active' : 'nav-menu'}>
@@ -144,29 +146,8 @@ const Navbar = () => {
           <li className="nav-item">
             <Link to="/enrollment" className="btn btn-primary nav-btn" onClick={toggleMenu}>{t.nav.enroll}</Link>
           </li>
-
-          {/* Mobile Language Switcher (Visible only on mobile via CSS) */}
-          <div className={`mobile-lang-grid ${isOpen ? 'active' : ''}`}>
-            <div
-              className={`mobile-lang-option ${language === 'uz' ? 'active' : ''}`}
-              onClick={() => { changeLanguage('uz'); setIsOpen(false); }}
-            >
-              O'zbek
-            </div>
-            <div
-              className={`mobile-lang-option ${language === 'ru' ? 'active' : ''}`}
-              onClick={() => { changeLanguage('ru'); setIsOpen(false); }}
-            >
-              Русский
-            </div>
-            <div
-              className={`mobile-lang-option ${language === 'en' ? 'active' : ''}`}
-              onClick={() => { changeLanguage('en'); setIsOpen(false); }}
-            >
-              English
-            </div>
-          </div>
         </ul>
+
       </div>
     </nav>
   );

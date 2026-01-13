@@ -1,15 +1,27 @@
 .navbar {
-    background: rgba(255, 255, 255, 0.85);
+    background-color: var(--bg-main);
     height: 85px;
     display: flex;
     justify-content: center;
     align-items: center;
-    position: sticky;
+    position: fixed;
+    width: 100%;
     top: 0;
     z-index: 2000;
-    border-bottom: 1px solid rgba(21, 50, 44, 0.05);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
+    border-bottom: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+}
+
+.nav-controls-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.mobile-visible-extras {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 }
 
 .navbar-container {
@@ -33,10 +45,18 @@
 }
 
 .logo-img {
-    height: 60px;
+    height: 55px;
+    /* Slightly reduced to prevent clipping */
     width: auto;
     object-fit: contain;
-    mix-blend-mode: multiply;
+    transition: filter 0.3s ease;
+    display: block;
+    /* Ensure no inline-gap */
+}
+
+/* Removed filter as we now switch the logo file itself */
+[data-theme="dark"] .logo-img {
+    filter: none;
 }
 
 
@@ -50,11 +70,11 @@
 .nav-link {
     font-weight: 600;
     font-size: 0.95rem;
-    color: var(--text-secondary);
+    color: var(--text-main);
     letter-spacing: -0.01em;
     position: relative;
     padding: 0.5rem 0;
-    transition: color 0.3s;
+    transition: all 0.3s ease;
 }
 
 .nav-link::after {
@@ -86,16 +106,19 @@
 .theme-toggle-btn {
     background: none;
     border: none;
-    font-size: 1.3rem;
+    font-size: 1.4rem;
+    /* Slightly larger for better touch/click */
     color: var(--text-main);
     cursor: pointer;
-    padding: 0.5rem;
+    padding: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     border-radius: 50%;
-    margin-right: 1rem;
+    margin-left: 0.5rem;
+    overflow: visible;
+    /* Ensure icon doesn't clip on rotation */
 }
 
 .theme-toggle-btn:hover {
@@ -150,7 +173,7 @@
         left: -100%;
         opacity: 1;
         transition: all 0.5s ease;
-        background: white;
+        background: var(--bg-main);
         padding-top: var(--spacing-xl);
         z-index: 999;
     }
@@ -161,6 +184,10 @@
 
     .mobile-icon {
         display: block;
+        font-size: 1.8rem;
+    }
+
+    .nav-controls-wrapper {
         margin-left: auto;
     }
 }
@@ -171,21 +198,25 @@
     }
 
     .logo-img {
-        height: 45px;
+        height: 35px;
+    }
+
+    .mobile-visible-extras {
+        gap: 0.5rem;
+    }
+
+    .lang-main-btn {
+        padding: 6px 10px;
+        font-size: 0.8rem;
+    }
+
+    .theme-toggle-btn {
+        margin-left: 0.2rem;
+        font-size: 1.1rem;
     }
 
     .clock-wrapper {
         display: none !important;
-    }
-
-    .desktop-nav-extras {
-        margin-left: auto !important;
-        margin-right: 0.5rem !important;
-    }
-
-    .lang-menu-container {
-        margin-right: 15px;
-        /* Add spacing before the burger menu */
     }
 }
 
@@ -193,55 +224,16 @@
     margin-left: 0;
 }
 
-.desktop-lang-switch {
-    display: block !important;
-}
-
-@media screen and (max-width: 1150px) {
-    .desktop-lang-switch {
-        display: none !important;
-    }
-
-    .mobile-lang-switch {
-        display: block;
-    }
-}
-
-@media screen and (min-width: 1151px) {
-    .mobile-lang-switch {
-        display: none;
-    }
-}
-
 .world-clock {
     display: flex;
     align-items: center;
     gap: 12px;
-    /* Background removed as requested */
     background: transparent;
-    backdrop-filter: none;
     padding: 6px 14px;
     border-radius: 12px;
-    border: none;
-    box-shadow: none;
     min-width: 135px;
     justify-content: center;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
-    overflow: hidden;
-}
-
-.world-clock:hover {
-    background: rgba(255, 255, 255, 0.9);
-    transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-}
-
-.clock-flag {
-    width: 22px;
-    height: 15px;
-    object-fit: cover;
-    border-radius: 2px;
 }
 
 .clock-time {
@@ -256,19 +248,18 @@
 .lang-menu-container {
     position: relative;
     z-index: 1001;
-    /* Higher than navbar itself if needed, though they are inside it. Important for overlap */
 }
 
 .lang-main-btn {
     display: flex;
     align-items: center;
     gap: 8px;
-    background: white;
+    background: var(--bg-main);
     border: 1px solid var(--border);
     padding: 8px 14px;
     border-radius: 12px;
     font-weight: 700;
-    color: var(--primary);
+    color: var(--text-main);
     cursor: pointer;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.04);
     transition: all 0.2s ease;
@@ -289,28 +280,28 @@
 .lang-options-3row {
     position: absolute;
     top: calc(100% + 10px);
-    left: 0;
-    /* Align straight under the button */
-    background: white;
-    min-width: 160px;
+    left: 50%;
+    right: auto;
+    background: var(--bg-main);
+    border: 1px solid var(--border);
     border-radius: 12px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
-    border: 1px solid rgba(0, 0, 0, 0.06);
-    overflow: hidden;
-    padding: 6px;
+    padding: 8px;
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: 4px;
+    min-width: 160px;
+    box-shadow: var(--shadow-lg);
+    z-index: 1000;
     opacity: 0;
     visibility: hidden;
-    transform: translateY(10px);
+    transform: translateX(-50%) translateY(10px);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .lang-options-3row.open {
     opacity: 1;
     visibility: visible;
-    transform: translateY(0);
+    transform: translateX(-50%) translateY(0);
 }
 
 .lang-row-item {
@@ -334,61 +325,26 @@
 }
 
 .lang-row-item:hover {
-    background: #f8fafc;
+    background: var(--bg-secondary);
     color: var(--primary);
 }
 
 .lang-row-item.active {
     background: var(--primary);
-    color: white;
+    color: var(--bg-main);
 }
 
-/* Mobile Lang styles - 3 ROWS */
-.mobile-lang-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    padding: 10px 1rem;
-    margin-top: 15px;
-    border-top: 1px solid #f1f5f9;
-    display: none;
-    /* Hidden by default (desktop) */
+[data-theme="light"] .lang-row-item.active {
+    color: #FFFFFF;
 }
 
-/* Show in mobile menu */
-@media screen and (max-width: 1150px) {
-
-    .nav-menu.active~.mobile-lang-grid,
-    /* If sibling */
-    .nav-menu .mobile-lang-grid,
-    /* If child (depending on placement, but I put it as sibling in JSX fix above? No wait) */
-    .mobile-lang-grid {
-        display: flex;
-    }
-}
-
-.mobile-lang-option {
-    padding: 14px 20px;
-    background: #f8fafc;
-    border: 1px solid #e2e8f0;
-    border-radius: 12px;
-    text-align: left;
-    font-weight: 700;
-    font-size: 0.9rem;
-    color: #64748b;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    display: block;
-    /* Simpler block layout */
-}
-
-/* Icons removed as requested by user */
-.mobile-lang-option::after {
-    display: none !important;
-}
-
-.mobile-lang-option.active {
-    background: var(--primary);
-    color: white;
-    border-color: var(--primary);
+[data-theme="dark"] {
+    --bg-main: #15322C;
+    --bg-secondary: #0D211D;
+    --text-main: #FFFFFF;
+    --text-secondary: #CBD5E1;
+    --primary: #FFFFFF;
+    --border: #2C554C;
+    --accent: #2C554C;
+    --accent-dark: #15322C;
 }

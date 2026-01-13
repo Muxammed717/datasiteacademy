@@ -3,12 +3,14 @@ import { Link } from 'react-router-dom';
 import './Footer.css';
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaTelegram, FaYoutube, FaPhone, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
 import { useLanguage } from '../context/LanguageContext';
+import PlexusBackground from './PlexusBackground';
 
 const Footer = () => {
     const { t, language } = useLanguage();
 
     return (
         <footer className="footer">
+            <PlexusBackground color="255, 255, 255" absolute={true} />
             <div className="container footer-container">
                 <div className="footer-col brand-col">
                     <h3 className="footer-logo">Datasite<span>Academy</span></h3>

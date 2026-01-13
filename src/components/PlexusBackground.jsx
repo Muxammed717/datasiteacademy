@@ -1,11 +1,13 @@
 import React, { useEffect, useRef } from 'react';
+import { useTheme } from '../context/ThemeContext';
 import './PlexusBackground.css';
 
-const PlexusBackground = () => {
+const PlexusBackground = ({ color, absolute = false }) => {
     const canvasRef = useRef(null);
     const particlesRef = useRef([]);
     const mouseRef = useRef({ x: null, y: null, radius: 150 });
     const animationFrameRef = useRef(null);
+    const { theme } = useTheme();
 
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -16,18 +18,30 @@ const PlexusBackground = () => {
         const mouse = mouseRef.current;
 
         const handleMouseMove = (e) => {
-            mouse.x = e.x;
-            mouse.y = e.y;
+            const rect = canvas.getBoundingClientRect();
+            mouse.x = e.clientX - rect.left;
+            mouse.y = e.clientY - rect.top;
         };
 
         const handleResize = () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+            const parent = canvas.parentElement;
+            canvas.width = absolute ? parent.offsetWidth : window.innerWidth;
+            canvas.height = absolute ? parent.offsetHeight : window.innerHeight;
             init();
         };
 
-        window.addEventListener('mousemove', handleMouseMove);
+        if (absolute) {
+            canvas.parentElement.addEventListener('mousemove', handleMouseMove);
+        } else {
+            window.addEventListener('mousemove', handleMouseMove);
+        }
         window.addEventListener('resize', handleResize);
+
+        const defaultColor = theme === 'dark' ? '255, 255, 255' : '21, 50, 44';
+        const finalColor = color || defaultColor;
+
+        const particleColor = `rgba(${finalColor}, 0.8)`;
+        const lineColor = `rgba(${finalColor},`;
 
         class Particle {
             constructor(x, y, directionX, directionY, size) {
@@ -42,7 +56,7 @@ const PlexusBackground = () => {
             draw() {
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
-                ctx.fillStyle = 'rgba(4, 77, 41, 1)';
+                ctx.fillStyle = particleColor;
                 ctx.fill();
             }
 
@@ -93,9 +107,9 @@ const PlexusBackground = () => {
                     let distance = ((particles[a].x - particles[b].x) * (particles[a].x - particles[b].x))
                         + ((particles[a].y - particles[b].y) * (particles[a].y - particles[b].y));
 
-                    if (distance < (canvas.width / 7) * (canvas.height / 7)) {
-                        opacityValue = 1 - (distance / 20000);
-                        ctx.strokeStyle = `rgba(4, 77, 41, ${opacityValue * 0.8})`;
+                    if (distance < (canvas.width * canvas.height) / 40) {
+                        opacityValue = 1 - (distance / ((canvas.width * canvas.height) / 40));
+                        ctx.strokeStyle = `${lineColor} ${opacityValue * 0.5})`;
                         ctx.lineWidth = 1;
                         ctx.beginPath();
                         ctx.moveTo(particles[a].x, particles[a].y);
@@ -115,21 +129,26 @@ const PlexusBackground = () => {
             animationFrameRef.current = requestAnimationFrame(animate);
         }
 
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        const parent = canvas.parentElement;
+        canvas.width = absolute ? parent.offsetWidth : window.innerWidth;
+        canvas.height = absolute ? parent.offsetHeight : window.innerHeight;
         init();
         animate();
 
         return () => {
-            window.removeEventListener('mousemove', handleMouseMove);
+            if (absolute) {
+                canvas.parentElement.removeEventListener('mousemove', handleMouseMove);
+            } else {
+                window.removeEventListener('mousemove', handleMouseMove);
+            }
             window.removeEventListener('resize', handleResize);
             if (animationFrameRef.current) {
                 cancelAnimationFrame(animationFrameRef.current);
             }
         };
-    }, []);
+    }, [theme, color, absolute]); // Re-run when props change
 
-    return <canvas ref={canvasRef} className="plexus-canvas" />;
+    return <canvas ref={canvasRef} className={`plexus-canvas ${absolute ? 'is-absolute' : ''}`} />;
 };
 
 export default PlexusBackground;

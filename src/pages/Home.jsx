@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { FaLaptopCode, FaChartLine, FaUserTie, FaRocket, FaProjectDiagram, FaBriefcase, FaGraduationCap, FaPalette } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
-import Snowfall from '../components/Snowfall';
+import { useTheme } from '../context/ThemeContext';
 import './Home.css';
+import bannerLight from '../assets/banner-background.png';
+import bannerDark from '../assets/banner-background-darkmode.png';
 
 const RoadmapStep = ({ icon: Icon, title, desc, stepNumber }) => (
     <div className="roadmap-card">
@@ -18,10 +20,10 @@ const RoadmapStep = ({ icon: Icon, title, desc, stepNumber }) => (
     </div>
 );
 
-import ParticleBackground from '../components/ParticleBackground';
 
 const MainBanner = ({ t, language }) => {
     const [activePhrase, setActivePhrase] = useState(0);
+    const { theme } = useTheme();
     const phrases = t.home.hero.keywords;
 
     useEffect(() => {
@@ -38,12 +40,12 @@ const MainBanner = ({ t, language }) => {
 
     return (
         <section className="banner-wrap">
-            <Snowfall />
-            <ParticleBackground />
-            <div className="background-elements">
-                <div className="glow-orb orb-1"></div>
-                <div className="glow-orb orb-2"></div>
-                <div className="glow-orb orb-3"></div>
+            <div className="banner-bg-static">
+                <img
+                    src={theme === 'dark' ? bannerDark : bannerLight}
+                    alt="background mesh"
+                    className="mesh-img"
+                />
             </div>
             <div className="container banner-inner">
                 <h1 className="banner-heading" data-lang={language}>

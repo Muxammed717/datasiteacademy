@@ -4,7 +4,14 @@
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 1;
+    z-index: -1;
+    /* Place behind EVERYTHING except root bg */
     pointer-events: none;
-    opacity: 1;
+    opacity: 0.6;
+    /* Balanced visibility */
+}
+
+.plexus-canvas.is-absolute {
+    position: absolute;
+    z-index: 0;
 }

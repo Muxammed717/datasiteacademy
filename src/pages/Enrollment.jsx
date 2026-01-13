@@ -64,7 +64,8 @@ const Enrollment = () => {
         `;
 
         try {
-            await sendTelegramMessage(telegramMessage);
+            // Send to telegram without waiting (fire-and-forget) to speed up UI
+            sendTelegramMessage(telegramMessage);
 
             const studentsRef = ref(db, 'students');
             const snapshot = await get(studentsRef);
