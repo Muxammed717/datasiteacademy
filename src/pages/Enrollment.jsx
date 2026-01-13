@@ -106,8 +106,8 @@ const Enrollment = () => {
                         <div className="success-icon">
                             <FaCheckCircle />
                         </div>
-                        <h1>{t.enrollment.form.success}</h1>
-                        <p>{t.enrollment.subtitle}</p>
+                        <h1>Tabriklaymiz! 🎉</h1>
+                        <p>Arizangiz muvaffaqiyatli qabul qilindi. Tez orada siz bilan bog'lanamiz!</p>
                         <button className="btn btn-primary" onClick={() => setSubmitted(false)}>
                             Yana ariza topshirish
                         </button>
