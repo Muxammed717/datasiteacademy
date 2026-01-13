@@ -194,7 +194,7 @@
 
 @media screen and (max-width: 480px) {
     .navbar-container {
-        padding: 0 0.5rem;
+        padding: 0 1rem;
     }
 
     .logo-img {

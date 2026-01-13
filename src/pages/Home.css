@@ -177,16 +177,22 @@
     font-weight: 900;
     white-space: nowrap;
     padding: 0 5px;
-    color: #15322c !important;
-    /* Dark green in light mode */
+    /* Gradient Text Styling */
+    background: linear-gradient(135deg, #10b981 0%, #15322C 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent !important;
     text-shadow: none;
-    background: none;
 }
 
 [data-theme="dark"] .phrase-item {
-    color: #FFFFFF !important;
-    /* White in dark mode */
-    text-shadow: 0 2px 10px rgba(21, 50, 44, 1);
+    background: linear-gradient(135deg, #ffffff 0%, #10b981 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent !important;
+    text-shadow: none;
 }
 
 .phrase-item.is-visible {
@@ -200,13 +206,20 @@
 
 .lead-text {
     animation: fadeInUp 0.8s ease-out both;
-    color: #15322c !important;
-    /* Dark green in light mode */
+    /* Gradient Text Styling */
+    background: linear-gradient(135deg, #10b981 0%, #15322C 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent !important;
 }
 
 [data-theme="dark"] .lead-text {
-    color: #FFFFFF !important;
-    /* White in dark mode */
+    background: linear-gradient(135deg, #ffffff 0%, #10b981 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent !important;
 }
 
 .banner-subtext {
@@ -234,42 +247,51 @@
     font-size: 1.1rem;
     font-weight: 700;
     border-radius: 12px;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
+    background: linear-gradient(135deg, #10b981 0%, #15322C 100%);
+    color: #FFFFFF !important;
+    border: none;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
 }
 
-.btn-banner.btn-primary {
-    background: var(--primary);
-    color: var(--bg-main) !important;
-    border: 2px solid var(--primary);
+.btn-banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, #15322C 0%, #10b981 100%);
+    opacity: 0;
+    z-index: -1;
+    transition: opacity 0.3s ease;
 }
-
-/* [data-theme="dark"] .btn-banner.btn-primary { handled by base class } */
-
-.btn-banner.btn-outline {
-    background: transparent;
-    color: var(--primary) !important;
-    border: 2px solid var(--primary);
-}
-
-/* [data-theme="dark"] .btn-banner.btn-outline { handled by base class } */
 
 .btn-banner:hover {
     transform: translateY(-4px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
 }
 
-.btn-banner.btn-primary:hover {
-    background: var(--primary-dark);
-    border-color: var(--primary-dark);
+.btn-banner:hover::before {
+    opacity: 1;
+}
+
+/* Remove conflicting styles for specific button types since both should be gradient */
+.btn-banner.btn-primary,
+.btn-banner.btn-outline {
+    background: linear-gradient(135deg, #10b981 0%, #15322C 100%);
     color: #FFFFFF !important;
-    /* Force white on hover */
+    border: none;
 }
 
+.btn-banner.btn-primary:hover,
 .btn-banner.btn-outline:hover {
-    background: var(--primary);
+    background: linear-gradient(135deg, #10b981 0%, #15322C 100%);
+    /* Maintain base for ::before to work */
     color: #FFFFFF !important;
-    /* Force white on hover */
-    border-color: var(--primary);
+    border: none;
 }
 
 
