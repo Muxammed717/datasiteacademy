@@ -84,12 +84,15 @@ const Enrollment = () => {
             const updatedStudents = [...studentsList, newStudent];
             await set(studentsRef, updatedStudents);
 
-            setSubmitted(true);
+            // Show "Yuborildi" after 3 seconds
+            setTimeout(() => {
+                setLoading(false);
+                setSubmitted(true);
+            }, 3000);
         } catch (err) {
             console.error(err);
+            setLoading(false);
             alert('Xatolik yuz berdi. Iltimos qaytadan urinib ko\'ring.');
-        } finally {
-            setLoading(false); // Always reset loading state
         }
     };
 

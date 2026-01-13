@@ -547,6 +547,11 @@
         margin: 5px 0 !important;
     }
 
+    .phrase-item {
+        font-size: 2.5rem;
+        /* Same as banner heading on mobile */
+    }
+
     .highlights-grid {
         grid-template-columns: 1fr;
         grid-template-rows: auto;
