@@ -121,8 +121,8 @@
     flex-direction: column;
     align-items: center;
     gap: 8px;
-    color: var(--text-main) !important;
-    /* Theme-aware for legibility */
+    color: #FFFFFF !important;
+    /* Force white for all banner text */
     transition: color 0.4s ease;
 }
 
@@ -188,7 +188,8 @@
 
 .lead-text {
     animation: fadeInUp 0.8s ease-out both;
-    color: inherit !important;
+    color: #FFFFFF !important;
+    /* Force white */
 }
 
 .banner-subtext {
@@ -237,7 +238,22 @@
 
 .btn-banner:hover {
     transform: translateY(-4px);
-    opacity: 0.9;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.btn-banner.btn-primary:hover {
+    background: var(--primary-dark);
+    border-color: var(--primary-dark);
+}
+
+.btn-banner.btn-outline:hover {
+    background: var(--primary);
+    color: var(--bg-main) !important;
+    border-color: var(--primary);
+}
+
+[data-theme="light"] .btn-banner.btn-outline:hover {
+    color: #FFFFFF !important;
 }
 
 
