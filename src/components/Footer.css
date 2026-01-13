@@ -46,21 +46,24 @@
 .social-icon-box {
     width: 38px;
     height: 38px;
-    background-color: var(--bg-secondary);
+    background-color: #15322c;
+    /* Dark green background in light mode */
     border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
     color: #FFFFFF;
-    /* White in light mode */
+    /* White icon in light mode */
     text-decoration: none;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     font-size: 1.1rem;
 }
 
 [data-theme="dark"] .social-icon-box {
+    background-color: #FFFFFF;
+    /* White background in dark mode */
     color: #15322c;
-    /* Dark green in dark mode */
+    /* Dark green icon in dark mode */
 }
 
 .social-icon-box:hover {
