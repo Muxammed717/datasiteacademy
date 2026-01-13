@@ -63,10 +63,11 @@ const Enrollment = () => {
 <b>💬 Xabar:</b> ${formData.message || '—'}
         `;
 
-        try {
-            // Send to telegram without waiting (fire-and-forget) to speed up UI
-            sendTelegramMessage(telegramMessage);
+        // Send to telegram without waiting
+        sendTelegramMessage(telegramMessage);
 
+        // Try to save to Firebase (but don't block on it)
+        try {
             const studentsRef = ref(db, 'students');
             const snapshot = await get(studentsRef);
             const students = snapshot.val() || [];
@@ -83,17 +84,15 @@ const Enrollment = () => {
 
             const updatedStudents = [...studentsList, newStudent];
             await set(studentsRef, updatedStudents);
-
-            // Show "Yuborildi" after 3 seconds
-            setTimeout(() => {
-                setLoading(false);
-                setSubmitted(true);
-            }, 3000);
         } catch (err) {
-            console.error(err);
-            setLoading(false);
-            alert('Xatolik yuz berdi. Iltimos qaytadan urinib ko\'ring.');
+            console.error('Firebase error:', err);
         }
+
+        // Always show success after 3 seconds
+        setTimeout(() => {
+            setLoading(false);
+            setSubmitted(true);
+        }, 3000);
     };
 
     if (submitted) {
