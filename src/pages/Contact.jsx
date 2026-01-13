@@ -112,7 +112,7 @@ const Contact = () => {
 
                         <div className="input-group">
                             <label className="input-label">{t.contact.labels.message}</label>
-                            <textarea name="message" value={formData.message} onChange={handleChange} rows="4" className="form-input" style={{ resize: 'vertical' }} required />
+                            <textarea name="message" value={formData.message} onChange={handleChange} rows="4" className="form-input" style={{ resize: 'vertical' }} />
                         </div>
 
                         <button type="submit" disabled={isSubmitting} className="submit-btn">

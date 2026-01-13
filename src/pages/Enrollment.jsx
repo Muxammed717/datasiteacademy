@@ -84,12 +84,12 @@ const Enrollment = () => {
             const updatedStudents = [...studentsList, newStudent];
             await set(studentsRef, updatedStudents);
 
-            setLoading(false);
             setSubmitted(true);
         } catch (err) {
             console.error(err);
-            setLoading(false);
             alert('Xatolik yuz berdi. Iltimos qaytadan urinib ko\'ring.');
+        } finally {
+            setLoading(false); // Always reset loading state
         }
     };
 

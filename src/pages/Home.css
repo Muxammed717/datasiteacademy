@@ -135,8 +135,11 @@
     color: inherit;
 }
 
-/* Nudge English bottom row removed for consistency */
-/* .banner-heading[data-lang="en"] .banner-row-bottom { transform: translateX(-20px); } <--- Removed */
+/* Nudge for better visibility */
+.banner-heading[data-lang="uz"] .banner-row-bottom {
+    transform: translateX(-10px);
+    /* Shift left to show full "Yerda" */
+}
 
 .phrase-slider {
     position: relative;
@@ -244,16 +247,15 @@
 .btn-banner.btn-primary:hover {
     background: var(--primary-dark);
     border-color: var(--primary-dark);
+    color: #FFFFFF !important;
+    /* Force white on hover */
 }
 
 .btn-banner.btn-outline:hover {
     background: var(--primary);
-    color: var(--bg-main) !important;
-    border-color: var(--primary);
-}
-
-[data-theme="light"] .btn-banner.btn-outline:hover {
     color: #FFFFFF !important;
+    /* Force white on hover */
+    border-color: var(--primary);
 }
 
 
