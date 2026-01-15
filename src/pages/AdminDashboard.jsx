@@ -45,9 +45,24 @@ const AdminDashboard = () => {
     const [editingHistoryId, setEditingHistoryId] = useState(null);
     const [historyFormData, setHistoryFormData] = useState({ month: '', amount: '', comment: '' });
 
+    // Super Admin & Maintenance
+    const [isSuperAdmin, setIsSuperAdmin] = useState(false);
+    const [maintenanceMode, setMaintenanceMode] = useState(false);
+
     useEffect(() => {
         const session = localStorage.getItem('adminSession');
         if (!session) { navigate('/admin'); return; }
+
+        const parsedSession = JSON.parse(session);
+        if (parsedSession.role === 'superadmin') {
+            setIsSuperAdmin(true);
+        }
+
+        // Check Maintenance Status
+        const maintenanceRef = ref(db, 'settings/maintenance');
+        onValue(maintenanceRef, (snapshot) => {
+            setMaintenanceMode(snapshot.val() === true);
+        });
 
         // Sync Students from Firebase
         const studentsRef = ref(db, 'students');
@@ -78,7 +93,10 @@ const AdminDashboard = () => {
         onValue(historyRef, (snapshot) => {
             const data = snapshot.val();
             if (data) {
-                const historyList = Object.values(data).sort((a, b) => b.timestamp - a.timestamp);
+                const historyList = Object.entries(data).map(([key, value]) => ({
+                    ...value,
+                    firebaseKey: key
+                })).sort((a, b) => b.timestamp - a.timestamp);
                 setPaymentHistory(historyList);
             }
         });
@@ -107,8 +125,8 @@ const AdminDashboard = () => {
         }
     };
 
-    const handleUpdateHistory = (historyId) => {
-        const historyRef = ref(db, `history/${historyId}`);
+    const handleUpdateHistory = (firebaseKey) => {
+        const historyRef = ref(db, `history/${firebaseKey}`);
         update(historyRef, {
             month: historyFormData.month,
             amount: parseInt(historyFormData.amount.toString().replace(/\D/g, '')) || 0,
@@ -116,6 +134,11 @@ const AdminDashboard = () => {
         });
         setEditingHistoryId(null);
         setHistoryFormData({ month: '', amount: '', comment: '' });
+    };
+
+    const toggleMaintenance = () => {
+        const maintenanceRef = ref(db, 'settings/maintenance');
+        set(maintenanceRef, !maintenanceMode);
     };
 
     const handleLogout = () => {
@@ -253,7 +276,34 @@ const AdminDashboard = () => {
             <div className="container">
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
                     <h1 style={{ fontSize: '2rem', fontWeight: 900 }}>{t.admin.dashboardTitle}</h1>
-                    <button className="btn btn-outline" onClick={handleLogout}><FaSignOutAlt /> Logout</button>
+                    <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                        {isSuperAdmin && (
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginRight: '1rem', backgroundColor: '#1e293b', padding: '0.5rem 1rem', borderRadius: '4px', border: maintenanceMode ? '1px solid #ef4444' : '1px solid #10b981' }}>
+                                <span style={{ fontSize: '0.75rem', fontWeight: 'bold', color: maintenanceMode ? '#ef4444' : '#10b981' }}>
+                                    {maintenanceMode ? 'SAYT YOPILGAN' : 'SAYT ISHLAMOQDA'}
+                                </span>
+                                <label className="switch" style={{ position: 'relative', display: 'inline-block', width: '34px', height: '20px' }}>
+                                    <input
+                                        type="checkbox"
+                                        checked={maintenanceMode}
+                                        onChange={toggleMaintenance}
+                                        style={{ opacity: 0, width: 0, height: 0 }}
+                                    />
+                                    <span className="slider round" style={{
+                                        position: 'absolute', cursor: 'pointer', top: 0, left: 0, right: 0, bottom: 0,
+                                        backgroundColor: maintenanceMode ? '#ef4444' : '#ccc', transition: '.4s', borderRadius: '34px'
+                                    }}>
+                                        <span style={{
+                                            position: 'absolute', content: "", height: '12px', width: '12px', left: '4px', bottom: '4px',
+                                            backgroundColor: 'white', transition: '.4s', borderRadius: '50%',
+                                            transform: maintenanceMode ? 'translateX(14px)' : 'translateX(0)'
+                                        }}></span>
+                                    </span>
+                                </label>
+                            </div>
+                        )}
+                        <button className="btn btn-outline" onClick={handleLogout}><FaSignOutAlt /> Logout</button>
+                    </div>
                 </div>
 
                 {/* Tabs */}
@@ -288,7 +338,7 @@ const AdminDashboard = () => {
                                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                                     <FaChalkboardTeacher style={{ color: 'var(--primary)', fontSize: '1.1rem' }} />
                                     <select value={filterGroup} onChange={e => setFilterGroup(e.target.value)} style={{ ...inputStyle, padding: '0', border: 'none', backgroundColor: 'transparent', fontWeight: 700, minWidth: '180px', color: 'white', cursor: 'pointer' }}>
-                                        <option value="all" style={{ backgroundColor: '#1e293b' }}>{t.courses.filter.all} Guruhlar</option>
+                                        <option value="all" style={{ backgroundColor: '#1e293b' }}>Barcha Guruhlar</option>
                                         {groups.map(g => <option key={g.id} value={g.id} style={{ backgroundColor: '#1e293b' }}>{g.name}</option>)}
                                     </select>
                                 </div>
@@ -530,8 +580,8 @@ const AdminDashboard = () => {
                                         </thead>
                                         <tbody>
                                             {paymentHistory.filter(h => String(h.studentId) === String(historyModal.studentId)).map(h => (
-                                                <tr key={h.id} style={{ borderBottom: '1px solid var(--border)' }}>
-                                                    {editingHistoryId === h.id ? (
+                                                <tr key={h.firebaseKey} style={{ borderBottom: '1px solid var(--border)' }}>
+                                                    {editingHistoryId === h.firebaseKey ? (
                                                         <>
                                                             <td style={{ padding: '0.75rem' }}>{h.date}</td>
                                                             <td style={{ padding: '0.75rem' }}>
@@ -558,7 +608,7 @@ const AdminDashboard = () => {
                                                                 />
                                                             </td>
                                                             <td style={{ padding: '0.75rem' }}>
-                                                                <button onClick={() => handleUpdateHistory(h.id)} style={payBtnStyle}><FaSave /></button>
+                                                                <button onClick={() => handleUpdateHistory(h.firebaseKey)} style={payBtnStyle}><FaSave /></button>
                                                                 <button onClick={() => setEditingHistoryId(null)} style={{ ...actionBtnStyle, color: '#EF4444', marginLeft: '0.5rem' }}><FaTimes /></button>
                                                             </td>
                                                         </>
@@ -571,7 +621,7 @@ const AdminDashboard = () => {
                                                             <td style={{ padding: '0.75rem' }}>
                                                                 <button
                                                                     onClick={() => {
-                                                                        setEditingHistoryId(h.id);
+                                                                        setEditingHistoryId(h.firebaseKey);
                                                                         setHistoryFormData({ month: h.month || '', amount: h.amount, comment: h.comment || '' });
                                                                     }}
                                                                     style={{ ...actionBtnStyle, color: 'var(--text-secondary)' }}

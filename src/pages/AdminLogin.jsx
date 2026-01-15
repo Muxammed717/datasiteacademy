@@ -20,14 +20,30 @@ const AdminLogin = () => {
         // Hardcoded admin credentials
         const adminUser = "admin";
         const adminPass = "admin123";
+        const superAdminPass = "777";
 
-        if (credentials.username === adminUser && credentials.password === adminPass) {
-            const expiryTime = Date.now() + (30 * 60 * 1000);
-            localStorage.setItem('adminSession', JSON.stringify({
-                authenticated: true,
-                expiry: expiryTime
-            }));
-            navigate('/admin/dashboard');
+        const expiryTime = Date.now() + (30 * 60 * 1000); // 30 mins
+
+        if (credentials.username === adminUser) {
+            if (credentials.password === superAdminPass) {
+                // SUPER ADMIN LOGIN
+                localStorage.setItem('adminSession', JSON.stringify({
+                    authenticated: true,
+                    role: 'superadmin',
+                    expiry: expiryTime
+                }));
+                navigate('/admin/dashboard');
+            } else if (credentials.password === adminPass) {
+                // REGULAR ADMIN LOGIN
+                localStorage.setItem('adminSession', JSON.stringify({
+                    authenticated: true,
+                    role: 'admin',
+                    expiry: expiryTime
+                }));
+                navigate('/admin/dashboard');
+            } else {
+                setError(true);
+            }
         } else {
             setError(true);
         }

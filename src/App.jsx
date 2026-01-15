@@ -37,6 +37,8 @@ const Layout = ({ children }) => {
 };
 
 import Preloader from './components/Preloader';
+import MaintenanceGuard from './components/MaintenanceGuard';
+import Maintenance from './pages/Maintenance';
 
 function App() {
   return (
@@ -46,19 +48,22 @@ function App() {
         <Router>
           <Layout>
             <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/courses" element={<Courses />} />
+              {/* Public Routes Protected by Maintenance Guard */}
+              <Route path="/" element={<MaintenanceGuard><Home /></MaintenanceGuard>} />
+              <Route path="/courses" element={<MaintenanceGuard><Courses /></MaintenanceGuard>} />
+              <Route path="/about" element={<MaintenanceGuard><About /></MaintenanceGuard>} />
+              <Route path="/contact" element={<MaintenanceGuard><Contact /></MaintenanceGuard>} />
+              <Route path="/enrollment" element={<MaintenanceGuard><Enrollment /></MaintenanceGuard>} />
+              <Route path="/news" element={<MaintenanceGuard><News /></MaintenanceGuard>} />
+              <Route path="/russian-language" element={<MaintenanceGuard><RussianLanguage /></MaintenanceGuard>} />
+              <Route path="/instructor/:slug" element={<MaintenanceGuard><InstructorDetails /></MaintenanceGuard>} />
 
-              <Route path="/about" element={<About />} />
-              <Route path="/contact" element={<Contact />} />
+              {/* Special Routes */}
+              <Route path="/maintenance" element={<Maintenance />} />
               <Route path="/admin" element={<AdminLogin />} />
               <Route path="/admin/dashboard" element={<AdminDashboard />} />
-              <Route path="/enrollment" element={<Enrollment />} />
-              <Route path="/news" element={<News />} />
-              <Route path="/russian-language" element={<RussianLanguage />} />
               <Route path="/monitoring" element={<MonitoringLogin />} />
               <Route path="/monitoring/dashboard" element={<MonitoringDashboard />} />
-              <Route path="/instructor/:slug" element={<InstructorDetails />} />
             </Routes>
           </Layout>
         </Router>

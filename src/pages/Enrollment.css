@@ -165,7 +165,10 @@
     color: var(--text-main);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     outline: none;
+    outline: none;
     box-shadow: var(--shadow-sm);
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .input-group input:focus,
@@ -383,5 +386,32 @@
 
     .info-card {
         padding: 20px;
+    }
+}
+
+@media (max-width: 360px) {
+    .enrollment-page {
+        padding: 70px 10px 30px;
+    }
+
+    .enrollment-form-container {
+        padding: 30px 15px;
+        border-radius: 20px;
+    }
+
+    .enrollment-header h1 {
+        font-size: 1.8rem;
+    }
+
+    .input-group input,
+    .input-group select,
+    .input-group textarea {
+        padding: 12px 16px;
+        font-size: 0.95rem;
+    }
+
+    .submit-btn {
+        font-size: 1rem;
+        padding: 14px;
     }
 }

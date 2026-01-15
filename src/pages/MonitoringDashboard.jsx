@@ -22,8 +22,12 @@ const MonitoringDashboard = () => {
 
         unpaidCount: 0,
         courseDistribution: {},
-        groupPerformance: []
+        groupPerformance: [],
+        paymentHistory: []
     });
+
+    const [selectedMonth, setSelectedMonth] = useState('Dekabr');
+    const monthsList = ['Dekabr', 'Yanvar', 'Fevral', 'Mart', 'Aprel', 'May', 'Iyun', 'Iyul', 'Avgust', 'Sentabr', 'Oktabr', 'Noyabr'];
 
     useEffect(() => {
         const session = localStorage.getItem('monitorSession');
@@ -53,18 +57,29 @@ const MonitoringDashboard = () => {
 
                 const totalRev = students.reduce((acc, s) => acc + (parseInt(s.totalPaid) || 0), 0);
 
-                setStats({
-                    totalStudents: students.length,
-                    totalRevenue: totalRev,
-                    activeCourses: coursesData.length,
-                    paidCount: paid.length,
-                    unpaidCount: students.length - paid.length,
-                    courseDistribution: dist,
-                    groupPerformance: groups.sort((a, b) => (b.revenue || 0) - (a.revenue || 0))
+                // Fetch History for Monthly Stats
+                const historyRef = ref(db, 'history');
+                onValue(historyRef, (historySnapshot) => {
+                    const hData = historySnapshot.val();
+                    const historyList = hData ? Object.values(hData) : [];
+
+                    setStats({
+                        totalStudents: students.length,
+                        totalRevenue: totalRev,
+                        activeCourses: coursesData.length,
+                        paidCount: paid.length,
+                        unpaidCount: students.length - paid.length,
+                        courseDistribution: dist,
+                        groupPerformance: groups.sort((a, b) => (b.revenue || 0) - (a.revenue || 0)),
+                        paymentHistory: historyList.sort((a, b) => b.timestamp - a.timestamp)
+                    });
                 });
             });
         });
     }, [navigate]);
+
+    const monthlyPayments = stats.paymentHistory.filter(h => h.month === selectedMonth);
+    const monthlyTotal = monthlyPayments.reduce((acc, curr) => acc + (parseInt(curr.amount) || 0), 0);
 
     return (
         <div className="monitoring-page" style={pageStyle}>
@@ -74,7 +89,24 @@ const MonitoringDashboard = () => {
                         <h1 style={titleStyle}>{t.monitoring.title.toUpperCase()}</h1>
                         <p style={{ color: '#64748b', fontSize: '0.8rem', marginTop: '0.5rem' }}>{t.monitoring.subtitle}</p>
                     </div>
-                    <div style={{ display: 'flex', gap: '1rem' }}>
+                    <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                        <select
+                            value={selectedMonth}
+                            onChange={(e) => setSelectedMonth(e.target.value)}
+                            style={{
+                                backgroundColor: '#1e293b',
+                                color: 'white',
+                                border: '1px solid #334155',
+                                padding: '0.6rem 1rem',
+                                borderRadius: '4px',
+                                outline: 'none',
+                                fontWeight: 'bold',
+                                cursor: 'pointer',
+                                fontSize: '0.85rem'
+                            }}
+                        >
+                            {monthsList.map(m => <option key={m} value={m}>{m}</option>)}
+                        </select>
                         <button style={logoutBtn} onClick={() => navigate('/')}>
                             <FaHome /> {t.nav.home}
                         </button>
@@ -86,9 +118,45 @@ const MonitoringDashboard = () => {
 
                 <div style={topGrid}>
                     <QuickStat label={t.monitoring.stats.totalStudents} value={stats.totalStudents} color="#f1f5f9" icon={<FaUsers />} />
-                    <QuickStat label={t.monitoring.stats.totalRevenue} value={new Intl.NumberFormat('uz-UZ').format(stats.totalRevenue)} sub="UZS" color="#10b981" icon={<FaMoneyBillWave />} />
+                    <QuickStat label={`${t.monitoring.stats.totalRevenue} (${selectedMonth})`} value={new Intl.NumberFormat('uz-UZ').format(monthlyTotal)} sub="UZS" color="#10b981" icon={<FaMoneyBillWave />} />
                     <QuickStat label={t.monitoring.stats.paidStudents} value={stats.paidCount} color="#10b981" icon={<FaChartPie />} />
                     <QuickStat label={t.monitoring.stats.unpaidStudents} value={stats.unpaidCount} color="#ef4444" icon={<FaShieldAlt />} />
+                </div>
+
+
+                <div style={panel}>
+                    <h3 style={panelTitle}><FaMoneyBillWave /> {t.admin?.monthlyReport || 'Oylik Hisobot'} ({selectedMonth})</h3>
+
+                    <div style={{ overflowX: 'auto' }}>
+                        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.85rem' }}>
+                            <thead>
+                                <tr style={{ borderBottom: '1px solid #334155', color: '#94a3b8', textAlign: 'left' }}>
+                                    <th style={{ padding: '0.75rem' }}>O'quvchi</th>
+                                    <th style={{ padding: '0.75rem' }}>Kurs</th>
+                                    <th style={{ padding: '0.75rem' }}>Sana</th>
+                                    <th style={{ padding: '0.75rem', textAlign: 'right' }}>Summa</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {monthlyPayments.length > 0 ? monthlyPayments.map((p, idx) => (
+                                    <tr key={idx} style={{ borderBottom: '1px solid #1e293b' }}>
+                                        <td style={{ padding: '0.75rem', fontWeight: 'bold' }}>{p.studentName}</td>
+                                        <td style={{ padding: '0.75rem', color: '#cbd5e1' }}>{p.course}</td>
+                                        <td style={{ padding: '0.75rem', color: '#94a3b8', fontSize: '0.75rem' }}>{p.date}</td>
+                                        <td style={{ padding: '0.75rem', textAlign: 'right', color: '#10b981', fontWeight: 'bold' }}>
+                                            {new Intl.NumberFormat('uz-UZ').format(p.amount)}
+                                        </td>
+                                    </tr>
+                                )) : (
+                                    <tr>
+                                        <td colSpan="4" style={{ padding: '2rem', textAlign: 'center', color: '#64748b' }}>
+                                            Ushbu oy uchun to'lovlar mavjud emas
+                                        </td>
+                                    </tr>
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
 
                 <div style={mainLayout}>
@@ -128,7 +196,7 @@ const MonitoringDashboard = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     );
 };
 
