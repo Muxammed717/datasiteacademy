@@ -4,8 +4,6 @@ import { Link } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import { useTheme } from '../context/ThemeContext';
 import './Home.css';
-import bannerLight from '../assets/banner-background.png';
-import bannerDark from '../assets/banner-background-darkmode.png';
 
 const RoadmapStep = ({ icon: Icon, title, desc, stepNumber }) => (
     <div className="roadmap-card">
@@ -40,13 +38,6 @@ const MainBanner = ({ t, language }) => {
 
     return (
         <section className="banner-wrap">
-            <div className="banner-bg-static">
-                <img
-                    src={theme === 'dark' ? bannerDark : bannerLight}
-                    alt="background mesh"
-                    className="mesh-img"
-                />
-            </div>
             <div className="container banner-inner">
                 <h1 className="banner-heading" data-lang={language}>
                     <div className="banner-row-top">

@@ -11,8 +11,8 @@
     padding: 120px 0 80px;
     display: flex;
     align-items: center;
-    background: var(--bg-main);
-    /* Sync with site background to prevent seams */
+    background: transparent;
+    /* Transparent to show global Plexus */
     transition: background-color 0.4s ease;
     overflow: hidden;
 }
@@ -158,6 +158,7 @@
     padding: 0;
     margin: 0 5px;
     overflow: visible;
+    z-index: 20;
 }
 
 
@@ -176,14 +177,22 @@
     transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
     font-weight: 900;
     white-space: nowrap;
-    padding: 0 5px;
+    padding: 0 20px;
+    /* Moderate padding */
+    margin: 0 -5px;
+    /* Slight negative margin */
+
     /* Gradient Text Styling */
     background: linear-gradient(135deg, #10b981 0%, #15322C 100%);
+    background-size: 200% 200%;
+    /* Ensure gradient covers full area */
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     color: transparent !important;
     text-shadow: none;
+    z-index: 20;
+    /* Ensure on top */
 }
 
 [data-theme="dark"] .phrase-item {
@@ -206,8 +215,23 @@
 
 .lead-text {
     animation: fadeInUp 0.8s ease-out both;
+    position: relative;
+    z-index: 20;
+
+    /* Font & Layout */
+    font-size: 5rem;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    line-height: 1.2;
+    display: inline-block;
+
+    /* Padding to prevent clipping (Important!) */
+    padding: 10px 30px;
+    margin: 0 -15px;
+
     /* Gradient Text Styling */
     background: linear-gradient(135deg, #10b981 0%, #15322C 100%);
+    background-size: 200% auto;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -375,14 +399,7 @@
     z-index: 0;
 }
 
-.lead-text {
-    font-size: 5rem;
-    font-weight: 900;
-    color: var(--text-main);
-    letter-spacing: -0.04em;
-    line-height: 1.1;
-    display: inline-block;
-}
+
 
 .roadmap-card:hover {
     transform: translateY(-5px);

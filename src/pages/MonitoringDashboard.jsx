@@ -23,7 +23,9 @@ const MonitoringDashboard = () => {
         unpaidCount: 0,
         courseDistribution: {},
         groupPerformance: [],
-        paymentHistory: []
+        paymentHistory: [],
+        students: [], // Added raw students
+        groups: []    // Added raw groups
     });
 
     const [selectedMonth, setSelectedMonth] = useState('Dekabr');
@@ -70,8 +72,12 @@ const MonitoringDashboard = () => {
                         paidCount: paid.length,
                         unpaidCount: students.length - paid.length,
                         courseDistribution: dist,
-                        groupPerformance: groups.sort((a, b) => (b.revenue || 0) - (a.revenue || 0)),
-                        paymentHistory: historyList.sort((a, b) => b.timestamp - a.timestamp)
+                        unpaidCount: students.length - paid.length,
+                        courseDistribution: dist,
+                        groupPerformance: groups, // Store raw groups, we'll calc revenue in render
+                        paymentHistory: historyList.sort((a, b) => b.timestamp - a.timestamp),
+                        students: students,
+                        groups: groups
                     });
                 });
             });
@@ -80,6 +86,22 @@ const MonitoringDashboard = () => {
 
     const monthlyPayments = stats.paymentHistory.filter(h => h.month === selectedMonth);
     const monthlyTotal = monthlyPayments.reduce((acc, curr) => acc + (parseInt(curr.amount) || 0), 0);
+
+    // Calculate Dynamic Monthly Group Revenue
+    const monthlyGroupStats = stats.groups.map(g => {
+        // Find revenue for this group in this month
+        // 1. Find students in this group
+        // 2. Find payments by these students in this month
+        const groupRevenue = monthlyPayments.reduce((acc, pay) => {
+            const student = stats.students.find(s => s.id === pay.studentId);
+            if (student && student.groupId === g.id) {
+                return acc + (parseInt(pay.amount) || 0);
+            }
+            return acc;
+        }, 0);
+
+        return { ...g, monthlyRevenue: groupRevenue };
+    }).sort((a, b) => b.monthlyRevenue - a.monthlyRevenue);
 
     return (
         <div className="monitoring-page" style={pageStyle}>
@@ -163,14 +185,14 @@ const MonitoringDashboard = () => {
                     <div style={panel}>
                         <h3 style={panelTitle}><FaDatabase /> {t.admin.groupRevenue}</h3>
                         <div style={distList}>
-                            {stats.groupPerformance.map((group) => (
+                            {monthlyGroupStats.map((group) => (
                                 <div key={group.id} style={distItem}>
                                     <div style={distHeader}>
                                         <span style={distName}>{group.name}</span>
-                                        <span style={{ ...distValue, color: '#10b981' }}>{new Intl.NumberFormat('uz-UZ').format(group.revenue || 0)} UZS</span>
+                                        <span style={{ ...distValue, color: '#10b981' }}>{new Intl.NumberFormat('uz-UZ').format(group.monthlyRevenue || 0)} UZS</span>
                                     </div>
                                     <div style={progBarBg}>
-                                        <div style={{ ...progBar, width: `${stats.totalRevenue > 0 ? ((group.revenue || 0) / stats.totalRevenue) * 100 : 0}%`, backgroundColor: '#10b981' }}></div>
+                                        <div style={{ ...progBar, width: `${stats.totalRevenue > 0 ? ((group.monthlyRevenue || 0) / (monthlyTotal || 1)) * 100 : 0}%`, backgroundColor: '#10b981' }}></div>
                                     </div>
                                     <div style={{ fontSize: '0.75rem', color: '#64748b', marginTop: '4px' }}>{t.admin.teacher}: {group.teacherName}</div>
                                 </div>
@@ -338,7 +360,8 @@ const distValue = {
 const progBarBg = {
     height: '4px',
     backgroundColor: '#1e293b',
-    borderRadius: '2px'
+    borderRadius: '2px',
+    overflow: 'hidden'
 };
 
 const progBar = {
