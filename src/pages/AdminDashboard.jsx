@@ -36,10 +36,14 @@ const AdminDashboard = () => {
     const [searchResult, setSearchResult] = useState(null);
     const [searchError, setSearchError] = useState(false);
 
-    const [paymentModal, setPaymentModal] = useState({ show: false, id: null, amount: '500000', studentName: '', month: '', comment: '' });
+    const [paymentModal, setPaymentModal] = useState({ show: false, id: null, amount: '0', studentName: '', month: '', comment: '' });
     const [receiptModal, setReceiptModal] = useState({ show: false, receipt: null });
     const [historyModal, setHistoryModal] = useState({ show: false, studentId: null });
     const [deleteModal, setDeleteModal] = useState({ show: false, id: null, type: 'student' });
+
+    // History Editing
+    const [editingHistoryId, setEditingHistoryId] = useState(null);
+    const [historyFormData, setHistoryFormData] = useState({ month: '', amount: '', comment: '' });
 
     useEffect(() => {
         const session = localStorage.getItem('adminSession');
@@ -101,6 +105,17 @@ const AdminDashboard = () => {
             );
             saveGroups(updatedGroups);
         }
+    };
+
+    const handleUpdateHistory = (historyId) => {
+        const historyRef = ref(db, `history/${historyId}`);
+        update(historyRef, {
+            month: historyFormData.month,
+            amount: parseInt(historyFormData.amount.toString().replace(/\D/g, '')) || 0,
+            comment: historyFormData.comment
+        });
+        setEditingHistoryId(null);
+        setHistoryFormData({ month: '', amount: '', comment: '' });
     };
 
     const handleLogout = () => {
@@ -169,7 +184,7 @@ const AdminDashboard = () => {
     const handleMarkPaid = (id, name) => {
         const currentMonthIndex = new Date().getMonth();
         const currentMonthName = t.admin.months[currentMonthIndex];
-        setPaymentModal({ show: true, id: id, amount: '500000', studentName: name, month: currentMonthName, comment: '' });
+        setPaymentModal({ show: true, id: id, amount: '0', studentName: name, month: currentMonthName, comment: '' });
     };
 
     const startEditGroup = (group) => {
@@ -225,7 +240,7 @@ const AdminDashboard = () => {
             comment: paymentModal.comment
         };
         saveHistory(receipt);
-        setPaymentModal({ show: false, id: null, amount: '500000', studentName: '', month: '', comment: '' });
+        setPaymentModal({ show: false, id: null, amount: '0', studentName: '', month: '', comment: '' });
         setReceiptModal({ show: true, receipt: receipt });
     };
 
@@ -322,13 +337,24 @@ const AdminDashboard = () => {
                                             <td style={tdStyle}>{student.name}</td>
                                             <td style={tdStyle}>{student.course}</td>
                                             <td style={tdStyle}>
-                                                <span style={{
-                                                    padding: '0.25rem 0.5rem', borderRadius: '0.5rem', fontSize: '0.7rem', fontWeight: 800,
-                                                    backgroundColor: student.status === 'paid' ? 'rgba(16, 185, 129, 0.1)' : student.status === 'partial' ? 'rgba(245, 158, 11, 0.1)' : 'rgba(239, 68, 68, 0.1)',
-                                                    color: student.status === 'paid' ? '#10B981' : student.status === 'partial' ? '#F59E0B' : '#EF4444'
-                                                }}>
-                                                    {student.status === 'paid' ? t.status.paid : student.status === 'partial' ? t.status.partial : t.status.unpaid}
-                                                </span>
+                                                {(() => {
+                                                    const currentMonthIndex = new Date().getMonth();
+                                                    const currentMonthName = t.admin.months[currentMonthIndex];
+                                                    // Status logic: If last payment month is NOT current month, show 'unpaid'
+                                                    // But keep the 'partial' logic if it WAS paid this month
+                                                    const isPaidThisMonth = student.lastPaymentMonth === currentMonthName;
+                                                    const effectiveStatus = isPaidThisMonth ? student.status : 'unpaid';
+
+                                                    return (
+                                                        <span style={{
+                                                            padding: '0.25rem 0.5rem', borderRadius: '0.5rem', fontSize: '0.7rem', fontWeight: 800,
+                                                            backgroundColor: effectiveStatus === 'paid' ? 'rgba(16, 185, 129, 0.1)' : effectiveStatus === 'partial' ? 'rgba(245, 158, 11, 0.1)' : 'rgba(239, 68, 68, 0.1)',
+                                                            color: effectiveStatus === 'paid' ? '#10B981' : effectiveStatus === 'partial' ? '#F59E0B' : '#EF4444'
+                                                        }}>
+                                                            {effectiveStatus === 'paid' ? t.status.paid : effectiveStatus === 'partial' ? t.status.partial : t.status.unpaid}
+                                                        </span>
+                                                    );
+                                                })()}
                                             </td>
                                             <td style={tdStyle}>
                                                 <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
@@ -448,11 +474,11 @@ const AdminDashboard = () => {
                                     </div>
                                     <span style={{
                                         padding: '0.5rem 1rem', borderRadius: '2rem', height: 'fit-content',
-                                        backgroundColor: searchResult.status === 'paid' ? 'rgba(16, 185, 129, 0.1)' : searchResult.status === 'partial' ? 'rgba(245, 158, 11, 0.1)' : 'rgba(239, 68, 68, 0.1)',
-                                        color: searchResult.status === 'paid' ? '#10B981' : searchResult.status === 'partial' ? '#F59E0B' : '#EF4444',
+                                        backgroundColor: (searchResult.lastPaymentMonth === t.admin.months[new Date().getMonth()] ? searchResult.status : 'unpaid') === 'paid' ? 'rgba(16, 185, 129, 0.1)' : (searchResult.lastPaymentMonth === t.admin.months[new Date().getMonth()] ? searchResult.status : 'unpaid') === 'partial' ? 'rgba(245, 158, 11, 0.1)' : 'rgba(239, 68, 68, 0.1)',
+                                        color: (searchResult.lastPaymentMonth === t.admin.months[new Date().getMonth()] ? searchResult.status : 'unpaid') === 'paid' ? '#10B981' : (searchResult.lastPaymentMonth === t.admin.months[new Date().getMonth()] ? searchResult.status : 'unpaid') === 'partial' ? '#F59E0B' : '#EF4444',
                                         fontWeight: 800
                                     }}>
-                                        {searchResult.status === 'paid' ? t.status.paid : searchResult.status === 'partial' ? t.status.partial : t.status.unpaid}
+                                        {(searchResult.lastPaymentMonth === t.admin.months[new Date().getMonth()] ? searchResult.status : 'unpaid') === 'paid' ? t.status.paid : (searchResult.lastPaymentMonth === t.admin.months[new Date().getMonth()] ? searchResult.status : 'unpaid') === 'partial' ? t.status.partial : t.status.unpaid}
                                     </span>
                                 </div>
 
@@ -505,10 +531,56 @@ const AdminDashboard = () => {
                                         <tbody>
                                             {paymentHistory.filter(h => String(h.studentId) === String(historyModal.studentId)).map(h => (
                                                 <tr key={h.id} style={{ borderBottom: '1px solid var(--border)' }}>
-                                                    <td style={{ padding: '0.75rem' }}>{h.date}</td>
-                                                    <td style={{ padding: '0.75rem', fontWeight: 600 }}>{h.month || '—'}</td>
-                                                    <td style={{ padding: '0.75rem', fontWeight: 700, color: '#10b981' }}>{new Intl.NumberFormat('uz-UZ').format(h.amount)}</td>
-                                                    <td style={{ padding: '0.75rem', fontSize: '0.75rem', color: 'var(--text-secondary)' }}>{h.comment || '—'}</td>
+                                                    {editingHistoryId === h.id ? (
+                                                        <>
+                                                            <td style={{ padding: '0.75rem' }}>{h.date}</td>
+                                                            <td style={{ padding: '0.75rem' }}>
+                                                                <select
+                                                                    value={historyFormData.month}
+                                                                    onChange={e => setHistoryFormData({ ...historyFormData, month: e.target.value })}
+                                                                    style={inputStyle}
+                                                                >
+                                                                    {t.admin.months.map(m => <option key={m} value={m}>{m}</option>)}
+                                                                </select>
+                                                            </td>
+                                                            <td style={{ padding: '0.75rem' }}>
+                                                                <input
+                                                                    value={historyFormData.amount}
+                                                                    onChange={e => setHistoryFormData({ ...historyFormData, amount: e.target.value })}
+                                                                    style={{ ...inputStyle, width: '100px' }}
+                                                                />
+                                                            </td>
+                                                            <td style={{ padding: '0.75rem' }}>
+                                                                <input
+                                                                    value={historyFormData.comment}
+                                                                    onChange={e => setHistoryFormData({ ...historyFormData, comment: e.target.value })}
+                                                                    style={{ ...inputStyle, width: '100%' }}
+                                                                />
+                                                            </td>
+                                                            <td style={{ padding: '0.75rem' }}>
+                                                                <button onClick={() => handleUpdateHistory(h.id)} style={payBtnStyle}><FaSave /></button>
+                                                                <button onClick={() => setEditingHistoryId(null)} style={{ ...actionBtnStyle, color: '#EF4444', marginLeft: '0.5rem' }}><FaTimes /></button>
+                                                            </td>
+                                                        </>
+                                                    ) : (
+                                                        <>
+                                                            <td style={{ padding: '0.75rem' }}>{h.date}</td>
+                                                            <td style={{ padding: '0.75rem', fontWeight: 600 }}>{h.month || '—'}</td>
+                                                            <td style={{ padding: '0.75rem', fontWeight: 700, color: '#10b981' }}>{new Intl.NumberFormat('uz-UZ').format(h.amount)}</td>
+                                                            <td style={{ padding: '0.75rem', fontSize: '0.75rem', color: 'var(--text-secondary)' }}>{h.comment || '—'}</td>
+                                                            <td style={{ padding: '0.75rem' }}>
+                                                                <button
+                                                                    onClick={() => {
+                                                                        setEditingHistoryId(h.id);
+                                                                        setHistoryFormData({ month: h.month || '', amount: h.amount, comment: h.comment || '' });
+                                                                    }}
+                                                                    style={{ ...actionBtnStyle, color: 'var(--text-secondary)' }}
+                                                                >
+                                                                    <FaEdit />
+                                                                </button>
+                                                            </td>
+                                                        </>
+                                                    )}
                                                 </tr>
                                             ))}
                                             {paymentHistory.filter(h => String(h.studentId) === String(historyModal.studentId)).length === 0 && (
@@ -559,7 +631,7 @@ const AdminDashboard = () => {
                                     </div>
 
                                     <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
-                                        <button onClick={() => setPaymentModal({ show: false, id: null, amount: '500000', studentName: '', month: '', comment: '' })} className="btn btn-outline" style={{ flex: 1 }}>{t.admin.cancelBtn}</button>
+                                        <button onClick={() => setPaymentModal({ show: false, id: null, amount: '0', studentName: '', month: '', comment: '' })} className="btn btn-outline" style={{ flex: 1 }}>{t.admin.cancelBtn}</button>
                                         <button onClick={confirmPayment} className="btn btn-primary" style={{ flex: 1, backgroundColor: '#10b981' }}>{t.admin.saveBtn}</button>
                                     </div>
                                 </div>
