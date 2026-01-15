@@ -71,7 +71,10 @@ const translations = {
             unpaid: 'To\'lanmagan',
             lastPayment: 'Oxirgi To\'lov',
             nextPayment: 'Keyingi To\'lov',
-            payNow: 'Hozir To\'lash'
+            lastPayment: 'Oxirgi To\'lov',
+            nextPayment: 'Keyingi To\'lov',
+            payNow: 'Hozir To\'lash',
+            partial: 'To\'liq emas'
         },
         admin: {
             loginTitle: 'Admin Kirish',
@@ -343,7 +346,9 @@ const translations = {
             unpaid: 'Не оплачено',
             lastPayment: 'Последняя Оплата',
             nextPayment: 'Следующая Оплата',
-            payNow: 'Оплатить Сейчас'
+            nextPayment: 'Следующая Оплата',
+            payNow: 'Оплатить Сейчас',
+            partial: 'Неполная оплата'
         },
         admin: {
             loginTitle: 'Вход для Админа',
@@ -615,7 +620,10 @@ const translations = {
             unpaid: 'Unpaid',
             lastPayment: 'Last Payment',
             nextPayment: 'Next Payment',
-            payNow: 'Pay Now'
+            lastPayment: 'Last Payment',
+            nextPayment: 'Next Payment',
+            payNow: 'Pay Now',
+            partial: 'Partial'
         },
         admin: {
             loginTitle: 'Admin Login',

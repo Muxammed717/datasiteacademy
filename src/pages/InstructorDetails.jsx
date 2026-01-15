@@ -29,8 +29,8 @@ const InstructorDetails = () => {
     const courseTitle = getCourseTitle(instructorData);
 
     return (
-        <div style={{ backgroundColor: '#f8fafc', minHeight: '100vh', paddingBottom: '5rem' }}>
-            <div style={{ backgroundColor: 'white', borderBottom: '1px solid #e2e8f0', padding: '1rem 0', position: 'sticky', top: '80px', zIndex: 100 }}>
+        <div style={{ backgroundColor: 'var(--bg-secondary)', minHeight: '100vh', paddingBottom: '5rem' }}>
+            <div style={{ backgroundColor: 'var(--bg-main)', borderBottom: '1px solid var(--border)', padding: '1rem 0', position: 'sticky', top: '80px', zIndex: 100 }}>
                 <div className="container" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                     <button
                         onClick={() => navigate(-1)}
@@ -46,12 +46,12 @@ const InstructorDetails = () => {
 
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
                         <div style={{
-                            backgroundColor: 'white',
+                            backgroundColor: 'var(--bg-main)',
                             borderRadius: '2rem',
                             padding: '2.5rem',
                             boxShadow: '0 10px 30px rgba(0,0,0,0.05)',
                             textAlign: 'center',
-                            border: '1px solid #e2e8f0'
+                            border: '1px solid var(--border)'
                         }}>
                             <div style={{
                                 width: '180px',
@@ -73,11 +73,11 @@ const InstructorDetails = () => {
                             </h1>                        </div>
 
                         <div style={{
-                            backgroundColor: 'white',
+                            backgroundColor: 'var(--bg-main)',
                             borderRadius: '1.5rem',
                             padding: '2rem',
                             boxShadow: '0 10px 30px rgba(0,0,0,0.05)',
-                            border: '1px solid #e2e8f0'
+                            border: '1px solid var(--border)'
                         }}>
                             <h3 style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', fontSize: '1.2rem', marginBottom: '1.5rem' }}>
                                 <FaGraduationCap style={{ color: 'var(--primary)' }} /> {t.courses.instructor.education}
@@ -90,11 +90,11 @@ const InstructorDetails = () => {
 
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
                         <section style={{
-                            backgroundColor: 'white',
+                            backgroundColor: 'var(--bg-main)',
                             borderRadius: '2rem',
                             padding: '3rem',
                             boxShadow: '0 10px 30px rgba(0,0,0,0.05)',
-                            border: '1px solid #e2e8f0'
+                            border: '1px solid var(--border)'
                         }}>
                             <h2 style={{ fontSize: '1.8rem', fontWeight: 900, marginBottom: '1.5rem', color: 'var(--text-main)', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                                 <FaUserTie style={{ color: 'var(--primary)' }} /> {t.courses.instructor.about}
@@ -106,11 +106,11 @@ const InstructorDetails = () => {
 
                         <div style={{ display: 'grid', gridTemplateColumns: window.innerWidth > 640 ? '1fr 1fr' : '1fr', gap: '2rem' }}>
                             <section style={{
-                                backgroundColor: 'white',
+                                backgroundColor: 'var(--bg-main)',
                                 borderRadius: '1.5rem',
                                 padding: '2.5rem',
                                 boxShadow: '0 10px 30px rgba(0,0,0,0.05)',
-                                border: '1px solid #e2e8f0'
+                                border: '1px solid var(--border)'
                             }}>
                                 <h3 style={{ fontSize: '1.3rem', fontWeight: 800, marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                                     <FaCheckCircle style={{ color: '#10b981' }} /> {t.courses.instructor.skills}
@@ -118,23 +118,24 @@ const InstructorDetails = () => {
                                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem' }}>
                                     {instructorData.instructorSkills[language].map((skill, idx) => (
                                         <span key={idx} style={{
-                                            backgroundColor: '#f1f5f9',
-                                            color: '#475569',
+                                            backgroundColor: 'var(--bg-secondary)',
+                                            color: 'var(--text-secondary)',
                                             padding: '0.5rem 1rem',
                                             borderRadius: '2rem',
                                             fontSize: '0.85rem',
-                                            fontWeight: 600
+                                            fontWeight: 600,
+                                            border: '1px solid var(--border)'
                                         }}>
                                             {skill}
                                         </span>
                                     ))}
                                 </div>
                             </section>                            <section style={{
-                                backgroundColor: 'white',
+                                backgroundColor: 'var(--bg-main)',
                                 borderRadius: '1.5rem',
                                 padding: '2.5rem',
                                 boxShadow: '0 10px 30px rgba(0,0,0,0.05)',
-                                border: '1px solid #e2e8f0'
+                                border: '1px solid var(--border)'
                             }}>
                                 <h3 style={{ fontSize: '1.3rem', fontWeight: 800, marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                                     <FaAward style={{ color: '#f59e0b' }} /> {t.courses.instructor.achievements}
@@ -142,20 +143,20 @@ const InstructorDetails = () => {
                                 <div style={{
                                     padding: '1rem',
                                     borderLeft: '4px solid #f59e0b',
-                                    backgroundColor: '#fffbeb',
+                                    backgroundColor: 'var(--bg-secondary)',
                                     borderRadius: '0 1rem 1rem 0'
                                 }}>
-                                    <p style={{ margin: 0, fontWeight: 700, color: '#92400e' }}>{instructorData.instructorAchieve[language]}</p>
+                                    <p style={{ margin: 0, fontWeight: 700, color: '#f59e0b' }}>{instructorData.instructorAchieve[language]}</p>
                                 </div>
                             </section>
                         </div>
 
                         <section style={{
-                            backgroundColor: 'white',
+                            backgroundColor: 'var(--bg-main)',
                             borderRadius: '2rem',
                             padding: '2.5rem',
                             boxShadow: '0 10px 30px rgba(0,0,0,0.05)',
-                            border: '1px solid #e2e8f0'
+                            border: '1px solid var(--border)'
                         }}>
                             <h3 style={{ fontSize: '1.3rem', fontWeight: 800, marginBottom: '1.5rem' }}>{t.courses.instructor.courses}</h3>
                             <div style={{
@@ -164,7 +165,7 @@ const InstructorDetails = () => {
                                 gap: '1.5rem',
                                 padding: '1.5rem',
                                 borderRadius: '1.5rem',
-                                border: '1px solid #f1f5f9',
+                                border: '1px solid var(--border)',
                                 textDecoration: 'none',
                                 color: 'inherit'
                             }}>

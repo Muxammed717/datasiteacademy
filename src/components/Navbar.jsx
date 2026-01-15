@@ -81,7 +81,7 @@ const Navbar = () => {
     <nav className="navbar">
       <div className="container navbar-container">
         <Link to="/" className="logo-container" onClick={() => setIsOpen(false)}>
-          <img src={theme === 'dark' ? "/datasite-logo-darkmode.png" : "/datasite-logo.png"} alt="DataSite Academy" className="logo-img" />
+          <img src={theme === 'dark' ? "/datasite-darkmode.png" : "/datasite-logo.png"} alt="DataSite Academy" className="logo-img" />
         </Link>
 
         {/* Dynamic World Clock with Flag */}

@@ -124,42 +124,7 @@ export const coursesData = [
         image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
         instructorImg: samir
     },
-    {
-        id: 4,
-        title: 'Full Stack Dasturlash',
-        titleEn: 'Full Stack Development',
-        titleRu: 'Fullstack Разработка',
-        instructor: 'Ilyosbek Habibullayev',
-        instructorSlug: 'senior-mentor',
-        instructorBio: {
-            uz: 'Individual yondashuv orqali har bir o\'quvchini qisqa vaqtda natijaga olib chiqish bo\'yicha ekspert. IT sohasidagi turli yo\'nalishlarni uyg\'unlashtirgan.',
-            en: 'Expert in leading students to results in a short time through an individual approach. Bridges various fields in IT.',
-            ru: 'Эксперт по быстрому достижению результатов для каждого ученика через индивидуальный подход. Объединяет различные направления в IT.'
-        },
-        instructorSkills: {
-            uz: ['Karyera bo\'yicha mentorlik', 'Full-stack umumiy ko\'rinishi', 'Loyihalarni boshqarish', 'Soft Skills'],
-            en: ['Career Mentoring', 'Full-stack Overview', 'Project Management', 'Soft Skills'],
-            ru: ['Карьерное менторство', 'Обзор Full-stack', 'Управление проектами', 'Soft Skills']
-        },
-        instructorEdu: {
-            uz: 'Vestminster xalqaro universiteti',
-            en: 'Westminster International University',
-            ru: 'Международный Вестминстерский университет'
-        },
-        instructorAchieve: {
-            uz: 'O\'zbekistondagi eng kuchli 10 ta IT mentori ro\'yxatida',
-            en: 'Top 10 IT Mentors list in Uzbekistan',
-            ru: 'В списке топ-10 IT-менторов Узбекистана'
-        },
-        rating: 5.0,
-        students: 50,
-        duration: '5 Oy',
-        price: '1 500 000 UZS',
-        oldPrice: '2 500 000 UZS',
-        category: ['Individual'],
-        image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
-        instructorImg: img3213
-    },
+
     {
         id: 6,
         title: 'Buxgalteriya',
@@ -191,7 +156,7 @@ export const coursesData = [
         students: 300,
         duration: '3 Oy',
         price: '700 000 UZS',
-        category: ['Boshqa'],
+        category: ['Buxgalteriya'],
         image: 'https://images.unsplash.com/photo-1554224155-1696413565d3?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
         instructorImg: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80'
     },
@@ -203,9 +168,9 @@ export const coursesData = [
         instructor: 'Salohiddin Obidov',
         instructorSlug: 'ielts-instruktori',
         instructorBio: {
-            uz: 'IELTS 8.5 sohibi. O\'quvchilariga intensiv metodika orqali til o\'rganish sirlarini o\'rgatadi. Ko\'plab o\'quvchilari IELTS 7.5+ ball olgan.',
-            en: 'IELTS 8.5 holder. Teaches language secrets through intensive methodology. Many students scored 7.5+ in IELTS.',
-            ru: 'Обладатель IELTS 8.5. Обучает секретам языка по интенсивной методике. Многие ученики получили IELTS 7.5+.'
+            uz: 'IELTS 7.5 sohibi. O\'quvchilariga intensiv metodika orqali til o\'rganish sirlarini o\'rgatadi. Ko\'plab o\'quvchilari IELTS 7.5+ ball olgan.',
+            en: 'IELTS 7.5 holder. Teaches language secrets through intensive methodology. Many students scored 7.5+ in IELTS.',
+            ru: 'Обладатель IELTS 7.5. Обучает секретам языка по интенсивной методике. Многие ученики получили IELTS 7.5+.'
         },
         instructorSkills: {
             uz: ['IELTS tayyorgarlik', 'Akademik yozish', 'Notiqlik san\'ati', 'Grammatika'],
@@ -344,42 +309,6 @@ export const coursesData = [
         title: 'Front-end Dasturlash',
         titleEn: 'Front-end Development',
         titleRu: 'Frontend Разработка',
-        instructor: 'Muhammadbobur Abdumutallimov',
-        instructorSlug: 'frontend-muhammadbobur',
-        instructorBio: {
-            uz: 'Yosh bo\'lishiga qaramay, Frontend yo\'nalishida katta natijalarga erishgan dasturchi.',
-            en: 'Despite being young, he has achieved excellent results in Frontend development.',
-            ru: 'Несмотря на молодость, он добился отличных результатов в Frontend-разработке.'
-        },
-        instructorSkills: {
-            uz: ['HTML5 / CSS3', 'Responsive Design', 'JavaScript (ES6+)', 'React Components', 'State Management', 'Git / GitHub'],
-            en: ['Responsive Design', 'JavaScript (ES6+)', 'React Components', 'State Management', 'Git / GitHub'],
-            ru: ['Адаптивный дизайн', 'JavaScript (ES6+)', 'React компоненты', 'Управление состоянием', 'Git / GitHub']
-        },
-        instructorEdu: {
-            uz: 'Datasite Academy - Advanced Frontend Program',
-            en: 'Datasite Academy - Advanced Frontend Program',
-            ru: 'Datasite Academy - Продвинутая программа Frontend'
-        },
-        instructorAchieve: {
-            uz: 'Eng yaxshi yosh mentor mukofoti (2024)',
-            en: 'Best Young Mentor Award (2024)',
-            ru: 'Награда "Лучший молодой ментор" (2024)'
-        },
-        rating: 5.0,
-        students: 250,
-        duration: '9 Oy',
-        price: '399 000 UZS',
-        oldPrice: '700 000 UZS',
-        category: ['Dasturlash', 'Russ Tili'],
-        image: 'https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
-        instructorImg: imgmx
-    },
-    {
-        id: 13,
-        title: 'Front-end Dasturlash',
-        titleEn: 'Front-end Development',
-        titleRu: 'Frontend Разработка',
         instructor: 'Ibrohim Sadriddinov ',
         instructorSlug: 'frontend-ibrohim',
         instructorBio: {
@@ -412,7 +341,7 @@ export const coursesData = [
         instructorImg: imgibo
     },
     {
-        id: 14,
+        id: 13,
         title: 'Ingliz tili',
         titleEn: 'English Language',
         titleRu: 'Английский язык',
@@ -449,7 +378,7 @@ export const coursesData = [
         instructorImg: imgnurillox
     },
     {
-        id: 15,
+        id: 14,
         title: 'Ingliz tili',
         titleEn: 'English Language',
         titleRu: 'Английский язык',
@@ -486,11 +415,11 @@ export const coursesData = [
         instructorImg: imgjavohir
     },
     {
-        id: 16,
+        id: 15,
         title: 'Front-end Dasturlash',
         titleEn: 'Front-end Development',
         titleRu: 'Frontend Разработка',
-        instructor: 'Muhammadjon Abduqahharov ',
+        instructor: 'Muhammadjon Ergashev',
         instructorSlug: 'frontend-muhammadjon',
         instructorBio: {
             uz: 'Mukammal tajribaga ega full-stack dasturchi. Real loyihalar orqali o\'quvchilarga kod yozish madaniyati va arxitektura sirlarini o\'rgatadi.',

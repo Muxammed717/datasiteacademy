@@ -45,17 +45,16 @@
 }
 
 .logo-img {
-    height: 55px;
-    /* Slightly reduced to prevent clipping */
+    height: 50px;
     width: auto;
+    max-width: 100%;
     object-fit: contain;
-    transition: filter 0.3s ease;
+    transition: all 0.3s ease;
     display: block;
-    /* Ensure no inline-gap */
 }
 
-/* Removed filter as we now switch the logo file itself */
 [data-theme="dark"] .logo-img {
+    /* Ensure no filter is applied and dimensions remain consistent */
     filter: none;
 }
 
