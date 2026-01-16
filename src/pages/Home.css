@@ -141,10 +141,7 @@
 }
 
 /* Nudge for better visibility */
-.banner-heading[data-lang="uz"] .banner-row-bottom {
-    transform: translateX(-25px);
-    /* Shift more left to show full "Yerda" */
-}
+/* Shift removed for better centering */
 
 .phrase-slider {
     position: relative;
@@ -219,7 +216,7 @@
     z-index: 20;
 
     /* Font & Layout */
-    font-size: 5rem;
+    font-size: inherit;
     font-weight: 900;
     letter-spacing: -0.04em;
     line-height: 1.2;
@@ -562,7 +559,7 @@
     }
 
     .banner-heading {
-        font-size: 2.5rem;
+        font-size: 3.8rem;
     }
 
     .banner-row-top,
@@ -587,7 +584,7 @@
     }
 
     .phrase-item {
-        font-size: 2.5rem;
+        font-size: 3.8rem;
         /* Same as banner heading on mobile */
     }
 

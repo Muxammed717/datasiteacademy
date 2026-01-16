@@ -86,6 +86,7 @@ const MonitoringDashboard = () => {
 
     const monthlyPayments = stats.paymentHistory.filter(h => h.month === selectedMonth);
     const monthlyTotal = monthlyPayments.reduce((acc, curr) => acc + (parseInt(curr.amount) || 0), 0);
+    const allTimeTotal = stats.paymentHistory.reduce((acc, curr) => acc + (parseInt(curr.amount) || 0), 0);
 
     // Calculate Dynamic Monthly Group Revenue
     const monthlyGroupStats = stats.groups.map(g => {
@@ -140,7 +141,8 @@ const MonitoringDashboard = () => {
 
                 <div style={topGrid}>
                     <QuickStat label={t.monitoring.stats.totalStudents} value={stats.totalStudents} color="#f1f5f9" icon={<FaUsers />} />
-                    <QuickStat label={`${t.monitoring.stats.totalRevenue} (${selectedMonth})`} value={new Intl.NumberFormat('uz-UZ').format(monthlyTotal)} sub="UZS" color="#10b981" icon={<FaMoneyBillWave />} />
+                    <QuickStat label={`${t.monitoring.stats.monthlyRevenue || 'Oylik Tushum'} (${selectedMonth})`} value={new Intl.NumberFormat('uz-UZ').format(monthlyTotal)} sub="UZS" color="#10b981" icon={<FaMoneyBillWave />} />
+                    <QuickStat label={t.monitoring.stats.totalRevenue} value={new Intl.NumberFormat('uz-UZ').format(allTimeTotal)} sub="UZS" color="#3b82f6" icon={<FaDatabase />} />
                     <QuickStat label={t.monitoring.stats.paidStudents} value={stats.paidCount} color="#10b981" icon={<FaChartPie />} />
                     <QuickStat label={t.monitoring.stats.unpaidStudents} value={stats.unpaidCount} color="#ef4444" icon={<FaShieldAlt />} />
                 </div>
@@ -153,29 +155,147 @@ const MonitoringDashboard = () => {
                         <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.85rem' }}>
                             <thead>
                                 <tr style={{ borderBottom: '1px solid #334155', color: '#94a3b8', textAlign: 'left' }}>
-                                    <th style={{ padding: '0.75rem' }}>O'quvchi</th>
-                                    <th style={{ padding: '0.75rem' }}>Kurs</th>
+                                    <th style={{ padding: '0.75rem' }}>Guruh / O'quvchi</th>
+                                    <th style={{ padding: '0.75rem' }}>To'lov Foizi / Kurs</th>
                                     <th style={{ padding: '0.75rem' }}>Sana</th>
                                     <th style={{ padding: '0.75rem', textAlign: 'right' }}>Summa</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {monthlyPayments.length > 0 ? monthlyPayments.map((p, idx) => (
-                                    <tr key={idx} style={{ borderBottom: '1px solid #1e293b' }}>
-                                        <td style={{ padding: '0.75rem', fontWeight: 'bold' }}>{p.studentName}</td>
-                                        <td style={{ padding: '0.75rem', color: '#cbd5e1' }}>{p.course}</td>
-                                        <td style={{ padding: '0.75rem', color: '#94a3b8', fontSize: '0.75rem' }}>{p.date}</td>
-                                        <td style={{ padding: '0.75rem', textAlign: 'right', color: '#10b981', fontWeight: 'bold' }}>
-                                            {new Intl.NumberFormat('uz-UZ').format(p.amount)}
-                                        </td>
-                                    </tr>
-                                )) : (
-                                    <tr>
-                                        <td colSpan="4" style={{ padding: '2rem', textAlign: 'center', color: '#64748b' }}>
-                                            Ushbu oy uchun to'lovlar mavjud emas
-                                        </td>
-                                    </tr>
-                                )}
+                                {(() => {
+                                    // Group payments by Group ID
+                                    const paymentsByGroup = {};
+
+                                    // 1. Initialize groups including "No Group"
+                                    // We need to know ALL students distribution first to get total counts correct
+                                    const studentsByGroup = {};
+                                    stats.students.forEach(s => {
+                                        const gId = s.groupId || 'nogroup';
+                                        if (!studentsByGroup[gId]) studentsByGroup[gId] = 0;
+                                        studentsByGroup[gId]++;
+                                    });
+
+                                    // 2. Initialize paymentsByGroup with ALL active groups
+                                    stats.groups.forEach(g => {
+                                        const gId = g.id;
+                                        paymentsByGroup[gId] = {
+                                            id: gId,
+                                            name: g.name,
+                                            payments: [],
+                                            totalAmount: 0,
+                                            totalStudents: studentsByGroup[gId] || 0,
+                                            paidCount: 0,
+                                            paidStudentIds: new Set()
+                                        };
+                                    });
+
+                                    monthlyPayments.forEach(p => {
+                                        const student = stats.students.find(s => s.id === p.studentId);
+
+                                        let groupId = 'nogroup';
+                                        let groupName = 'Guruhsiz (Unassigned)';
+                                        let isDeleted = false;
+
+                                        // Resolve Student Name if missing in payment (e.g. old record)
+                                        if (!p.studentName && student) {
+                                            p.studentName = student.name;
+                                        }
+
+                                        if (!student) {
+                                            groupId = 'deleted';
+                                            groupName = 'O\'chirilgan O\'quvchilar';
+                                            isDeleted = true;
+                                        } else if (student.groupId) {
+                                            groupId = student.groupId;
+                                            const gInfo = stats.groups.find(g => g.id === groupId);
+
+                                            if (!gInfo) {
+                                                // Group is deleted. Try to get name from student record if available, else generic.
+                                                const oldName = student.groupName ? `${student.groupName} (O'chirilgan)` : 'O\'chirilgan Guruh';
+                                                groupName = oldName;
+                                            }
+                                        }
+
+                                        if (!paymentsByGroup[groupId]) {
+                                            let totalStuds = studentsByGroup[groupId] || 0;
+
+                                            paymentsByGroup[groupId] = {
+                                                id: groupId,
+                                                name: groupName,
+                                                payments: [],
+                                                totalAmount: 0,
+                                                totalStudents: totalStuds,
+                                                paidCount: 0,
+                                                paidStudentIds: new Set()
+                                            };
+                                        }
+
+                                        paymentsByGroup[groupId].payments.push(p);
+                                        paymentsByGroup[groupId].totalAmount += (parseInt(p.amount) || 0);
+
+                                        if (!paymentsByGroup[groupId].paidStudentIds.has(p.studentId)) {
+                                            paymentsByGroup[groupId].paidCount += 1;
+                                            paymentsByGroup[groupId].paidStudentIds.add(p.studentId);
+
+                                            if (isDeleted) {
+                                                paymentsByGroup[groupId].totalStudents += 1;
+                                            }
+                                        }
+                                    });
+
+                                    const sortedGroups = Object.values(paymentsByGroup).sort((a, b) => b.totalAmount - a.totalAmount);
+
+                                    return sortedGroups.length > 0 ? sortedGroups.map((group) => (
+                                        <React.Fragment key={group.id}>
+                                            <tr
+                                                style={{ borderBottom: '1px solid #1e293b', cursor: 'pointer', backgroundColor: '#1e293b' }}
+                                                onClick={() => {
+                                                    const el = document.getElementById(`group-details-${group.id}`);
+                                                    if (el) el.style.display = el.style.display === 'none' ? 'table-row' : 'none';
+                                                }}
+                                            >
+                                                <td style={{ padding: '1rem', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                                    <span style={{ fontSize: '0.8rem', color: '#94a3b8' }}>▶</span> {group.name}
+                                                </td>
+                                                <td style={{ padding: '1rem', color: '#cbd5e1' }}>
+                                                    {group.paidCount} / {group.totalStudents} ({group.totalStudents > 0 ? Math.round((group.paidCount / group.totalStudents) * 100) : 0}%)
+                                                </td>
+                                                <td style={{ padding: '1rem', color: '#94a3b8', fontSize: '0.75rem' }}>
+                                                    {/* Date column placeholder or empty for group row */}
+                                                </td>
+                                                <td style={{ padding: '1rem', textAlign: 'right', color: '#10b981', fontWeight: 'bold' }}>
+                                                    {new Intl.NumberFormat('uz-UZ').format(group.totalAmount)}
+                                                </td>
+                                            </tr>
+                                            <tr id={`group-details-${group.id}`} style={{ display: 'none', backgroundColor: '#0f172a' }}>
+                                                <td colSpan="4" style={{ padding: 0 }}>
+                                                    <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                                                        <tbody>
+                                                            {group.payments.map((p, idx) => (
+                                                                <tr key={idx} style={{ borderBottom: '1px dashed #334155' }}>
+                                                                    <td style={{ padding: '0.75rem 0.75rem 0.75rem 2rem', fontWeight: '500', fontSize: '0.8rem' }}>
+                                                                        {p.studentName || <span style={{ color: '#ef4444', fontStyle: 'italic' }}>O'chirilgan (ID: {p.studentId})</span>}
+                                                                    </td>
+                                                                    <td style={{ padding: '0.75rem', color: '#64748b', fontSize: '0.75rem' }}>{p.course || '-'}</td>
+                                                                    <td style={{ padding: '0.75rem', color: '#64748b', fontSize: '0.75rem' }}>{p.date}</td>
+                                                                    <td style={{ padding: '0.75rem', textAlign: 'right', color: '#10b981', fontSize: '0.8rem' }}>
+                                                                        {new Intl.NumberFormat('uz-UZ').format(p.amount)}
+                                                                    </td>
+                                                                </tr>
+                                                            ))}
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </React.Fragment>
+                                    )) : (
+                                        <tr>
+                                            <td colSpan="4" style={{ padding: '2rem', textAlign: 'center', color: '#64748b' }}>
+                                                Ushbu oy uchun to'lovlar mavjud emas
+                                            </td>
+                                        </tr>
+                                    );
+                                })()}
                             </tbody>
                         </table>
                     </div>
@@ -275,7 +395,7 @@ const logoutBtn = {
 
 const topGrid = {
     display: 'grid',
-    gridTemplateColumns: 'repeat(4, 1fr)',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
     gap: '1.5rem',
     marginBottom: '1.5rem'
 };

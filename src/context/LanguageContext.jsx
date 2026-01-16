@@ -111,7 +111,7 @@ const translations = {
             addGroup: 'Guruh Qo\'shish',
             teacher: 'O\'qituvchi',
             groupName: 'Guruh Nomi',
-            groupRevenue: 'Guruh Tushumi',
+            groupRevenue: 'Guruhdan oylik tushum',
             groupStudents: 'Guruh O\'quvchilari',
             month: 'Oy',
             comment: 'Izoh',
@@ -124,6 +124,7 @@ const translations = {
             stats: {
                 totalStudents: 'Jami O\'quvchilar',
                 totalRevenue: 'Umumiy Tushum',
+                monthlyRevenue: 'Oylik Tushum',
                 activeCourses: 'Faol Kurslar',
                 paidStudents: 'To\'lov Qilganlar',
                 unpaidStudents: 'To\'lov Qilmaganlar'

@@ -337,10 +337,23 @@ const AdminDashboard = () => {
                             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', backgroundColor: '#1e293b', padding: '0.6rem 1.25rem', borderRadius: '1rem', border: '1px solid #334155', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.1)' }}>
                                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                                     <FaChalkboardTeacher style={{ color: 'var(--primary)', fontSize: '1.1rem' }} />
-                                    <select value={filterGroup} onChange={e => setFilterGroup(e.target.value)} style={{ ...inputStyle, padding: '0', border: 'none', backgroundColor: 'transparent', fontWeight: 700, minWidth: '180px', color: 'white', cursor: 'pointer' }}>
-                                        <option value="all" style={{ backgroundColor: '#1e293b' }}>Barcha Guruhlar</option>
-                                        {groups.map(g => <option key={g.id} value={g.id} style={{ backgroundColor: '#1e293b' }}>{g.name}</option>)}
-                                    </select>
+                                    <CustomSelect
+                                        value={filterGroup}
+                                        onChange={e => setFilterGroup(e.target.value)}
+                                        options={[
+                                            { value: 'all', label: 'Barcha Guruhlar' },
+                                            ...groups.map(g => ({ value: g.id, label: g.name }))
+                                        ]}
+                                        placeholder="Barcha Guruhlar"
+                                        style={{
+                                            padding: '0.2rem 0',
+                                            border: 'none',
+                                            backgroundColor: 'transparent',
+                                            fontWeight: 700,
+                                            minWidth: '200px',
+                                            color: 'white'
+                                        }}
+                                    />
                                 </div>
                                 {filterGroup !== 'all' && (
                                     <div style={{ display: 'flex', gap: '1rem', borderLeft: '1px solid #334155', paddingLeft: '1.25rem', fontSize: '0.85rem' }}>
@@ -356,12 +369,24 @@ const AdminDashboard = () => {
                             <div style={formBox}>
                                 <h2>{editingId ? t.admin.editStudent : t.admin.addStudent}</h2>
                                 <form onSubmit={editingId ? handleUpdateStudent : handleAddStudent} style={formGrid}>
-                                    <input placeholder={t.admin.name} value={formData.name} onChange={e => setFormData({ ...formData, name: e.target.value })} required style={inputStyle} />
-                                    <select value={formData.groupId} onChange={e => setFormData({ ...formData, groupId: e.target.value })} required style={inputStyle}>
-                                        <option value="">{t.admin.groups}...</option>
-                                        {groups.map(g => <option key={g.id} value={g.id}>{g.name}</option>)}
-                                    </select>
-                                    <div style={{ display: 'flex', gap: '1rem', gridColumn: '1 / -1' }}>
+                                    <div>
+                                        <label style={labelStyle}>{t.admin.name}</label>
+                                        <input placeholder={t.admin.name} value={formData.name} onChange={e => setFormData({ ...formData, name: e.target.value })} required style={{ ...inputStyle, width: '100%' }} />
+                                    </div>
+                                    <div>
+                                        <label style={labelStyle}>{t.admin.groups}</label>
+                                        <CustomSelect
+                                            value={formData.groupId}
+                                            onChange={e => setFormData({ ...formData, groupId: e.target.value })}
+                                            options={[
+                                                { value: "", label: `${t.admin.groups}...` },
+                                                ...groups.map(g => ({ value: g.id, label: g.name }))
+                                            ]}
+                                            placeholder={`${t.admin.groups}...`}
+                                            style={{ ...inputStyle, width: '100%' }}
+                                        />
+                                    </div>
+                                    <div style={{ display: 'flex', gap: '1rem', gridColumn: '1 / -1', marginTop: '1rem' }}>
                                         <button type="submit" className="btn btn-primary" style={{ flex: 1 }}>{t.admin.saveBtn}</button>
                                         <button type="button" className="btn btn-outline" onClick={() => { setIsAdding(false); setEditingId(null); setFormData({ name: '', groupId: '' }); }} style={{ flex: 1 }}>{t.admin.cancelBtn}</button>
                                     </div>
@@ -430,17 +455,26 @@ const AdminDashboard = () => {
                             <div style={formBox}>
                                 <h2>{editingGroupId ? t.admin.editStudent : t.admin.addGroup}</h2>
                                 <form onSubmit={editingGroupId ? handleUpdateGroup : handleAddGroup} style={formGrid}>
-                                    <input placeholder={t.admin.groupName} value={groupFormData.name} onChange={e => setGroupFormData({ ...groupFormData, name: e.target.value })} style={inputStyle} />
-                                    <select value={groupFormData.courseId} onChange={e => setGroupFormData({ ...groupFormData, courseId: e.target.value })} required style={inputStyle}>
-                                        <option value="">{t.admin.course}...</option>
-                                        {Array.from(new Set(coursesData.map(c => c.title)))
-                                            .map(title => {
-                                                const course = coursesData.find(c => c.title === title);
-                                                return <option key={course.id} value={course.id}>{title}</option>;
-                                            })}
-                                    </select>
-                                    <input placeholder={t.admin.teacher} value={groupFormData.teacherName} onChange={e => setGroupFormData({ ...groupFormData, teacherName: e.target.value })} required style={inputStyle} />
-                                    <div style={{ display: 'flex', gap: '1rem', gridColumn: '1 / -1' }}>
+                                    <div>
+                                        <label style={labelStyle}>{t.admin.groupName}</label>
+                                        <input placeholder={t.admin.groupName} value={groupFormData.name} onChange={e => setGroupFormData({ ...groupFormData, name: e.target.value })} style={{ ...inputStyle, width: '100%' }} />
+                                    </div>
+                                    <div>
+                                        <label style={labelStyle}>{t.admin.course}</label>
+                                        <select value={groupFormData.courseId} onChange={e => setGroupFormData({ ...groupFormData, courseId: e.target.value })} required style={{ ...inputStyle, width: '100%' }}>
+                                            <option value="">{t.admin.course}...</option>
+                                            {Array.from(new Set(coursesData.map(c => c.title)))
+                                                .map(title => {
+                                                    const course = coursesData.find(c => c.title === title);
+                                                    return <option key={course.id} value={course.id}>{title}</option>;
+                                                })}
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label style={labelStyle}>{t.admin.teacher}</label>
+                                        <input placeholder={t.admin.teacher} value={groupFormData.teacherName} onChange={e => setGroupFormData({ ...groupFormData, teacherName: e.target.value })} required style={{ ...inputStyle, width: '100%' }} />
+                                    </div>
+                                    <div style={{ display: 'flex', gap: '1rem', gridColumn: '1 / -1', marginTop: '1rem' }}>
                                         <button type="submit" className="btn btn-primary" style={{ flex: 1 }}>{t.admin.saveBtn}</button>
                                         <button type="button" className="btn btn-outline" onClick={() => { setIsAddingGroup(false); setEditingGroupId(null); setGroupFormData({ name: '', courseId: '', teacherName: '' }); }} style={{ flex: 1 }}>{t.admin.cancelBtn}</button>
                                     </div>
@@ -467,7 +501,16 @@ const AdminDashboard = () => {
                                             <td style={tdStyle}>{group.courseTitle}</td>
                                             <td style={tdStyle}>{group.teacherName}</td>
                                             <td style={tdStyle}>{students.filter(s => s.groupId === group.id).length}</td>
-                                            <td style={{ ...tdStyle, color: '#10b981', fontWeight: 700 }}>{new Intl.NumberFormat('uz-UZ').format(group.revenue || 0)}</td>
+                                            <td style={{ ...tdStyle, color: '#10b981', fontWeight: 700 }}>
+                                                {(() => {
+                                                    const currentMonth = t.admin.months[new Date().getMonth()];
+                                                    const groupStudents = students.filter(s => s.groupId === group.id).map(s => s.id);
+                                                    const monthlyRevenue = paymentHistory
+                                                        .filter(p => p.month === currentMonth && groupStudents.includes(p.studentId))
+                                                        .reduce((sum, p) => sum + p.amount, 0);
+                                                    return new Intl.NumberFormat('uz-UZ').format(monthlyRevenue);
+                                                })()}
+                                            </td>
                                             <td style={tdStyle}>
                                                 <div style={{ display: 'flex', gap: '0.5rem' }}>
                                                     <button onClick={() => startEditGroup(group)} style={{ ...actionBtnStyle, color: 'var(--text-secondary)' }}><FaEdit /></button>
@@ -588,9 +631,9 @@ const AdminDashboard = () => {
                                                                 <select
                                                                     value={historyFormData.month}
                                                                     onChange={e => setHistoryFormData({ ...historyFormData, month: e.target.value })}
-                                                                    style={inputStyle}
+                                                                    style={selectStyle}
                                                                 >
-                                                                    {t.admin.months.map(m => <option key={m} value={m}>{m}</option>)}
+                                                                    {t.admin.months.map(m => <option key={m} value={m} style={{ backgroundColor: 'var(--bg-secondary)' }}>{m}</option>)}
                                                                 </select>
                                                             </td>
                                                             <td style={{ padding: '0.75rem' }}>
@@ -773,5 +816,98 @@ const currencyLabel = { position: 'absolute', right: '1.25rem', top: '50%', tran
 const closeBtn = { background: 'none', border: 'none', cursor: 'pointer', fontSize: '1.25rem', color: 'var(--text-secondary)' };
 const receiptDetailBox = { backgroundColor: 'var(--bg-secondary)', padding: '1.5rem', borderRadius: '1rem', textAlign: 'left', marginTop: '1rem' };
 const receiptRow = { display: 'flex', justifyContent: 'space-between', padding: '0.5rem 0', borderBottom: '1px dashed var(--border)' };
+const labelStyle = { display: 'block', fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: '0.5rem', marginLeft: '0.2rem' };
+const selectStyle = {
+    ...inputStyle,
+    appearance: 'none',
+    backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%2394a3b8' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e")`,
+    backgroundPosition: 'right 0.5rem center',
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: '1.5em 1.5em',
+    paddingRight: '2.5rem',
+    cursor: 'pointer'
+};
+
+const CustomSelect = ({ value, onChange, options, placeholder, style }) => {
+    const [isOpen, setIsOpen] = useState(false);
+    const wrapperRef = React.useRef(null);
+
+    React.useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+                setIsOpen(false);
+            }
+        };
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
+
+    const selectedOption = options.find(opt => opt.value === value);
+
+    const handleSelect = (val) => {
+        onChange({ target: { value: val } });
+        setIsOpen(false);
+    };
+
+    return (
+        <div ref={wrapperRef} style={{ position: 'relative', width: style?.width || 'auto', minWidth: style?.minWidth }}>
+            <div
+                onClick={() => setIsOpen(!isOpen)}
+                style={{
+                    ...style,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    padding: style?.padding || '0.75rem 1rem',
+                    position: 'relative'
+                }}
+            >
+                <span style={{ color: selectedOption ? (style?.color || 'white') : '#94a3b8' }}>
+                    {selectedOption ? selectedOption.label : placeholder}
+                </span>
+                <span style={{ marginLeft: '0.5rem', transition: 'transform 0.2s', transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}>
+                    <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                </span>
+            </div>
+            {isOpen && (
+                <div style={{
+                    position: 'absolute',
+                    top: '100%',
+                    left: 0,
+                    width: '100%',
+                    marginTop: '0.5rem',
+                    backgroundColor: '#1e293b',
+                    border: '1px solid #334155',
+                    borderRadius: '0.75rem',
+                    boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.5)',
+                    zIndex: 50,
+                    maxHeight: '250px',
+                    overflowY: 'auto'
+                }}>
+                    {options.map(opt => (
+                        <div
+                            key={opt.value}
+                            onClick={() => handleSelect(opt.value)}
+                            style={{
+                                padding: '0.75rem 1rem',
+                                color: 'white',
+                                cursor: 'pointer',
+                                backgroundColor: opt.value === value ? 'rgba(16, 185, 129, 0.1)' : 'transparent',
+                                borderLeft: opt.value === value ? '3px solid #10b981' : '3px solid transparent',
+                                transition: 'background-color 0.2s'
+                            }}
+                            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(16, 185, 129, 0.1)'}
+                            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = opt.value === value ? 'rgba(16, 185, 129, 0.1)' : 'transparent'}
+                        >
+                            {opt.label}
+                        </div>
+                    ))}
+                </div>
+            )}
+        </div>
+    );
+};
 
 export default AdminDashboard;
