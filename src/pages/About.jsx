@@ -122,9 +122,9 @@ const About = () => {
             <section className="impact-stats">
                 <div className="container">
                     <div className="stats-dashboard">
-                        <StatCounter targetValue="200" label={t.aboutPage.stats.students} />
+                        <StatCounter targetValue="350" label={t.aboutPage.stats.students} />
                         <StatCounter targetValue="15" label={t.aboutPage.stats.courses} />
-                        <StatCounter targetValue="50" label={t.aboutPage.stats.mentors} />
+                        <StatCounter targetValue="20" label={t.aboutPage.stats.mentors} />
                     </div>
                 </div>
             </section>

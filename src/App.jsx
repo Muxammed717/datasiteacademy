@@ -13,14 +13,14 @@ import MonitoringLogin from './pages/MonitoringLogin';
 import MonitoringDashboard from './pages/MonitoringDashboard';
 import Enrollment from './pages/Enrollment';
 import News from './pages/News';
-import RussianLanguage from './pages/RussianLanguage';
-import Snowfall from './components/Snowfall';
 import InstructorDetails from './pages/InstructorDetails';
 import { LanguageProvider } from './context/LanguageContext';
 import { ThemeProvider } from './context/ThemeContext';
-
 import ScrollToTop from './components/ScrollToTop';
 import PlexusBackground from './components/PlexusBackground';
+import Preloader from './components/Preloader';
+import MaintenanceGuard from './components/MaintenanceGuard';
+import Maintenance from './pages/Maintenance';
 
 const Layout = ({ children }) => {
   return (
@@ -35,10 +35,6 @@ const Layout = ({ children }) => {
     </div>
   );
 };
-
-import Preloader from './components/Preloader';
-import MaintenanceGuard from './components/MaintenanceGuard';
-import Maintenance from './pages/Maintenance';
 
 function App() {
   return (
@@ -55,7 +51,6 @@ function App() {
               <Route path="/contact" element={<MaintenanceGuard><Contact /></MaintenanceGuard>} />
               <Route path="/enrollment" element={<MaintenanceGuard><Enrollment /></MaintenanceGuard>} />
               <Route path="/news" element={<MaintenanceGuard><News /></MaintenanceGuard>} />
-              <Route path="/russian-language" element={<MaintenanceGuard><RussianLanguage /></MaintenanceGuard>} />
               <Route path="/instructor/:slug" element={<MaintenanceGuard><InstructorDetails /></MaintenanceGuard>} />
 
               {/* Special Routes */}

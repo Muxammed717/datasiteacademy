@@ -87,80 +87,97 @@ const Courses = () => {
                     <h1 className="courses-title">{t.courses.title}</h1>
                     <p className="courses-subtitle">{t.courses.subtitle}</p>
 
-                    <div className="filter-container">
-                        {dynamicCategories.map(catKey => (
-                            <button
-                                key={catKey}
-                                className={`filter-btn ${filter === catKey ? 'active' : 'inactive'}`}
-                                onClick={() => handleFilterChange(catKey)}
-                            >
-                                {getCategoryLabel(catKey)}
-                            </button>
-                        ))}
-                    </div>
-                </div>
-
-                <div
-                    className="courses-spotlight-scene"
-                    onMouseEnter={() => setIsPaused(true)}
-                    onMouseLeave={() => setIsPaused(false)}
-                >
-                    <div className="spotlight-slider">
-                        {filteredCourses.map((course, index) => {
-                            const isActive = index === activeIndex;
-                            const isPrev = filteredCourses.length > 1 && (index === (activeIndex - 1 + filteredCourses.length) % filteredCourses.length);
-                            const isNext = filteredCourses.length > 1 && (index === (activeIndex + 1) % filteredCourses.length);
-
-                            let positionClass = 'is-hidden';
-                            if (isActive) {
-                                positionClass = 'is-active';
-                            } else if (isPrev) {
-                                positionClass = 'is-prev';
-                            } else if (isNext) {
-                                positionClass = 'is-next';
-                            }
-
-                            return (
-                                <div
-                                    key={course.id}
-                                    className={`spotlight-card-wrap ${positionClass}`}
-                                    onClick={(e) => {
-                                        if (isActive) {
-                                            navigate(`/instructor/${course.instructorSlug}`);
-                                        } else {
-                                            e.preventDefault();
-                                            setActiveIndex(index);
-                                        }
-                                    }}
+                    <div className="courses-main-layout">
+                        <div className="filter-sidebar left-sidebar">
+                            {dynamicCategories.slice(0, Math.ceil(dynamicCategories.length / 2)).map(catKey => (
+                                <button
+                                    key={catKey}
+                                    className={`filter-btn ${filter === catKey ? 'active' : 'inactive'}`}
+                                    onClick={() => handleFilterChange(catKey)}
                                 >
-                                    <div className="rectangular-card-3d">
-                                        <div className="instructor-hero">
-                                            <img src={course.instructorImg} alt={course.instructor} className="main-instructor-img" />
-                                            <div className="card-category-tags">
-                                                {(Array.isArray(course.category) ? course.category : [course.category]).map(cat => (
-                                                    <span key={cat} className="card-category-tag">{getCategoryLabel(cat)}</span>
-                                                ))}
-                                            </div>
-                                            <div className="card-rating">
-                                                {renderStars(course.rating || 5.0)}
+                                    {getCategoryLabel(catKey)}
+                                </button>
+                            ))}
+                        </div>
+
+                        <div
+                            className="courses-spotlight-scene"
+                            onMouseEnter={() => setIsPaused(true)}
+                            onMouseLeave={() => setIsPaused(false)}
+                        >
+                            <div className="spotlight-slider">
+                                {filteredCourses.map((course, index) => {
+                                    const isActive = index === activeIndex;
+                                    const isPrev = filteredCourses.length > 1 && (index === (activeIndex - 1 + filteredCourses.length) % filteredCourses.length);
+                                    const isNext = filteredCourses.length > 1 && (index === (activeIndex + 1) % filteredCourses.length);
+
+                                    let positionClass = 'is-hidden';
+                                    if (isActive) {
+                                        positionClass = 'is-active';
+                                    } else if (isPrev) {
+                                        positionClass = 'is-prev';
+                                    } else if (isNext) {
+                                        positionClass = 'is-next';
+                                    }
+
+                                    return (
+                                        <div
+                                            key={course.id}
+                                            className={`spotlight-card-wrap ${positionClass}`}
+                                            onClick={(e) => {
+                                                if (isActive) {
+                                                    navigate(`/instructor/${course.instructorSlug}`);
+                                                } else {
+                                                    e.preventDefault();
+                                                    setActiveIndex(index);
+                                                }
+                                            }}
+                                        >
+                                            <div className="rectangular-card-3d">
+                                                <div className="instructor-hero">
+                                                    <img src={course.instructorImg} alt={course.instructor} className="main-instructor-img" />
+                                                    <div className="card-category-tags">
+                                                        {(Array.isArray(course.category) ? course.category : [course.category]).map(cat => (
+                                                            <span key={cat} className="card-category-tag">{getCategoryLabel(cat)}</span>
+                                                        ))}
+                                                    </div>
+                                                    <div className="card-rating">
+                                                        {renderStars(course.rating || 5.0)}
+                                                    </div>
+                                                </div>
+                                                <div className="card-details">
+                                                    <h3 className="course-name-3d">{getCourseTitle(course)}</h3>
+                                                    <p className="instructor-name-3d">{course.instructor}</p>
+                                                    <div className="card-stats-row">
+                                                        <span><FaClock /> {getDurationText(course.duration)}</span>
+                                                        <span><FaUsers /> {course.students}</span>
+                                                    </div>
+                                                    <div className="price-tag-3d">
+                                                        <div className="price-info">
+                                                            {course.oldPrice && <span className="old-price">{course.oldPrice}</span>}
+                                                            <span className="current-price">{course.price}</span>
+                                                        </div>
+                                                        <span className="view-detail-btn">{t.courses.viewDetails || 'Batafsil'}</span>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div className="card-details">
-                                            <h3 className="course-name-3d">{getCourseTitle(course)}</h3>
-                                            <p className="instructor-name-3d">{course.instructor}</p>
-                                            <div className="card-stats-row">
-                                                <span><FaClock /> {getDurationText(course.duration)}</span>
-                                                <span><FaUsers /> {course.students}</span>
-                                            </div>
-                                            <div className="price-tag-3d">
-                                                {course.oldPrice && <span className="old-price">{course.oldPrice}</span>}
-                                                <span>{course.price}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            );
-                        })}
+                                    );
+                                })}
+                            </div>
+                        </div>
+
+                        <div className="filter-sidebar right-sidebar">
+                            {dynamicCategories.slice(Math.ceil(dynamicCategories.length / 2)).map(catKey => (
+                                <button
+                                    key={catKey}
+                                    className={`filter-btn ${filter === catKey ? 'active' : 'inactive'}`}
+                                    onClick={() => handleFilterChange(catKey)}
+                                >
+                                    {getCategoryLabel(catKey)}
+                                </button>
+                            ))}
+                        </div>
                     </div>
 
                 </div>
