@@ -43,8 +43,8 @@ const Enrollment = () => {
 
     // Telegram botga xabar yuborish
     const sendTelegramMessage = async (message) => {
-        const botToken = '7416673711:AAHQEjteI2JFR8i0WwFQpZxj8czl7s5yaW8';
-        const chatId = '8401035681';
+        const botToken = '8253144291:AAFzaR70Q486aDyeuGSEgPl4mYYmi3-J7UQ';
+        const chatId = '7354108107';
         try {
             await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
                 method: 'POST',
