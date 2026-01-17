@@ -27,11 +27,11 @@ const Footer = () => {
                 <div className="footer-col">
                     <h4 className="footer-heading">{t.footer.quickLinks}</h4>
                     <ul className="footer-links">
-                        <li><a href="/">{t.nav.home}</a></li>
-                        <li><a href="/courses">{t.nav.courses}</a></li>
-                        <li><a href="/about">{t.nav.about}</a></li>
-                        <li><a href="/status">{t.nav.status}</a></li>
-                        <li><a href="/contact">{t.nav.contact}</a></li>
+                        <li><Link to="/">{t.nav.home}</Link></li>
+                        <li><Link to="/courses">{t.nav.courses}</Link></li>
+                        <li><Link to="/about">{t.nav.about}</Link></li>
+                        {/* <li><Link to="/status">{t.nav.status}</Link></li> */}
+                        <li><Link to="/contact">{t.nav.contact}</Link></li>
                     </ul>
                 </div>
 

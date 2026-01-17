@@ -1,42 +1,56 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaClock, FaUsers, FaStar, FaStarHalfAlt, FaRegStar } from 'react-icons/fa';
 import { useLanguage } from '../context/LanguageContext';
-import { coursesData } from '../data/courses';
+import { coursesData } from '../data/courses'; // Ma'lumotlarni olib kelamiz
 import { useNavigate } from 'react-router-dom';
 import './Courses.css';
 
 const Courses = () => {
     const { t, language } = useLanguage();
     const navigate = useNavigate();
+
+    // 1. Filtr (tanlangan kategoriya) uchun o'zgaruvchi
     const [filter, setFilter] = useState('All');
+
+    // 2. Slayderda ko'rinib turgan kurs tartib raqami (index)
     const [activeIndex, setActiveIndex] = useState(0);
 
-    const filteredCourses = filter === 'All'
-        ? coursesData
-        : coursesData.filter(course => Array.isArray(course.category) ? course.category.includes(filter) : course.category === filter);
-
+    // 3. Avtomatik aylanishni to'xtatib turish holati
     const [isPaused, setIsPaused] = useState(false);
 
-    // Auto-cycle for a fast, dynamic feel
-    React.useEffect(() => {
+    // Filterga qarab kurslarni saralab olamiz
+    const filteredCourses = filter === 'All'
+        ? coursesData
+        : coursesData.filter(course =>
+            Array.isArray(course.category)
+                ? course.category.includes(filter)
+                : course.category === filter
+        );
+
+    // Slayderni har 2.5 soniyada avtomatik keyingisiga surish
+    useEffect(() => {
         if (filteredCourses.length <= 1 || isPaused) return;
+
         const timer = setInterval(() => {
             setActiveIndex((prev) => (prev + 1) % filteredCourses.length);
         }, 2500);
+
         return () => clearInterval(timer);
     }, [filteredCourses.length, isPaused]);
 
+    // Filtr o'zgarganda birinchi kursga qaytarish
     const handleFilterChange = (key) => {
         setFilter(key);
         setActiveIndex(0);
     };
 
-    // Dynamically get unique categories from data
+    // Barcha mavjud kategoriyalarni yig'ib olamiz
     const dynamicCategories = [
         'All',
         ...new Set(coursesData.flatMap(course => course.category || []))
     ];
 
+    // Inglizcha kategoriyalarni o'zbekcha (yoki ruscha) qilish
     const getCategoryLabel = (cat) => {
         const categoryMap = {
             'All': t.courses.filter.all,
@@ -50,22 +64,17 @@ const Courses = () => {
             'Nemis tili': t.courses.filter.german,
             'Russ Tili': t.courses.filter.russian
         };
-
         return categoryMap[cat] || cat;
     };
 
+    // Tanlangan tilga qarab kurs nomini ko'rsatish
     const getCourseTitle = (course) => {
         if (language === 'ru') return course.titleRu || course.titleEn || course.title;
         if (language === 'en') return course.titleEn || course.title;
         return course.title;
     };
 
-    const getDurationText = (duration) => {
-        if (language === 'en') return duration.replace('Oy', 'Months');
-        if (language === 'ru') return duration.replace('Oy', 'Мес.');
-        return duration;
-    };
-
+    // Yulduzchalarni (rating) chiqarish funksiyasi
     const renderStars = (rating) => {
         const stars = [];
         for (let i = 1; i <= 5; i++) {
@@ -88,6 +97,7 @@ const Courses = () => {
                     <p className="courses-subtitle">{t.courses.subtitle}</p>
 
                     <div className="courses-main-layout">
+                        {/* Chap tarafdagi filtr tugmalari */}
                         <div className="filter-sidebar left-sidebar">
                             {dynamicCategories.slice(0, Math.ceil(dynamicCategories.length / 2)).map(catKey => (
                                 <button
@@ -100,6 +110,7 @@ const Courses = () => {
                             ))}
                         </div>
 
+                        {/* Markazdagi 3D slayder sahnasi */}
                         <div
                             className="courses-spotlight-scene"
                             onMouseEnter={() => setIsPaused(true)}
@@ -107,18 +118,15 @@ const Courses = () => {
                         >
                             <div className="spotlight-slider">
                                 {filteredCourses.map((course, index) => {
+                                    // Slayder pozitsiyasini hisoblash
                                     const isActive = index === activeIndex;
                                     const isPrev = filteredCourses.length > 1 && (index === (activeIndex - 1 + filteredCourses.length) % filteredCourses.length);
                                     const isNext = filteredCourses.length > 1 && (index === (activeIndex + 1) % filteredCourses.length);
 
                                     let positionClass = 'is-hidden';
-                                    if (isActive) {
-                                        positionClass = 'is-active';
-                                    } else if (isPrev) {
-                                        positionClass = 'is-prev';
-                                    } else if (isNext) {
-                                        positionClass = 'is-next';
-                                    }
+                                    if (isActive) positionClass = 'is-active';
+                                    else if (isPrev) positionClass = 'is-prev';
+                                    else if (isNext) positionClass = 'is-next';
 
                                     return (
                                         <div
@@ -133,6 +141,7 @@ const Courses = () => {
                                                 }
                                             }}
                                         >
+                                            {/* Kurs kartasining o'zi */}
                                             <div className="rectangular-card-3d">
                                                 <div className="instructor-hero">
                                                     <img src={course.instructorImg} alt={course.instructor} className="main-instructor-img" />
@@ -149,7 +158,7 @@ const Courses = () => {
                                                     <h3 className="course-name-3d">{getCourseTitle(course)}</h3>
                                                     <p className="instructor-name-3d">{course.instructor}</p>
                                                     <div className="card-stats-row">
-                                                        <span><FaClock /> {getDurationText(course.duration)}</span>
+                                                        <span><FaClock /> {course.duration}</span>
                                                         <span><FaUsers /> {course.students}</span>
                                                     </div>
                                                     <div className="price-tag-3d">
@@ -157,7 +166,9 @@ const Courses = () => {
                                                             {course.oldPrice && <span className="old-price">{course.oldPrice}</span>}
                                                             <span className="current-price">{course.price}</span>
                                                         </div>
-                                                        <span className="view-detail-btn">{t.courses.viewDetails || 'Batafsil'}</span>
+                                                        <span className="view-detail-btn">
+                                                            {t.courses.viewDetails || 'Batafsil'}
+                                                        </span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -167,6 +178,7 @@ const Courses = () => {
                             </div>
                         </div>
 
+                        {/* O'ng tarafdagi filtr tugmalari */}
                         <div className="filter-sidebar right-sidebar">
                             {dynamicCategories.slice(Math.ceil(dynamicCategories.length / 2)).map(catKey => (
                                 <button

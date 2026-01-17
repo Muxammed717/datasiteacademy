@@ -5,12 +5,11 @@ import { useLanguage } from '../context/LanguageContext';
 import { useTheme } from '../context/ThemeContext';
 import './Home.css';
 
+// 1. Roadmap qismidagi kichik kartalar (Qadamlar)
 const RoadmapStep = ({ icon: Icon, title, desc, stepNumber }) => (
     <div className="roadmap-card">
         <div className="step-count">{stepNumber}</div>
-        <div className="icon-wrap">
-            <Icon />
-        </div>
+        <div className="icon-wrap"><Icon /></div>
         <div className="card-info">
             <h3>{title}</h3>
             <p>{desc}</p>
@@ -18,20 +17,21 @@ const RoadmapStep = ({ icon: Icon, title, desc, stepNumber }) => (
     </div>
 );
 
-
+// 2. Asosiy Banner (Hero section)
 const MainBanner = ({ t, language }) => {
-    const [activePhrase, setActivePhrase] = useState(0);
-    const { theme } = useTheme();
-    const phrases = t.home.hero.keywords;
+    const [activePhrase, setActivePhrase] = useState(0); // Qaysi so'z chiqib turishi
+    const phrases = t.home.hero.keywords || [];
 
+    // Har 5 soniyada tepadagi harakatlanuvchi so'zni o'zgartirish
     useEffect(() => {
+        if (phrases.length === 0) return;
         const interval = setInterval(() => {
             setActivePhrase((prev) => (prev + 1) % phrases.length);
         }, 5000);
         return () => clearInterval(interval);
     }, [phrases.length]);
 
-    // Reset active phrase when language changes to avoid out-of-bounds index
+    // Til o'zgarganda so'zni birinchisidan boshlash
     useEffect(() => {
         setActivePhrase(0);
     }, [language]);
@@ -39,11 +39,12 @@ const MainBanner = ({ t, language }) => {
     return (
         <section className="banner-wrap">
             <div className="container banner-inner">
-                <h1 className="banner-heading" data-lang={language}>
+                <h1 className="banner-heading">
                     <div className="banner-row-top">
                         <span className="lead-text">{t.home.hero.titlePrefix}</span>
                     </div>
                     <div className="banner-row-bottom">
+                        {/* Harakatlanuvchi so'zlar slideri */}
                         <div className="phrase-slider">
                             {phrases.map((phrase, idx) => (
                                 <span
@@ -70,6 +71,7 @@ const MainBanner = ({ t, language }) => {
 const Home = () => {
     const { t, language } = useLanguage();
 
+    // Yo'l xaritasi qadamlari ro'yxati
     const ROADMAP_STEPS = [
         { icon: FaRocket, title: t.home.path.step1, desc: t.home.path.step1Desc },
         { icon: FaProjectDiagram, title: t.home.path.step2, desc: t.home.path.step2Desc },
@@ -79,8 +81,10 @@ const Home = () => {
 
     return (
         <div className="home-layout">
+            {/* Banner qismi */}
             <MainBanner t={t} language={language} />
 
+            {/* Muvaffaqiyat yo'li bo'limi */}
             <section className="academy-roadmap">
                 <div className="container">
                     <div className="roadmap-header">
@@ -102,14 +106,13 @@ const Home = () => {
                 </div>
             </section>
 
+            {/* Nega biz? (Highlights) bo'limi */}
             <section className="academy-highlights">
                 <div className="container">
                     <div className="highlights-header">
                         <h2 className="title-text">{t.home.whyTitle}</h2>
                         <div className="accent-bar"></div>
-                        <p className="subtitle-text">
-                            {t.home.whySubtitle}
-                        </p>
+                        <p className="subtitle-text">{t.home.whySubtitle}</p>
                     </div>
 
                     <div className="highlights-grid">
@@ -121,7 +124,7 @@ const Home = () => {
 
                         <div className="highlight-card item-mentors">
                             <div className="mentors-preview">
-                                <img src="/team_mentors.jpg" alt="Academy Mentors" />
+                                <img src="/team_mentors.jpg" alt="Mentors" />
                             </div>
                             <h3>{t.home.features.mentors}</h3>
                             <p>{t.home.features.mentorsDesc}</p>

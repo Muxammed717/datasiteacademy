@@ -9,7 +9,7 @@ const Preloader = () => {
         const timer = setTimeout(() => {
             setFadeOut(true);
             setTimeout(() => setLoading(false), 800); // Wait for fade out animation
-        }, 2200);
+        }, 1500);
 
         return () => clearTimeout(timer);
     }, []);

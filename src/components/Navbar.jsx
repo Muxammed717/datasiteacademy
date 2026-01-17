@@ -1,35 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FaBars, FaTimes, FaMoon, FaSun } from 'react-icons/fa';
-import { useLanguage } from '../context/LanguageContext';
-import { useTheme } from '../context/ThemeContext';
+import { FaBars, FaTimes, FaMoon, FaSun } from 'react-icons/fa'; // Ikonkalar
+import { useLanguage } from '../context/LanguageContext'; // Tilni boshqarish
+import { useTheme } from '../context/ThemeContext'; // Mavzuni (qora/oq) boshqarish
 import './Navbar.css';
 
+// Bayroq rasmlarini chaqirib olamiz
 import flagUz from '../assets/flag-uz.png';
 import flagRu from '../assets/flag-ru.png';
 import flagEn from '../assets/flag-en.png';
 
+// Soat komponenti (Tepadagi vaqtni ko'rsatish uchun)
 const WorldClock = ({ language }) => {
   const [time, setTime] = useState(new Date());
 
+  // Har bir soniyada vaqtni yangilab turish
   useEffect(() => {
     const timer = setInterval(() => setTime(new Date()), 1000);
     return () => clearInterval(timer);
   }, []);
 
+  // Tanlangan tilga qarab vaqt zonasini aniqlash
   const getTimeZone = (lang) => {
     if (lang === 'uz') return 'Asia/Tashkent';
     if (lang === 'ru') return 'Europe/Moscow';
-    if (lang === 'en') return 'Europe/London';
-    return 'Asia/Tashkent';
+    return 'Europe/London';
   };
 
-  const getFlagImg = (lang) => {
-    if (lang === 'uz') return flagUz;
-    if (lang === 'ru') return flagRu;
-    return flagEn;
-  };
-
+  // Vaqtni chiroyli ko'rinishga keltirish (00:00:00)
   const formattedTime = new Intl.DateTimeFormat('en-GB', {
     timeZone: getTimeZone(language),
     hour: '2-digit',
@@ -46,24 +44,19 @@ const WorldClock = ({ language }) => {
 };
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [langOpen, setLangOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false); // Mobil menyu ochiq/yopiqligi
+  const [langOpen, setLangOpen] = useState(false); // Til menyusi ochiq/yopiqligi
+
   const { t, language, changeLanguage } = useLanguage();
   const { theme, toggleTheme } = useTheme();
 
+  // Menyu ochish/yopish funksiyasi
   const toggleMenu = () => setIsOpen(!isOpen);
 
-  const getLangFull = (lang) => {
-    if (lang === 'uz') return 'Uzbek';
-    if (lang === 'ru') return 'Русский';
-    return 'English';
-  };
+  // Tilning qisqa nomini olish (UZ, RU, EN)
+  const getLangShort = (lang) => lang.toUpperCase();
 
-  const getLangShort = (lang) => {
-    return lang.toUpperCase();
-  };
-
-  // Click outside to close lang menu
+  // Til menyusidan tashqariga bossa, menyuni yopish
   const langMenuRef = React.useRef(null);
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -72,31 +65,33 @@ const Navbar = () => {
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
   return (
     <nav className="navbar">
       <div className="container navbar-container">
+        {/* Sayt Logotipi */}
         <Link to="/" className="logo-container" onClick={() => setIsOpen(false)}>
-          <img src={theme === 'dark' ? "/datasite-darkmode.png" : "/datasite-logo.png"} alt="DataSite Academy" className="logo-img" />
+          <img
+            src={theme === 'dark' ? "/datasite-darkmode.png" : "/datasite-logo.png"}
+            alt="Logo"
+            className="logo-img"
+          />
         </Link>
 
-        {/* Dynamic World Clock with Flag */}
+        {/* Soat qismi */}
         <div className="clock-wrapper">
           <WorldClock language={language} />
         </div>
 
+        {/* O'ng tarafdagi boshqaruv tugmalari */}
         <div className="nav-controls-wrapper">
-          {/* Controls that stay visible on mobile next to the burger */}
           <div className="mobile-visible-extras">
+
+            {/* Til tanlash menyusi */}
             <div className="lang-menu-container" ref={langMenuRef}>
-              <button
-                className="lang-main-btn"
-                onClick={() => setLangOpen(!langOpen)}
-              >
+              <button className="lang-main-btn" onClick={() => setLangOpen(!langOpen)}>
                 <img src={language === 'uz' ? flagUz : language === 'ru' ? flagRu : flagEn} alt="" className="lang-flag-mini" />
                 <span>{getLangShort(language)}</span>
                 <span className={`arrow-icon ${langOpen ? 'up' : 'down'}`}>▾</span>
@@ -115,16 +110,19 @@ const Navbar = () => {
               </div>
             </div>
 
-            <button className="theme-toggle-btn" onClick={toggleTheme} aria-label="Toggle theme">
+            {/* Qora/Oq rejim tugmasi */}
+            <button className="theme-toggle-btn" onClick={toggleTheme}>
               {theme === 'light' ? <FaMoon /> : <FaSun />}
             </button>
           </div>
 
+          {/* Mobil rejim uchun "Burger" menyu */}
           <div className="mobile-icon" onClick={toggleMenu}>
             {isOpen ? <FaTimes /> : <FaBars />}
           </div>
         </div>
 
+        {/* Asosiy Menyu linklari */}
         <ul className={isOpen ? 'nav-menu active' : 'nav-menu'}>
           <li className="nav-item">
             <Link to="/" className="nav-link" onClick={toggleMenu}>{t.nav.home}</Link>
@@ -135,19 +133,19 @@ const Navbar = () => {
           <li className="nav-item">
             <Link to="/about" className="nav-link" onClick={toggleMenu}>{t.nav.about}</Link>
           </li>
-
           <li className="nav-item">
             <Link to="/contact" className="nav-link" onClick={toggleMenu}>{t.nav.contact}</Link>
           </li>
           <li className="nav-item">
             <Link to="/news" className="nav-link" onClick={toggleMenu}>{t.nav.news}</Link>
           </li>
-
+          {/* Ro'yxatdan o'tish tugmasi */}
           <li className="nav-item">
-            <Link to="/enrollment" className="btn btn-primary nav-btn" onClick={toggleMenu}>{t.nav.enroll}</Link>
+            <Link to="/enrollment" className="btn btn-primary nav-btn" onClick={toggleMenu}>
+              {t.nav.enroll}
+            </Link>
           </li>
         </ul>
-
       </div>
     </nav>
   );

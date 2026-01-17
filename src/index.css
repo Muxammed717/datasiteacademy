@@ -1,5 +1,6 @@
 :root {
   --primary: #15322C;
+  --primary-rgb: 21, 50, 44;
   --primary-light: #2C554C;
   --primary-dark: #0D211D;
   --secondary: #10B981;
@@ -38,6 +39,7 @@
   --text-main: #FFFFFF;
   --text-secondary: #CBD5E1;
   --primary: #FFFFFF;
+  --primary-rgb: 255, 255, 255;
   --border: #2C554C;
   --accent: #2C554C;
   --accent-dark: #15322C;
