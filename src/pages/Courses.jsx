@@ -99,7 +99,7 @@ const Courses = () => {
                     <div className="courses-main-layout">
                         {/* Chap tarafdagi filtr tugmalari */}
                         <div className="filter-sidebar left-sidebar">
-                            {dynamicCategories.slice(0, Math.ceil(dynamicCategories.length / 2)).map(catKey => (
+                            {dynamicCategories.map(catKey => (
                                 <button
                                     key={catKey}
                                     className={`filter-btn ${filter === catKey ? 'active' : 'inactive'}`}
@@ -176,19 +176,6 @@ const Courses = () => {
                                     );
                                 })}
                             </div>
-                        </div>
-
-                        {/* O'ng tarafdagi filtr tugmalari */}
-                        <div className="filter-sidebar right-sidebar">
-                            {dynamicCategories.slice(Math.ceil(dynamicCategories.length / 2)).map(catKey => (
-                                <button
-                                    key={catKey}
-                                    className={`filter-btn ${filter === catKey ? 'active' : 'inactive'}`}
-                                    onClick={() => handleFilterChange(catKey)}
-                                >
-                                    {getCategoryLabel(catKey)}
-                                </button>
-                            ))}
                         </div>
                     </div>
 

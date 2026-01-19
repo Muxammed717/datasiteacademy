@@ -1,7 +1,9 @@
 .courses-page {
     background-color: transparent;
-    min-height: calc(100vh - 100px);
-    padding: 1.5rem 0 0.5rem 0;
+    min-height: 100vh;
+    padding: 3rem 0;
+    display: flex;
+    flex-direction: column;
 }
 
 .courses-header {
@@ -32,9 +34,9 @@
 .courses-main-layout {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     gap: 3rem;
-    margin-top: 0;
+    margin-top: 2rem;
     position: relative;
     width: 100%;
     padding: 0 2rem;
@@ -43,19 +45,14 @@
 .filter-sidebar {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
-    min-width: 180px;
+    gap: 1rem;
+    min-width: 220px;
     z-index: 1001;
-    position: relative;
-    top: -20px;
-    /* Move up to be visible immediately */
+    position: sticky;
+    top: 100px;
 }
 
 .left-sidebar {
-    align-items: flex-end;
-}
-
-.right-sidebar {
     align-items: flex-start;
 }
 
@@ -75,7 +72,7 @@
     word-wrap: break-word;
     cursor: pointer;
     width: 100%;
-    max-width: 200px;
+    max-width: 240px;
     text-align: center;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
     display: flex;
@@ -121,21 +118,21 @@
 /* Spotlight Scene */
 .courses-spotlight-scene {
     position: relative;
-    width: 100%;
-    height: 580px;
+    flex-grow: 1;
+    height: 700px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     perspective: 2000px;
-    margin-bottom: -20px;
+    margin-left: auto;
+    padding-right: 2rem;
 }
 
 .spotlight-slider {
     position: relative;
-    width: 380px;
-    /* Slightly wider for the full image look */
-    height: 520px;
+    width: 500px;
+    height: 680px;
     transform-style: preserve-3d;
 }
 
@@ -143,7 +140,6 @@
     position: absolute;
     width: 100%;
     height: 100%;
-    /* Snappier transition as requested */
     transition: all 0.2s ease-out;
     cursor: pointer;
     visibility: hidden;
@@ -157,6 +153,7 @@
     pointer-events: auto;
     transform: translateZ(0) translateX(0);
     z-index: 10;
+    animation: fadeInUp 0.6s ease-out;
 }
 
 /* Reduced spread to accommodate sidebars */
