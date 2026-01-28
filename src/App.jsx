@@ -26,6 +26,7 @@ import PlexusBackground from './components/PlexusBackground';
 import Preloader from './components/Preloader';
 import MaintenanceGuard from './components/MaintenanceGuard';
 import Maintenance from './pages/Maintenance';
+import SocialSidebar from './components/SocialSidebar';
 
 function App() {
   return (
@@ -44,6 +45,9 @@ function App() {
 
             {/* Navbar - tepa qismdagi menyu */}
             <Navbar />
+
+            {/* SocialSidebar - vertical ijtimoiy tarmoqlar */}
+            <SocialSidebar />
 
             {/* ScrollToTop - har safar sahifa o'zgarganda tepaga chiqaradi */}
             <ScrollToTop />

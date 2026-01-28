@@ -167,11 +167,6 @@
     /* Brighter base for dark mode */
 }
 
-[data-theme="dark"] .product-card-content:hover .product-card-img {
-    filter: brightness(0) invert(1);
-    /* Force white on hover in dark mode if needed */
-}
-
 .product-card-content h3 {
     font-size: 1.8rem;
     color: #64748b;
@@ -189,16 +184,67 @@
     /* Lighter grey for dark mode */
 }
 
-/* On hover change text color */
-.product-card-content:hover h3 {
-    color: #15322C !important;
-    /* Dark green on hover */
+/* Specific Hover Colors for Products - Light Mode */
+.product-card-item.kpi-com:hover h3 {
+    color: #F94721 !important;
     transform: translateY(-2px);
 }
 
-[data-theme="dark"] .product-card-content:hover h3 {
-    color: #10b981 !important;
-    /* Bright green for dark mode hover */
+.product-card-item.shipox:hover h3 {
+    color: #E5DED4 !important;
+    transform: translateY(-2px);
+}
+
+.product-card-item.helpa:hover h3 {
+    color: #2F3D34 !important;
+    transform: translateY(-2px);
+}
+
+/* Dark Mode - Same colors work well */
+[data-theme="dark"] .product-card-item.kpi-com:hover h3 {
+    color: #F94721 !important;
+    transform: translateY(-2px);
+}
+
+[data-theme="dark"] .product-card-item.shipox:hover h3 {
+    color: #E5DED4 !important;
+    transform: translateY(-2px);
+}
+
+[data-theme="dark"] .product-card-item.helpa:hover h3 {
+    color: #2F3D34 !important;
+    transform: translateY(-2px);
+}
+
+/* Logo Hover Colors - Light Mode */
+.product-card-item.kpi-com:hover .product-card-img {
+    filter: brightness(0) saturate(100%) invert(42%) sepia(89%) saturate(2476%) hue-rotate(352deg) brightness(101%) contrast(96%);
+}
+
+.product-card-item.helpa:hover .product-card-img {
+    filter: brightness(0) saturate(100%) invert(20%) sepia(12%) saturate(1157%) hue-rotate(94deg) brightness(95%) contrast(88%);
+}
+
+/* Logo Hover Colors - Dark Mode */
+[data-theme="dark"] .product-card-item.kpi-com:hover .product-card-img {
+    filter: brightness(0) saturate(100%) invert(42%) sepia(89%) saturate(2476%) hue-rotate(352deg) brightness(101%) contrast(96%);
+}
+
+[data-theme="dark"] .product-card-item.helpa:hover .product-card-img {
+    filter: brightness(0) saturate(100%) invert(20%) sepia(12%) saturate(1157%) hue-rotate(94deg) brightness(95%) contrast(88%);
+}
+
+/* Ensure specific colors persist in dark mode hover */
+[data-theme="dark"] .product-card-item.kpi-com:hover h3 {
+    color: #F94721 !important;
+}
+
+[data-theme="dark"] .product-card-item.shipox:hover h3 {
+    color: #E5DED4 !important;
+}
+
+[data-theme="dark"] .product-card-item.helpa:hover h3 {
+    color: #2F3D34 !important;
 }
 
 .product-card-content p {
@@ -254,6 +300,37 @@
     width: 280px;
     background: var(--secondary);
     /* Becomes green */
+}
+
+/* Individual product hover styles */
+.product-card-item.card-kpicom:hover h3,
+.product-card-item.card-kpicom:hover .hover-line {
+    color: #F94721 !important;
+    background-color: #F94721 !important;
+}
+
+.product-card-item.card-kpicom:hover p {
+    color: #F94721 !important;
+}
+
+.product-card-item.card-shipox:hover h3,
+.product-card-item.card-shipox:hover .hover-line {
+    color: #E5DED4 !important;
+    background-color: #E5DED4 !important;
+}
+
+.product-card-item.card-shipox:hover p {
+    color: #E5DED4 !important;
+}
+
+.product-card-item.card-helpa:hover h3,
+.product-card-item.card-helpa:hover .hover-line {
+    color: #2F3D34 !important;
+    background-color: #2F3D34 !important;
+}
+
+.product-card-item.card-helpa:hover p {
+    color: #2F3D34 !important;
 }
 
 @media (max-width: 1240px) {
@@ -405,42 +482,59 @@
 
 .stats-dashboard {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 40px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 60px;
     text-align: center;
+    max-width: 1000px;
+    margin: 0 auto;
 }
 
 .stat-unit {
     display: flex;
     flex-direction: column;
-    gap: 15px;
-    padding: 40px;
-    background: var(--bg-secondary);
-    border-radius: 30px;
+    gap: 20px;
+    padding: 60px 40px;
+    background: linear-gradient(145deg, var(--bg-secondary), rgba(21, 50, 44, 0.05));
+    border-radius: 40px;
     border: 1px solid var(--border);
-    transition: all 0.3s ease;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-unit::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--secondary);
+    opacity: 0.3;
 }
 
 .stat-unit:hover {
-    transform: translateY(-10px);
+    transform: translateY(-15px);
     border-color: var(--secondary);
-    box-shadow: var(--shadow-lg);
+    box-shadow: 0 30px 60px -12px rgba(21, 50, 44, 0.2);
+    background: linear-gradient(145deg, var(--bg-secondary), rgba(21, 50, 44, 0.1));
 }
 
 .stat-number {
-    font-size: 4rem;
+    font-size: 6rem;
     font-weight: 950;
     color: var(--secondary);
     line-height: 1;
-    letter-spacing: -0.04em;
+    letter-spacing: -0.05em;
+    text-shadow: 0 10px 20px rgba(16, 185, 129, 0.1);
 }
 
 .stat-label {
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     color: var(--text-secondary);
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.2em;
 }
 
 /* Responsive */
@@ -517,7 +611,7 @@
 .services-viewport {
     width: 100%;
     overflow: hidden;
-    cursor: grab;
+    cursor: pointer;
     user-select: none;
     padding: 30px 0;
 }
@@ -547,14 +641,15 @@
     width: 200px;
     height: 200px;
     border-radius: 50%;
-    border: 2px solid var(--border);
+    border: 2px solid rgba(21, 50, 44, 0.15);
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     margin-bottom: 30px;
-    background: transparent;
+    background: linear-gradient(135deg, rgba(21, 50, 44, 0.03), rgba(16, 185, 129, 0.05));
+    box-shadow: 0 8px 24px rgba(21, 50, 44, 0.08);
 }
 
 /* Double circle effect */
@@ -566,21 +661,44 @@
     right: -10px;
     bottom: -10px;
     border-radius: 50%;
-    border: 1px solid var(--border);
+    border: 1px solid rgba(21, 50, 44, 0.1);
     opacity: 0.3;
     transition: all 0.6s ease;
 }
 
 .service-card-item:hover .service-card-content {
-    border-color: #15322c;
-    transform: scale(0.7);
-    /* Scale down much more as requested */
-    box-shadow: 0 10px 40px rgba(21, 50, 44, 0.15);
+    border-color: rgba(21, 50, 44, 0.4);
+    transform: scale(1.05);
+    box-shadow: 0 12px 40px rgba(21, 50, 44, 0.15), 0 0 30px rgba(16, 185, 129, 0.1);
+    background: linear-gradient(135deg, rgba(21, 50, 44, 0.08), rgba(16, 185, 129, 0.12));
 }
 
 .service-card-item:hover .service-card-content::after {
     opacity: 1;
-    border-color: #15322c;
+    border-color: rgba(21, 50, 44, 0.3);
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.2);
+}
+
+/* Dark mode adjustments */
+[data-theme="dark"] .service-card-content {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.05), rgba(21, 50, 44, 0.08));
+    border-color: rgba(16, 185, 129, 0.2);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .service-card-content::after {
+    border-color: rgba(16, 185, 129, 0.15);
+}
+
+[data-theme="dark"] .service-card-item:hover .service-card-content {
+    border-color: rgba(16, 185, 129, 0.5);
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.12), rgba(21, 50, 44, 0.15));
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(16, 185, 129, 0.2);
+}
+
+[data-theme="dark"] .service-card-item:hover .service-card-content::after {
+    border-color: rgba(16, 185, 129, 0.4);
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
 }
 
 .service-icon-wrapper {
@@ -596,19 +714,29 @@
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
 }
 
 .service-icon.img-icon {
     width: 80px;
-    /* Adjust size for your image icons */
     height: 80px;
     filter: grayscale(1) opacity(0.7);
-    /* Optional: make them greyish by default */
 }
 
 .service-card-item:hover .service-icon.img-icon {
     filter: grayscale(0) opacity(1);
     transform: scale(1.1);
+}
+
+.service-card-item:hover .service-icon {
+    transform: scale(1.05);
+    color: #15322C;
+    filter: drop-shadow(0 6px 12px rgba(21, 50, 44, 0.2));
+}
+
+[data-theme="dark"] .service-card-item:hover .service-icon {
+    color: #10B981;
+    filter: drop-shadow(0 6px 12px rgba(16, 185, 129, 0.3));
 }
 
 .service-info {
@@ -620,24 +748,17 @@
     font-size: 1.4rem;
     color: var(--text-main);
     font-weight: 700;
-    margin: 0 0 8px 0;
+    margin: 0;
     transition: all 0.6s ease;
 }
 
 .service-card-item:hover h3 {
-    color: #15322c;
+    transform: translateY(-2px);
+    color: #15322C;
 }
 
-.service-card-item p {
-    font-size: 0.85rem;
-    color: var(--secondary);
-    font-weight: 500;
-    margin: 0;
-    opacity: 0.8;
-}
-
-.service-card-item:hover p {
-    color: #15322c;
+[data-theme="dark"] .service-card-item:hover h3 {
+    color: #10B981;
 }
 
 /* Navigation Arrows */
@@ -654,19 +775,171 @@
     z-index: 10;
 }
 
-.services-section .nav-arrow:hover {
-    opacity: 1;
-    color: #15322c;
-    transform: scale(1.1);
-}
-
-[data-theme="dark"] .service-card-item:hover .service-card-content {
-    border-color: #10B981;
-}
-
-[data-theme="dark"] .service-card-item:hover h3,
-[data-theme="dark"] .service-card-item:hover .service-icon,
-[data-theme="dark"] .service-card-item:hover p,
 [data-theme="dark"] .services-section .nav-arrow:hover {
     color: #10B981;
+}
+
+/* About Us Section (Map & Contact) */
+.about-us-section {
+    padding: 100px 0;
+    background: transparent;
+}
+
+.about-us-section .container {
+    max-width: 1400px;
+    width: 90%;
+}
+
+.about-us-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.about-us-content {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.section-title.text-left {
+    text-align: left;
+    margin-bottom: 30px;
+}
+
+.about-us-description {
+    font-size: 1.25rem;
+    line-height: 1.8;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+}
+
+.contact-details {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    background: rgba(16, 185, 129, 0.03);
+    border: 1px solid rgba(16, 185, 129, 0.1);
+    border-radius: 20px;
+    transition: all 0.4s ease;
+}
+
+.contact-item:hover {
+    background: rgba(16, 185, 129, 0.08);
+    transform: translateX(10px);
+    border-color: var(--secondary);
+}
+
+.contact-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    background: var(--secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    color: white;
+    box-shadow: 0 10px 20px rgba(16, 185, 129, 0.2);
+}
+
+.contact-text {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.contact-text strong {
+    font-size: 1rem;
+    color: var(--text-main);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.contact-text span,
+.contact-text a {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.contact-text a:hover {
+    color: var(--secondary);
+}
+
+.about-us-map {
+    height: 500px;
+    border-radius: 30px;
+    overflow: hidden;
+    box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.25);
+    border: 1px solid var(--border);
+    position: relative;
+    animation: fadeInUp 1s ease-out forwards;
+}
+
+/* Map Styles */
+.about-us-map iframe {
+    filter: none;
+    transition: transform 0.3s ease;
+}
+
+.about-us-map:hover iframe {
+    transform: scale(1.02);
+}
+
+/* Theme specific overrides */
+[data-theme="light"] .about-us-map iframe {
+    filter: none;
+}
+
+[data-theme="light"] .contact-item {
+    background: rgba(21, 50, 44, 0.03);
+    border-color: rgba(21, 50, 44, 0.1);
+}
+
+[data-theme="light"] .contact-icon {
+    background: #15322C;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .about-us-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .section-title.text-left {
+        text-align: center;
+    }
+
+    .about-us-description {
+        text-align: center;
+    }
+
+    .contact-item:hover {
+        transform: translateY(-5px);
+    }
+}
+
+@media (max-width: 768px) {
+    .about-us-section {
+        padding: 60px 0;
+    }
+
+    .about-us-map {
+        height: 350px;
+    }
+
+    .contact-item {
+        padding: 15px;
+    }
 }

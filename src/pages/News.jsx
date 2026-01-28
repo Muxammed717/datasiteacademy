@@ -11,7 +11,7 @@ const NewsCard = ({ item, language, isPlaying, onPlay }) => {
     React.useEffect(() => {
         if (!videoRef.current) return;
         if (isPlaying) {
-            videoRef.current.play().catch(e => console.log("Video xatosi:", e));
+            videoRef.current.play().catch(e => { }); // Silently handle play interruption
         } else {
             videoRef.current.pause();
         }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useLanguage } from '../context/LanguageContext';
-import { FaChevronLeft, FaChevronRight, FaBox, FaHandsHelping, FaChartLine, FaGlobe, FaMobileAlt, FaSearch, FaBullhorn, FaPenNib } from 'react-icons/fa';
+import { FaChevronRight, FaChartLine, FaGlobe, FaMobileAlt, FaDesktop, FaFileAlt, FaUsers, FaMapMarkerAlt, FaPhoneAlt } from 'react-icons/fa';
 import './About.css';
 
 import compass from '../assets/partners/compass.png';
@@ -74,6 +74,7 @@ const About = () => {
     // 1. Partners Section State & Constants
     const [currentIndex, setCurrentIndex] = useState(0);
     const itemWidth = 360; // Adjusted for 4 logos: 320px width + 40px gap = 360px
+    const lastPartnersInteraction = useRef(0);
 
     const partners = [
         { id: 1, img: compass, name: 'Compass Consulting' },
@@ -86,50 +87,43 @@ const About = () => {
         { id: 8, img: sitelabs, name: 'SiteLabs' },
         { id: 9, img: atlas, name: 'Atlas' },
     ];
-    const displayPartners = [...partners, ...partners, ...partners];
+    const displayPartners = [...partners, ...partners, ...partners, ...partners, ...partners];
 
-    const partnerTitle = language === 'ru' ? 'Клиенты и партнёры' :
-        language === 'en' ? 'Clients and Partners' :
-            'Mijozlar va hamkorlar';
+    const partnerTitle = t.aboutPage.partnerTitle;
 
     // 2. Products Section State & Constants
     const [scrollOffset, setScrollOffset] = useState(0);
     const [isDragging, setIsDragging] = useState(false);
-    const [isAutoAnimating, setIsAutoAnimating] = useState(false);
     const [startX, setStartX] = useState(0);
     const [lastX, setLastX] = useState(0);
-    const requestRef = useRef();
     const scrollPos = useRef(0);
+    const productsTrackRef = useRef();
+    const lastProductsInteraction = useRef(0);
 
-    const productsTitle = language === 'ru' ? 'Наши продукты' :
-        language === 'en' ? 'Our Products' :
-            'Bizning mahsulotlar';
+    const productsTitle = t.aboutPage.productsTitle;
 
     const products = [
         {
             id: 1,
             name: 'Shipox',
-            description: language === 'ru' ? 'Мобильное и веб-приложение для доставки товаров для предприятий и обычных потребителей' :
-                language === 'en' ? 'Mobile and web application for delivery of goods for enterprises and regular consumers' :
-                    'Korxonalar va oddiy iste\'molchilar uchun tovarlarni yetkazib berish bo\'yicha mobil va veb-ilova',
+            className: 'shipox',
+            description: t.aboutPage.products.shipox,
             link: 'https://shipox.com/',
             Image: shipox
         },
         {
             id: 2,
             name: 'HELPA',
-            description: language === 'ru' ? 'Профессиональные клининговые услуги от компании в Ташкенте' :
-                language === 'en' ? 'Professional cleaning services from a company in Tashkent' :
-                    'Toshkentdagi kompaniyadan professional tozalash xizmatlari',
+            className: 'helpa',
+            description: t.aboutPage.products.helpa,
             link: 'https://helpa.uz/',
             Image: helpa
         },
         {
             id: 3,
             name: 'KPI.COM',
-            description: language === 'ru' ? 'Комплексное программное обеспечение, предназначенное для управления малым и средним бизнесом' :
-                language === 'en' ? 'Comprehensive software designed for managing small and medium businesses' :
-                    'Kichik va o\'rta biznesni boshqarish uchun mo\'ljallangan kompleks dasturiy ta\'minot',
+            className: 'kpi-com',
+            description: t.aboutPage.products.kpi,
             link: 'https://www.kpi.com/en/',
             Image: kpi
         }
@@ -147,9 +141,11 @@ const About = () => {
     const [servicesStartX, setServicesStartX] = useState(0);
     const [servicesLastX, setServicesLastX] = useState(0);
     const servicesScrollPos = useRef(0);
+    const servicesTrackRef = useRef();
+    const lastServicesInteraction = useRef(0);
 
     const servicesTitle = language === 'ru' ? (
-        <>Bizning <span className="highlight-text">xizmatlarimiz</span></>
+        <>Наши <span className="highlight-text">услуги</span></>
     ) : language === 'en' ? (
         <>Our <span className="highlight-text">services</span></>
     ) : (
@@ -159,33 +155,51 @@ const About = () => {
     const services = [
         {
             id: 1,
-            icon: FaSearch,
-            name: 'SEO',
-            subtitle: language === 'ru' ? 'Подробнее' : language === 'en' ? 'Learn more' : 'Ko\'proq o\'qish'
+            icon: FaChartLine,
+            name: t.aboutPage.services.seo,
+            className: 'seo',
+            color: '#F94721',
+            subtitle: t.aboutPage.services.learnMore
         },
         {
             id: 2,
-            icon: FaBullhorn,
-            name: 'SMM',
-            subtitle: language === 'ru' ? 'Подробнее' : language === 'en' ? 'Learn more' : 'Ko\'proq o\'qish'
+            icon: FaUsers,
+            name: t.aboutPage.services.smm,
+            className: 'smm',
+            color: '#134F47',
+            subtitle: t.aboutPage.services.learnMore
         },
         {
-            id: 3,
-            icon: FaPenNib,
-            name: language === 'ru' ? 'Технические характеристики' : language === 'en' ? 'Technical features' : 'Texnik xususiyatlar',
-            subtitle: language === 'ru' ? 'Подробнее' : language === 'en' ? 'Learn more' : 'Ko\'proq o\'qish'
+            id: 6,
+            icon: FaMobileAlt,
+            name: t.aboutPage.services.mobile,
+            className: 'mobile',
+            color: '#134F47',
+            subtitle: t.aboutPage.services.learnMore
         },
         {
-            id: 4,
-            icon: FaHandsHelping,
-            name: language === 'ru' ? 'Брендинг' : language === 'en' ? 'Branding' : 'tomonidan',
-            subtitle: language === 'ru' ? 'Подробнее' : language === 'en' ? 'Learn more' : 'Ko\'proq o\'qish'
+            id: 7,
+            icon: FaDesktop,
+            name: t.aboutPage.services.crm,
+            className: 'crm',
+            color: '#2F3D34',
+            subtitle: t.aboutPage.services.learnMore
         },
         {
             id: 5,
             icon: FaGlobe,
-            name: language === 'ru' ? 'Веб-сайты' : language === 'en' ? 'Websites' : 'Veb-saytlar',
-            subtitle: language === 'ru' ? 'Подробнее' : language === 'en' ? 'Learn more' : 'Ko\'proq o\'qish'
+            name: t.aboutPage.services.websites,
+            className: 'websites',
+            color: '#E5DED4',
+            subtitle: t.aboutPage.services.learnMore
+        },
+        {
+            id: 8,
+            icon: FaFileAlt,
+            name: t.aboutPage.services.technical,
+            className: 'technical',
+            color: '#F94721',
+            subtitle: t.aboutPage.services.learnMore
         }
     ];
 
@@ -196,30 +210,10 @@ const About = () => {
     // 15 sets for absolute seamlessness
     const displayServices = [...Array(15)].flatMap(() => services);
 
-    const animate = () => {
-        if (!isDragging && isAutoAnimating) {
-            scrollPos.current -= 0.7; // Even smoother non-stop movement
-            // Seamless wrap: if we've scrolled a full set, jump back one set
-            if (scrollPos.current <= -totalSetWidth * 4) {
-                scrollPos.current += totalSetWidth;
-            }
-            setScrollOffset(scrollPos.current);
-        }
-        requestRef.current = requestAnimationFrame(animate);
-    };
-
-    useEffect(() => {
-        // Animation loop disabled - slider is now fully manual
-        return () => {
-            if (requestRef.current) {
-                cancelAnimationFrame(requestRef.current);
-            }
-        };
-    }, []);
 
     const handleDragStart = (e) => {
+        lastProductsInteraction.current = Date.now();
         setIsDragging(true);
-        setIsAutoAnimating(false);
         const x = e.pageX || e.touches?.[0].pageX;
 
         // RE-CENTER before starting drag if drifted far from center (sets 7-8)
@@ -236,45 +230,88 @@ const About = () => {
 
     const handleDragMove = (e) => {
         if (!isDragging) return;
+        lastProductsInteraction.current = Date.now();
         const x = e.pageX || e.touches?.[0].pageX;
         const walk = (x - startX);
         let newPos = lastX + walk;
 
-        // Real-time wrap while dragging to prevent gaps (15 sets buffer)
-        if (newPos > -totalSetWidth * 2) newPos -= totalSetWidth * 3;
-        if (newPos < -totalSetWidth * 12) newPos += totalSetWidth * 3;
+        // Real-time wrap while dragging to prevent gaps
+        if (newPos > -totalSetWidth * 2) {
+            newPos -= totalSetWidth * 5;
+            setStartX(x);
+            setLastX(newPos);
+        } else if (newPos < -totalSetWidth * 12) {
+            newPos += totalSetWidth * 5;
+            setStartX(x);
+            setLastX(newPos);
+        }
 
         scrollPos.current = newPos;
-        setScrollOffset(scrollPos.current);
+        setScrollOffset(newPos);
     };
 
     const handleDragEnd = () => {
         setIsDragging(false);
     };
 
+
     const nextProduct = () => {
+        lastProductsInteraction.current = Date.now();
         setIsDragging(false);
-        scrollPos.current -= cardWidth;
-        setScrollOffset(scrollPos.current);
+        const nextPos = scrollPos.current - cardWidth;
+
+        // If we go past set 10, snap back to middle (set 5-6)
+        if (nextPos < -totalSetWidth * 10) {
+            const track = productsTrackRef.current;
+            if (track) track.style.transition = 'none';
+            const snappedPos = nextPos + totalSetWidth * 5;
+            scrollPos.current = snappedPos;
+            setScrollOffset(snappedPos);
+            // Re-enable transition on next frame
+            requestAnimationFrame(() => {
+                if (track) track.style.transition = 'transform 0.8s cubic-bezier(0.2, 0, 0, 1)';
+            });
+        } else {
+            scrollPos.current = nextPos;
+            setScrollOffset(nextPos);
+        }
     };
 
     const prevProduct = () => {
+        lastProductsInteraction.current = Date.now();
         setIsDragging(false);
-        scrollPos.current += cardWidth;
-        setScrollOffset(scrollPos.current);
+        const nextPos = scrollPos.current + cardWidth;
+
+        if (nextPos > -totalSetWidth * 3) {
+            const track = productsTrackRef.current;
+            if (track) track.style.transition = 'none';
+            const snappedPos = nextPos - totalSetWidth * 5;
+            scrollPos.current = snappedPos;
+            setScrollOffset(snappedPos);
+            requestAnimationFrame(() => {
+                if (track) track.style.transition = 'transform 0.8s cubic-bezier(0.2, 0, 0, 1)';
+            });
+        } else {
+            scrollPos.current = nextPos;
+            setScrollOffset(nextPos);
+        }
     };
 
     // Services slider handlers
     const handleServicesDragStart = (e) => {
+        lastServicesInteraction.current = Date.now();
         setServicesIsDragging(true);
         const x = e.pageX || e.touches?.[0].pageX;
 
-        // RE-CENTER before starting drag if drifted far from center (sets 7-8)
+        // RE-CENTER before starting drag if drifted far from center
         const current = servicesScrollPos.current;
         if (current < -servicesTotalWidth * 10 || current > -servicesTotalWidth * 4) {
+            const track = servicesTrackRef.current;
+            if (track) track.style.transition = 'none';
             const normalized = ((current % servicesTotalWidth) - servicesTotalWidth);
             servicesScrollPos.current = normalized - servicesTotalWidth * 6;
             setServicesScrollOffset(servicesScrollPos.current);
+            // No need to re-enable here as dragging sets transition to none anyway
         }
 
         setServicesStartX(x);
@@ -283,16 +320,24 @@ const About = () => {
 
     const handleServicesDragMove = (e) => {
         if (!servicesIsDragging) return;
+        lastServicesInteraction.current = Date.now();
         const x = e.pageX || e.touches?.[0].pageX;
         const walk = (x - servicesStartX);
         let newPos = servicesLastX + walk;
 
-        // Real-time wrap while dragging for infinite feel (15 sets buffer)
-        if (newPos > -servicesTotalWidth * 2) newPos -= servicesTotalWidth * 3;
-        if (newPos < -servicesTotalWidth * 12) newPos += servicesTotalWidth * 3;
+        // Real-time wrap while dragging for infinite feel
+        if (newPos > -servicesTotalWidth * 2) {
+            newPos -= servicesTotalWidth * 5;
+            setServicesStartX(x);
+            setServicesLastX(newPos);
+        } else if (newPos < -servicesTotalWidth * 12) {
+            newPos += servicesTotalWidth * 5;
+            setServicesStartX(x);
+            setServicesLastX(newPos);
+        }
 
         servicesScrollPos.current = newPos;
-        setServicesScrollOffset(servicesScrollPos.current);
+        setServicesScrollOffset(newPos);
     };
 
     const handleServicesDragEnd = () => {
@@ -300,53 +345,82 @@ const About = () => {
     };
 
     const nextService = () => {
+        lastServicesInteraction.current = Date.now();
         setServicesIsDragging(false);
-        servicesScrollPos.current -= servicesTotalItemWidth;
-        setServicesScrollOffset(servicesScrollPos.current);
+        const nextPos = servicesScrollPos.current - servicesTotalItemWidth;
+
+        if (nextPos < -servicesTotalWidth * 10) {
+            const track = servicesTrackRef.current;
+            if (track) track.style.transition = 'none';
+            const snappedPos = nextPos + servicesTotalWidth * 5;
+            servicesScrollPos.current = snappedPos;
+            setServicesScrollOffset(snappedPos);
+            requestAnimationFrame(() => {
+                if (track) track.style.transition = 'transform 0.8s cubic-bezier(0.2, 0, 0, 1)';
+            });
+        } else {
+            servicesScrollPos.current = nextPos;
+            setServicesScrollOffset(nextPos);
+        }
     };
 
     const prevService = () => {
+        lastServicesInteraction.current = Date.now();
         setServicesIsDragging(false);
-        servicesScrollPos.current += servicesTotalItemWidth;
-        setServicesScrollOffset(servicesScrollPos.current);
+        const nextPos = servicesScrollPos.current + servicesTotalItemWidth;
+
+        if (nextPos > -servicesTotalWidth * 3) {
+            const track = servicesTrackRef.current;
+            if (track) track.style.transition = 'none';
+            const snappedPos = nextPos - servicesTotalWidth * 5;
+            servicesScrollPos.current = snappedPos;
+            setServicesScrollOffset(snappedPos);
+            requestAnimationFrame(() => {
+                if (track) track.style.transition = 'transform 0.8s cubic-bezier(0.2, 0, 0, 1)';
+            });
+        } else {
+            servicesScrollPos.current = nextPos;
+            setServicesScrollOffset(nextPos);
+        }
     };
 
 
     const nextSlide = () => {
+        lastPartnersInteraction.current = Date.now();
         setCurrentIndex((prev) => prev + 1);
     };
 
     const prevSlide = () => {
+        lastPartnersInteraction.current = Date.now();
         setCurrentIndex((prev) => prev - 1);
     };
 
-    // Seamless loop reset logic
+    // Seamless loop reset logic for Partners
     useEffect(() => {
         const track = document.querySelector('.partners-track.pagination-controlled');
 
-        // When reaching the end of the middle set (index 18 for 9 partners)
-        if (currentIndex >= partners.length * 2) {
+        // Snap happens after the animation finishes (0.4s)
+        if (currentIndex >= partners.length * 4) {
             const timer = setTimeout(() => {
                 if (track) track.style.transition = 'none';
-                setCurrentIndex(partners.length);
-                // Force reflow/repaint before re-enabling transition
+                setCurrentIndex(partners.length * 2);
+                // Trigger reflow
                 track?.offsetHeight;
                 setTimeout(() => {
                     if (track) track.style.transition = 'transform 0.4s cubic-bezier(0.2, 0, 0, 1)';
-                }, 50);
+                }, 20);
             }, 400);
             return () => clearTimeout(timer);
         }
 
-        // When reaching the start of the middle set (index partners.length - 1)
         if (currentIndex < partners.length) {
             const timer = setTimeout(() => {
                 if (track) track.style.transition = 'none';
-                setCurrentIndex(partners.length * 2 - 1);
+                setCurrentIndex(partners.length * 3 - 1);
                 track?.offsetHeight;
                 setTimeout(() => {
                     if (track) track.style.transition = 'transform 0.4s cubic-bezier(0.2, 0, 0, 1)';
-                }, 50);
+                }, 20);
             }, 400);
             return () => clearTimeout(timer);
         }
@@ -354,7 +428,8 @@ const About = () => {
 
     // Initial position
     useEffect(() => {
-        setCurrentIndex(partners.length);
+        // Start Partners in the middle set (Set 3)
+        setCurrentIndex(partners.length * 2);
 
         // Initial position for products - start at set 7 (middle)
         scrollPos.current = -totalSetWidth * 7;
@@ -365,9 +440,41 @@ const About = () => {
         setServicesScrollOffset(servicesScrollPos.current);
     }, [partners.length, servicesTotalWidth, totalSetWidth]);
 
-    const goToSiteText = language === 'ru' ? 'Перейти на сайт' :
-        language === 'en' ? 'Go to site' :
-            'Veb-saytga o\'ting';
+    // 4. Auto-rotation for all sliders
+    useEffect(() => {
+        // Partners auto-rotation
+        const partnersInterval = setInterval(() => {
+            if (Date.now() - lastPartnersInteraction.current > 3000) {
+                setCurrentIndex((prev) => prev + 1); // Use direct update to avoid triggering ref interaction again if possible
+            }
+        }, 3000);
+
+        // Products auto-rotation
+        const productsInterval = setInterval(() => {
+            if (!isDragging && (Date.now() - lastProductsInteraction.current > 3000)) {
+                // We call nextProduct but that will update the interaction time. 
+                // To keep it simple, we can just use a modified version or just let it reset the wait.
+                // Resetting the wait is actually good behavior.
+                nextProduct();
+            }
+        }, 3000);
+
+        // Services auto-rotation
+        const servicesInterval = setInterval(() => {
+            if (!servicesIsDragging && (Date.now() - lastServicesInteraction.current > 3000)) {
+                nextService();
+            }
+        }, 3000);
+
+        return () => {
+            clearInterval(partnersInterval);
+            clearInterval(productsInterval);
+            clearInterval(servicesInterval);
+        };
+    }, [isDragging, servicesIsDragging]);
+    // Re-subscribe when dragging state changes to ensure fresh closures
+
+    const goToSiteText = t.aboutPage.goToSite;
 
     return (
         <div className="academy-about">
@@ -390,12 +497,13 @@ const About = () => {
                             onTouchMove={handleDragMove}
                             onTouchEnd={handleDragEnd}>
                             <div className="products-track"
+                                ref={productsTrackRef}
                                 style={{
                                     transform: `translateX(${scrollOffset}px)`,
                                     transition: isDragging ? 'none' : 'transform 0.8s cubic-bezier(0.2, 0, 0, 1)'
                                 }}>
                                 {displayProducts.map((product, idx) => (
-                                    <div className="product-card-item" key={`${product.id}-${idx}`}>
+                                    <div className={`product-card-item ${product.className}`} key={`${product.id}-${idx}`}>
                                         <div className="product-card-content">
                                             <div className="product-logo-placeholder">
                                                 <img src={product.Image} alt={product.name} className="product-card-img" draggable="false" />
@@ -438,6 +546,7 @@ const About = () => {
                             onTouchMove={handleServicesDragMove}
                             onTouchEnd={handleServicesDragEnd}>
                             <div className="services-track"
+                                ref={servicesTrackRef}
                                 style={{
                                     transform: `translateX(${servicesScrollOffset}px)`,
                                     transition: servicesIsDragging ? 'none' : 'transform 0.8s cubic-bezier(0.2, 0, 0, 1)'
@@ -447,7 +556,7 @@ const About = () => {
                                     const isImageIcon = typeof Icon === 'string';
 
                                     return (
-                                        <div className="service-card-item" key={`${service.id}-${idx}`}>
+                                        <div className={`service-card-item ${service.className}`} key={`${service.id}-${idx}`}>
                                             <div className="service-card-content">
                                                 <div className="service-icon-wrapper">
                                                     {isImageIcon ? (
@@ -459,7 +568,6 @@ const About = () => {
                                             </div>
                                             <div className="service-info">
                                                 <h3>{service.name}</h3>
-                                                <p>{service.subtitle}</p>
                                             </div>
                                         </div>
                                     );
@@ -508,12 +616,65 @@ const About = () => {
                 </div>
             </section>
 
+            {/* Biz haqimizda bo'limi (Xarita va Kontakt) */}
+            <section className="about-us-section">
+                <div className="container">
+                    <div className="about-us-grid">
+                        <div className="about-us-content">
+                            <h2 className="section-title text-left">
+                                {language === 'ru' ? 'О нас' : language === 'en' ? 'About Us' : 'Biz haqimizda'}
+                            </h2>
+                            <p className="about-us-description">
+                                {language === 'ru'
+                                    ? 'Наша компания предоставляет услуги высочайшего качества. Сотрудничая с нами, вы выведете свой бизнес на новый уровень.'
+                                    : language === 'en'
+                                        ? 'Our company provides the highest quality services. By partnering with us, you will take your business to a new level.'
+                                        : 'Bizning kompaniyamiz mijozlarga eng yuqori sifatli xizmatlarni taqdim etadi. Biz bilan hamkorlik qilish orqali siz o\'z biznesingizni yangi bosqichga olib chiqasiz.'}
+                            </p>
+
+                            <div className="contact-details">
+                                <div className="contact-item">
+                                    <div className="contact-icon">
+                                        <FaMapMarkerAlt />
+                                    </div>
+                                    <div className="contact-text">
+                                        <strong>{language === 'ru' ? 'Адрес:' : language === 'en' ? 'Address:' : 'Manzil:'}</strong>
+                                        <span>{language === 'ru' ? 'Наманган, ул. Ходжаева, 38' : language === 'en' ? 'Namangan, Khodjaeva str., 38' : 'Namangan sh., Xodjayev ko\'chasi, 38-uy'}</span>
+                                    </div>
+                                </div>
+
+                                <div className="contact-item">
+                                    <div className="contact-icon">
+                                        <FaPhoneAlt />
+                                    </div>
+                                    <div className="contact-text">
+                                        <strong>{language === 'ru' ? 'Тел:' : language === 'en' ? 'Tel:' : 'Tel:'}</strong>
+                                        <a href="tel:+998901234567">+998 90 123 45 67</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="about-us-map">
+                            <iframe
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3010.9926121576827!2d71.6743788!3d41.00353489999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38bb4de2d8b58e0d%3A0xdecbb21511a65616!2s%22Sitelabs%22%20and%20%22Datasite%20Academy%22!5e0!3m2!1sru!2s!4v1769596919694!5m2!1sru!2s"
+                                width="100%"
+                                height="100%"
+                                style={{ border: 0 }}
+                                allowFullScreen=""
+                                loading="lazy"
+                                title="Kompaniya manzili"
+                            ></iframe>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <section className="impact-stats">
                 <div className="container">
                     <div className="stats-dashboard">
                         <StatCounter targetValue="350" label={t.aboutPage.stats.students} />
                         <StatCounter targetValue="15" label={t.aboutPage.stats.courses} />
-                        <StatCounter targetValue="20" label={t.aboutPage.stats.mentors} />
                     </div>
                 </div>
             </section>

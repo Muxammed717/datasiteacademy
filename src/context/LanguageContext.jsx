@@ -239,6 +239,24 @@ const translations = {
                 students: 'Faol o\'quvchilar',
                 courses: 'Kurslar soni',
                 mentors: 'Tajribali mentorlar'
+            },
+            services: {
+                title: 'Bizning xizmatlarimiz',
+                seo: 'SEO',
+                smm: 'SMM',
+                mobile: 'Mobil ilovalar',
+                crm: 'CRM',
+                websites: 'Veb-saytlar',
+                technical: 'Texnik topshiriq',
+                learnMore: 'Ko\'proq o\'qish'
+            },
+            partnerTitle: 'Mijozlar va hamkorlar',
+            productsTitle: 'Bizning mahsulotlar',
+            goToSite: 'Veb-saytga o\'ting',
+            products: {
+                shipox: 'Korxonalar va oddiy iste\'molchilar uchun tovarlarni yetkazib berish bo\'yicha mobil va veb-ilova',
+                helpa: 'Toshkentdagi kompaniyadan professional tozalash xizmatlari',
+                kpi: 'Kichik va o\'rta biznesni boshqarish uchun mo\'ljallangan kompleks dasturiy ta\'minot'
             }
         },
         contact: {
@@ -513,6 +531,24 @@ const translations = {
                 students: 'Активных студентов',
                 courses: 'Количество курсов',
                 mentors: 'Экспертных менторов'
+            },
+            services: {
+                title: 'Наши услуги',
+                seo: 'SEO',
+                smm: 'SMM',
+                mobile: 'Мобильные приложения',
+                crm: 'CRM',
+                websites: 'Веб-сайты',
+                technical: 'Тех. задание',
+                learnMore: 'Подробнее'
+            },
+            partnerTitle: 'Клиенты и партнёры',
+            productsTitle: 'Наши продукты',
+            goToSite: 'Перейти на сайт',
+            products: {
+                shipox: 'Мобильное и веб-приложение для доставки товаров для предприятий и обычных потребителей',
+                helpa: 'Профессиональные клининговые услуги от компании в Ташкенте',
+                kpi: 'Комплексное программное обеспечение, предназначенное для управления малым и средним бизнесом'
             }
         },
         contact: {
@@ -788,6 +824,24 @@ const translations = {
                 students: 'Active Students',
                 courses: 'Number of Courses',
                 mentors: 'Expert Mentors'
+            },
+            services: {
+                title: 'Our Services',
+                seo: 'SEO',
+                smm: 'SMM',
+                mobile: 'Mobile apps',
+                crm: 'CRM',
+                websites: 'Websites',
+                technical: 'Tech specs',
+                learnMore: 'Learn more'
+            },
+            partnerTitle: 'Clients and Partners',
+            productsTitle: 'Our Products',
+            goToSite: 'Go to site',
+            products: {
+                shipox: 'Mobile and web application for delivery of goods for enterprises and regular consumers',
+                helpa: 'Professional cleaning services from a company in Tashkent',
+                kpi: 'Comprehensive software designed for managing small and medium businesses'
             }
         },
         contact: {
