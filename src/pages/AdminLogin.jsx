@@ -19,8 +19,8 @@ const AdminLogin = () => {
 
         // Hardcoded admin credentials
         const adminUser = "admin";
-        const adminPass = "admin123";
-        const superAdminPass = "777";
+        const adminPass = "orifatun";
+        const superAdminPass = "0085";
 
         const expiryTime = Date.now() + (30 * 60 * 1000); // 30 mins
 
