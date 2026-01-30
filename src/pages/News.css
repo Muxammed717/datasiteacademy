@@ -353,3 +353,31 @@ video {
         font-size: 0.8rem;
     }
 }
+
+@media (max-width: 480px) {
+    .news-title {
+        font-size: 2rem;
+    }
+
+    .news-track {
+        grid-template-rows: repeat(2, 160px);
+        gap: 10px;
+        padding: 0 10px;
+    }
+
+    .news-card-marquee {
+        width: 240px;
+    }
+
+    .wide {
+        width: 260px;
+    }
+
+    .normal {
+        width: 220px;
+    }
+
+    .tall {
+        width: 180px;
+    }
+}

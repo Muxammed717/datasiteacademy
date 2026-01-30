@@ -158,14 +158,14 @@
     height: 100%;
     transition: all 0.2s ease-out;
     cursor: pointer;
-    visibility: hidden;
-    opacity: 0;
+    visibility: visible;
+    opacity: 0.1;
     pointer-events: none;
 }
 
 .spotlight-card-wrap.is-active {
-    visibility: visible;
-    opacity: 1;
+    visibility: visible !important;
+    opacity: 1 !important;
     pointer-events: auto;
     transform: translateZ(0) translateX(0);
     z-index: 10;
@@ -174,8 +174,8 @@
 
 /* Reduced spread to accommodate sidebars */
 .spotlight-card-wrap.is-prev {
-    visibility: visible;
-    opacity: 0.2;
+    visibility: visible !important;
+    opacity: 0.3;
     transform: translateZ(-600px) translateX(-380px) rotateY(25deg) scale(0.8);
     filter: blur(2px);
     z-index: 5;
@@ -183,8 +183,8 @@
 }
 
 .spotlight-card-wrap.is-next {
-    visibility: visible;
-    opacity: 0.2;
+    visibility: visible !important;
+    opacity: 0.3;
     transform: translateZ(-600px) translateX(360px) rotateY(-25deg) scale(0.8);
     filter: blur(2px);
     z-index: 5;
@@ -440,9 +440,28 @@
         height: 480px;
     }
 
-    .spotlight-card-wrap.is-prev,
+    .spotlight-card-wrap.is-active {
+        display: block !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: translateZ(0) translateX(0) !important;
+        z-index: 100 !important;
+    }
+
+    .spotlight-card-wrap.is-prev {
+        display: block !important;
+        opacity: 0.4 !important;
+        transform: translateX(-45%) scale(0.8) !important;
+        visibility: visible !important;
+        z-index: 50 !important;
+    }
+
     .spotlight-card-wrap.is-next {
-        display: none;
+        display: block !important;
+        opacity: 0.4 !important;
+        transform: translateX(45%) scale(0.8) !important;
+        visibility: visible !important;
+        z-index: 50 !important;
     }
 }
 
@@ -464,5 +483,46 @@
         padding: 0.5rem 1rem;
         font-size: 0.8rem;
         min-width: unset;
+    }
+
+    .spotlight-slider {
+        max-width: 280px;
+        height: 420px;
+        margin: 0 auto;
+    }
+
+    .rectangular-card-3d {
+        border-radius: 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .courses-page {
+        padding: 2rem 0;
+    }
+
+    .courses-title {
+        font-size: 2rem;
+    }
+
+    .courses-main-layout {
+        padding: 0 1rem;
+    }
+
+    .spotlight-slider {
+        max-width: 260px;
+        height: 380px;
+    }
+
+    .course-name-3d {
+        font-size: 1.2rem;
+    }
+
+    .instructor-name-3d {
+        font-size: 0.9rem;
+    }
+
+    .card-details {
+        padding: 30px 20px 20px;
     }
 }

@@ -616,65 +616,21 @@ const About = () => {
                 </div>
             </section>
 
-            {/* Biz haqimizda bo'limi (Xarita va Kontakt) */}
+            {/* Biz haqimizda bo'limi (Xarita) */}
             <section className="about-us-section">
                 <div className="container">
-                    <div className="about-us-grid">
-                        <div className="about-us-content">
-                            <h2 className="section-title text-left">
-                                {language === 'ru' ? 'О нас' : language === 'en' ? 'About Us' : 'Biz haqimizda'}
-                            </h2>
-                            <p className="about-us-description">
-                                {language === 'ru'
-                                    ? 'Наша компания предоставляет услуги высочайшего качества. Сотрудничая с нами, вы выведете свой бизнес на новый уровень.'
-                                    : language === 'en'
-                                        ? 'Our company provides the highest quality services. By partnering with us, you will take your business to a new level.'
-                                        : 'Bizning kompaniyamiz mijozlarga eng yuqori sifatli xizmatlarni taqdim etadi. Biz bilan hamkorlik qilish orqali siz o\'z biznesingizni yangi bosqichga olib chiqasiz.'}
-                            </p>
-
-                            <div className="contact-details">
-                                <div className="contact-item">
-                                    <div className="contact-icon">
-                                        <FaMapMarkerAlt />
-                                    </div>
-                                    <div className="contact-text">
-                                        <strong>{language === 'ru' ? 'Адрес:' : language === 'en' ? 'Address:' : 'Manzil:'}</strong>
-                                        <span>{language === 'ru' ? 'Наманган, ул. Ходжаева, 38' : language === 'en' ? 'Namangan, Khodjaeva str., 38' : 'Namangan sh., Xodjayev ko\'chasi, 38-uy'}</span>
-                                    </div>
-                                </div>
-
-                                <div className="contact-item">
-                                    <div className="contact-icon">
-                                        <FaPhoneAlt />
-                                    </div>
-                                    <div className="contact-text">
-                                        <strong>{language === 'ru' ? 'Тел:' : language === 'en' ? 'Tel:' : 'Tel:'}</strong>
-                                        <a href="tel:+998901234567">+998 90 123 45 67</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
+                    <div className="about-us-map-container">
                         <div className="about-us-map">
                             <iframe
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3010.9926121576827!2d71.6743788!3d41.00353489999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38bb4de2d8b58e0d%3A0xdecbb21511a65616!2s%22Sitelabs%22%20and%20%22Datasite%20Academy%22!5e0!3m2!1sru!2s!4v1769596919694!5m2!1sru!2s"
+                                src="https://yandex.com/map-widget/v1/?ll=71.672557%2C40.998889&z=17&mode=search&text=DataSite+Academy+Namangan"
                                 width="100%"
                                 height="100%"
                                 style={{ border: 0 }}
                                 allowFullScreen=""
                                 loading="lazy"
-                                title="Kompaniya manzili"
+                                title="DataSite Academy - Namangan"
                             ></iframe>
                         </div>
-                    </div>
-                </div>
-            </section>
-
-            <section className="impact-stats">
-                <div className="container">
-                    <div className="stats-dashboard">
-                        <StatCounter targetValue="350" label={t.aboutPage.stats.students} />
-                        <StatCounter targetValue="15" label={t.aboutPage.stats.courses} />
                     </div>
                 </div>
             </section>

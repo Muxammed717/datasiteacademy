@@ -400,6 +400,7 @@
     max-width: 90vw;
     /* Safety on smaller desktops */
     overflow: hidden;
+    margin: 0 auto;
 }
 
 .partners-slider-viewport {
@@ -790,11 +791,10 @@
     width: 90%;
 }
 
-.about-us-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    align-items: center;
+.about-us-map-container {
+    max-width: 1000px;
+    width: 100%;
+    margin: 0 auto;
 }
 
 .about-us-content {
@@ -877,23 +877,167 @@
 }
 
 .about-us-map {
-    height: 500px;
+    height: 600px;
     border-radius: 30px;
     overflow: hidden;
     box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.25);
     border: 1px solid var(--border);
     position: relative;
     animation: fadeInUp 1s ease-out forwards;
+    width: 100%;
 }
 
 /* Map Styles */
 .about-us-map iframe {
     filter: none;
-    transition: transform 0.3s ease;
+    transition: none;
 }
 
 .about-us-map:hover iframe {
-    transform: scale(1.02);
+    transform: none;
+    backdrop-filter: none;
+}
+
+/* Map Label Overlay - Eye-catching design */
+.map-label-overlay {
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    pointer-events: none;
+    animation: slideDown 0.8s ease-out forwards;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+.map-label-content {
+    background: linear-gradient(135deg, #10b981 0%, #15322C 100%);
+    padding: 20px 30px;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(16, 185, 129, 0.4);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        box-shadow: 0 20px 60px rgba(16, 185, 129, 0.4);
+        transform: scale(1);
+    }
+
+    50% {
+        box-shadow: 0 25px 70px rgba(16, 185, 129, 0.6);
+        transform: scale(1.02);
+    }
+}
+
+[data-theme="dark"] .map-label-content {
+    background: linear-gradient(135deg, #34d399 0%, #10b981 100%);
+    box-shadow: 0 20px 60px rgba(52, 211, 153, 0.5);
+}
+
+.map-label-icon {
+    font-size: 3rem;
+    line-height: 1;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+    animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+.map-label-text h3 {
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: #FFFFFF;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    letter-spacing: -0.02em;
+}
+
+.map-label-text p {
+    margin: 5px 0 0 0;
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.95);
+    font-weight: 600;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 768px) {
+    .map-label-overlay {
+        top: 20px;
+    }
+
+    .map-label-content {
+        padding: 15px 20px;
+        gap: 12px;
+    }
+
+    .map-label-icon {
+        font-size: 2.5rem;
+    }
+
+    .map-label-text h3 {
+        font-size: 1.4rem;
+    }
+
+    .map-label-text p {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .map-label-overlay {
+        top: 15px;
+        left: 15px;
+        right: 15px;
+        transform: none;
+    }
+
+    .map-label-content {
+        padding: 12px 16px;
+        gap: 10px;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .map-label-icon {
+        font-size: 2rem;
+    }
+
+    .map-label-text h3 {
+        font-size: 1.2rem;
+    }
+
+    .map-label-text p {
+        font-size: 0.85rem;
+    }
 }
 
 /* Theme specific overrides */
@@ -912,21 +1056,22 @@
 
 /* Responsive */
 @media (max-width: 1024px) {
-    .about-us-grid {
-        grid-template-columns: 1fr;
-        gap: 40px;
+    .about-us-map {
+        height: 450px;
     }
 
-    .section-title.text-left {
-        text-align: center;
+    .services-viewport {
+        width: 100%;
     }
 
-    .about-us-description {
-        text-align: center;
+    .service-card-item {
+        min-width: 200px;
+        max-width: 200px;
     }
 
-    .contact-item:hover {
-        transform: translateY(-5px);
+    .service-card-content {
+        width: 180px;
+        height: 180px;
     }
 }
 
@@ -939,7 +1084,103 @@
         height: 350px;
     }
 
-    .contact-item {
-        padding: 15px;
+    .section-title {
+        font-size: 2rem;
+        margin-bottom: 40px;
+    }
+
+    .services-section {
+        padding: 80px 0 60px;
+    }
+
+    .services-section h2.section-title {
+        font-size: 2.5rem;
+        margin-bottom: 50px;
+    }
+
+    .service-card-item {
+        min-width: calc(33.33% - 20px);
+        max-width: calc(33.33% - 20px);
+        height: 300px;
+    }
+
+    .service-card-content {
+        width: 120px;
+        height: 120px;
+    }
+
+    .service-icon {
+        font-size: 2rem;
+    }
+
+    .service-card-item h3 {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .about-us-map {
+        height: 300px;
+        border-radius: 20px;
+    }
+
+    .about-us-map-container {
+        max-width: 100%;
+    }
+
+    .service-card-item {
+        min-width: calc(33.33% - 30px);
+        max-width: calc(33.33% - 30px);
+        height: 250px;
+    }
+
+    .service-card-content {
+        width: 100px;
+        height: 100px;
+    }
+
+    .service-icon {
+        font-size: 1.8rem;
+    }
+
+    .service-card-item h3 {
+        font-size: 0.9rem;
+    }
+
+    .services-track {
+        gap: 15px;
+        padding: 0 10px;
+    }
+
+    .services-viewport {
+        overflow: visible;
+        padding: 30px 10px;
+    }
+
+    .partners-wrapper.extended {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .partner-logo-item {
+        flex: 0 0 auto;
+        width: 160px;
+    }
+
+    .logo-box.naked {
+        width: 160px;
+        height: 80px;
+    }
+
+    .partners-track.pagination-controlled {
+        gap: 30px;
+    }
+
+    .partners-slider-viewport {
+        overflow: visible;
+    }
+
+    .section-title {
+        font-size: 1.8rem;
     }
 }

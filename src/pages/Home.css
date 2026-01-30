@@ -721,3 +721,52 @@
     width: 30px;
     border-radius: 6px;
 }
+
+@media screen and (max-width: 480px) {
+    .banner-heading {
+        font-size: 2.5rem;
+    }
+
+    .phrase-item {
+        font-size: 2.5rem;
+    }
+
+    .banner-subtext {
+        font-size: 0.95rem;
+        padding: 0 1rem;
+    }
+
+    .btn-banner {
+        font-size: 1rem;
+        padding: 14px 20px;
+    }
+
+    .title-text {
+        font-size: 2rem;
+    }
+
+    .roadmap-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .roadmap-card {
+        padding: 30px 20px;
+    }
+
+    .home-course-card {
+        max-width: 100%;
+    }
+
+    .h-course-img {
+        height: 200px;
+    }
+
+    .h-course-body {
+        padding: 20px;
+    }
+
+    .h-course-body h3 {
+        font-size: 1.4rem;
+    }
+}

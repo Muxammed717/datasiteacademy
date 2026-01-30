@@ -39,15 +39,21 @@ const Footer = () => {
                     <h4 className="footer-heading">{t.footer.contactInfo}</h4>
                     <ul className="footer-contact-list">
                         <li>
-                            <FaPhone className="contact-icon" />
+                            <div className="contact-icon-circle">
+                                <FaPhone />
+                            </div>
                             <span>{t.footer.phone}</span>
                         </li>
                         <li>
-                            <FaEnvelope className="contact-icon" />
+                            <div className="contact-icon-circle">
+                                <FaEnvelope />
+                            </div>
                             <span>{t.footer.email}</span>
                         </li>
                         <li>
-                            <FaMapMarkerAlt className="contact-icon" />
+                            <div className="contact-icon-circle">
+                                <FaMapMarkerAlt />
+                            </div>
                             <div style={{ display: 'flex', flexDirection: 'column' }}>
                                 <span>{t.footer.address}</span>
                                 <span>{t.footer.landmark}</span>
