@@ -146,7 +146,7 @@ const PlexusBackground = ({ color, absolute = false }) => {
                 cancelAnimationFrame(animationFrameRef.current);
             }
         };
-    }, [theme, color, absolute]); // Re-run when props change
+    }, [theme, color, absolute]);
 
     return <canvas ref={canvasRef} className={`plexus-canvas ${absolute ? 'is-absolute' : ''}`} />;
 };

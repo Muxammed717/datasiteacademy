@@ -1,4 +1,3 @@
-/* Light Theme News Page (Marquee Edition) */
 .news-page {
     min-height: 100vh;
     background: transparent;
@@ -7,25 +6,33 @@
     font-family: 'Inter', sans-serif;
 }
 
-/* ... existing code ... */
 
-/* Marquee Container -> Now Horizontal Scroll Grid */
+
+
+
+
 .news-marquee {
     width: 100%;
-    /* Horizontal scroll */
+
+
     overflow-x: auto;
     overflow-y: hidden;
     padding: 20px 0;
 
-    /* Hide scrollbar for clean look (Drag to scroll enabled) */
-    scrollbar-width: none;
-    /* Firefox */
-    -ms-overflow-style: none;
-    /* IE 10+ */
 
-    /* Drag Interaction Cursor */
+
+    scrollbar-width: none;
+
+
+    -ms-overflow-style: none;
+
+
+
+
+
     cursor: grab;
-    /* Prevent text selection during drag */
+
+
     user-select: none;
     -webkit-user-select: none;
 }
@@ -38,46 +45,55 @@
 .news-marquee.active * {
     cursor: grabbing !important;
     cursor: -webkit-grabbing !important;
-    pointer-events: none;
-    /* Optional: prevents hover effects during drag */
+    /* pointer-events: none olib tashlandi, chunki u clickni bloklaydi */
+
+
 }
 
 .news-marquee::-webkit-scrollbar {
     display: none;
-    /* Chrome, Safari */
+
+
 }
 
 .news-track {
     display: grid;
-    /* 2 rows of height 240px each = ~500px total height with gap */
+
+
     grid-template-rows: repeat(2, 240px);
     grid-auto-flow: column;
-    /* Items fill columns first, moving right */
+
+
     gap: 16px;
     width: max-content;
     padding: 0 20px;
 }
 
-/* Hover Pause Effect - Removed (no animation to pause) */
 
-/* Card Styles */
+
+
+
+
 .news-card-marquee {
     position: relative;
     height: 100%;
-    /* Fill the grid cell (240px or spanned) */
+
+
     border-radius: 24px;
     overflow: hidden;
     background: #000;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
     cursor: pointer;
-    /* Default width fallback */
+
+
     width: 380px;
     opacity: 0;
     animation: fadeInUp 0.6s ease-out forwards;
 }
 
-/* Sequential entrance animation delays */
+
+
 .news-card-marquee:nth-child(1) {
     animation-delay: 0.1s;
 }
@@ -142,11 +158,13 @@
     }
 }
 
-/* Span classes for layout */
+
+
 .span-row-2 {
     grid-row: span 2;
     height: 100%;
-    /* Fills both rows + gap */
+
+
 }
 
 .span-row-1 {
@@ -158,7 +176,6 @@
     transform: scale(0.98);
 }
 
-/* Width Variations - Restored */
 .wide {
     width: 600px;
 }
@@ -185,7 +202,8 @@
     transition: transform 0.5s ease;
 }
 
-/* Play Button Overlay */
+
+
 .play-btn-marquee {
     position: absolute;
     top: 50%;
@@ -210,7 +228,8 @@
 
 .play-btn-marquee svg {
     margin-left: 5px;
-    /* Visual centering adjustment for play icon */
+
+
 }
 
 .news-card-marquee:hover .play-btn-marquee {
@@ -218,8 +237,10 @@
     transform: translate(-50%, -50%) scale(1.1);
 }
 
-/* Hide play button when video is playing (handled by React state class or CSS trick) */
-/* We will toggle a class 'is-playing' on the wrapper */
+
+
+
+
 .media-wrapper.playing .play-btn-marquee {
     opacity: 0;
     transform: translate(-50%, -50%) scale(0.8);
@@ -229,7 +250,8 @@
     transform: scale(1.05);
 }
 
-/* Overlay Styles */
+
+
 .card-overlay-marquee {
     position: absolute;
     bottom: 0;
@@ -289,7 +311,8 @@
     font-weight: 400;
 }
 
-/* Remove button styles, assuming hover autoplay for videos */
+
+
 video {
     cursor: pointer;
 }
@@ -305,7 +328,8 @@ video {
 
     .news-title {
         font-size: 2.5rem;
-        /* Smaller title on mobile */
+
+
     }
 
     .news-desc {
@@ -366,18 +390,36 @@ video {
     }
 
     .news-card-marquee {
-        width: 240px;
+        width: 220px;
+        /* Reduced from 240 */
     }
 
     .wide {
-        width: 260px;
+        width: 240px;
+        /* Reduced from 260 */
     }
 
     .normal {
-        width: 220px;
+        width: 200px;
+        /* Reduced from 220 */
     }
 
     .tall {
+        width: 160px;
+        /* Reduced from 180 */
+    }
+}
+
+@media (max-width: 360px) {
+    .news-card-marquee {
         width: 180px;
+    }
+
+    .wide {
+        width: 200px;
+    }
+
+    .normal {
+        width: 160px;
     }
 }

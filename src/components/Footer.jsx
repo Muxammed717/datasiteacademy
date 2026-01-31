@@ -30,7 +30,6 @@ const Footer = () => {
                         <li><Link to="/">{t.nav.home}</Link></li>
                         <li><Link to="/courses">{t.nav.courses}</Link></li>
                         <li><Link to="/about">{t.nav.about}</Link></li>
-                        {/* <li><Link to="/status">{t.nav.status}</Link></li> */}
                         <li><Link to="/contact">{t.nav.contact}</Link></li>
                     </ul>
                 </div>

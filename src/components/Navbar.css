@@ -143,9 +143,9 @@
     }
 }
 
-@media screen and (max-width: 1150px) {
+@media screen and (max-width: 1200px) {
     .navbar-container {
-        padding: 0 1rem;
+        padding: 0 1.5rem;
     }
 
     .logo-img {
@@ -173,8 +173,10 @@
         opacity: 1;
         transition: all 0.5s ease;
         background: var(--bg-main);
-        padding-top: var(--spacing-xl);
+        padding: 2rem 0;
         z-index: 999;
+        align-items: center;
+        gap: 2rem;
     }
 
     .nav-menu.active {

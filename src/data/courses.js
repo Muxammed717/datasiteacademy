@@ -7,15 +7,51 @@ import imgSardorbek from '../assets/serdorbek.jpg';
 import imgNemis from '../assets/nemis.png';
 import koreanImg from '../assets/korean.png';
 import imgFrontEnd from '../assets/yaxyobek.JPG';
-import imgmx from '../assets/mx.png';
 import samir from '../assets/xamir.png';
 import imgibo from '../assets/ibrohim.png';
 import imgnurillox from '../assets/nurillo.JPG';
 import imgjavohir from '../assets/javohir.png';
 import imgMuhammad from '../assets/muxammad.png';
+import imgMukhammed from '../assets/mukhammed.png';
 
 // Kurslar va Mentorlar ma'lumotlari
 export const coursesData = [
+    {
+        id: 16,
+        title: 'Front-end Dasturlash',
+        titleEn: 'Front-end Development',
+        titleRu: 'Frontend Разработка',
+        instructor: 'Muhammadbobur Abdumutallimov ',
+        instructorSlug: 'frontend-mukhammed',
+        instructorBio: {
+            uz: 'U IT sohasiga jiddiy qiziqadi, yangi texnologiyalarni tez o‘zlashtiradi va doimiy ravishda bilimini oshirib boradi. Amaliyotga katta e’tibor beradi va o‘z ustida ishlashdan to‘xtamaydi.',
+            en: 'He is seriously interested in the IT field, quickly masters new technologies, and constantly improves his knowledge. He pays great attention to practice and never stops working on himself.',
+            ru: 'Он серьезно интересуется IT-сферой, быстро осваивает новые технологии и постоянно совершенствует свои знания. Он уделяет большое внимание практике и не перестает работать над собой.'
+        },
+        instructorSkills: {
+            uz: ['HTML5 & CSS3', 'JavaScript (ES5+)', 'React.js', 'Next.js', 'Bootstrap', 'Gaming', 'Figma', 'Work with Team'],
+            en: ['HTML5 & CSS3', 'JavaScript (ES5+)', 'React.js', 'Next.js', 'Bootstrap', 'Gaming', 'Figma', 'Work with Team'],
+            ru: ['HTML5 & CSS3', 'JavaScript (ES5+)', 'React.js', 'Next.js', 'Bootstrap', 'Gaming', 'Figma', 'Work with Team']
+        },
+        instructorEdu: {
+            uz: 'Namangan shahar 1-sonli umumta’lim muassasasida tahsil oladi.',
+            en: 'Currently studying at Secondary School No.1 in Namangan.',
+            ru: 'В настоящее время обучается в общеобразовательном учреждении №1 города Наманган.'
+        },
+        instructorAchieve: {
+            uz: 'O\'quv Markazning eng yosh dasturchilaridan biri xamda Datasite Academy web-saytining yaratuvchisi',
+            en: 'One of the youngest developers in the training center and the creator of the Datasite Academy website',
+            ru: 'Один из самых молодых разработчиков в учебном центре и создатель веб-сайта Datasite Academy'
+        },
+        rating: 5.0,
+        students: 100,
+        duration: '9 Oy',
+        price: '399 000 UZS',
+        oldPrice: '700 000 UZS',
+        category: ['Frontend'],
+        image: 'https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
+        instructorImg: imgMukhammed
+    },
     {
         id: 1,
         title: 'Kompyuter savodxonligi',
@@ -84,7 +120,7 @@ export const coursesData = [
         duration: '9 Oy',
         price: '399 000 UZS',
         oldPrice: '700 000 UZS',
-        category: ['Dasturlash'],
+        category: ['Frontend'],
         image: 'https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
         instructorImg: imgSardorbek
     },
@@ -120,11 +156,46 @@ export const coursesData = [
         duration: '9 Oy',
         price: '499 000 UZS',
         oldPrice: '800 000 UZS',
-        category: ['Dasturlash'],
+        category: ['Backend'],
         image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
         instructorImg: samir
     },
-
+    {
+        id: 4,
+        title: 'Full Stack Dasturlash',
+        titleEn: 'Full Stack Development',
+        titleRu: 'Fullstack Разработка',
+        instructor: 'Ilyosbek Habibullayev',
+        instructorSlug: 'senior-mentor',
+        instructorBio: {
+            uz: 'Individual yondashuv orqali har bir o\'quvchini qisqa vaqtda natijaga olib chiqish bo\'yicha ekspert. IT sohasidagi turli yo\'nalishlarni uyg\'unlashtirgan.',
+            en: 'Expert in leading students to results in a short time through an individual approach. Bridges various fields in IT.',
+            ru: 'Эксперт по быстрому достижению результатов для каждого ученика через индивидуальный подход. Объединяет различные направления в IT.'
+        },
+        instructorSkills: {
+            uz: ['Karyera bo\'yicha mentorlik', 'Full-stack umumiy ko\'rinishi', 'Loyihalarni boshqarish', 'Soft Skills'],
+            en: ['Career Mentoring', 'Full-stack Overview', 'Project Management', 'Soft Skills'],
+            ru: ['Карьерное менторство', 'Обзор Full-stack', 'Управление проектами', 'Soft Skills']
+        },
+        instructorEdu: {
+            uz: 'Vestminster xalqaro universiteti',
+            en: 'Westminster International University',
+            ru: 'Международный Вестминстерский университет'
+        },
+        instructorAchieve: {
+            uz: 'O\'zbekistondagi eng kuchli 10 ta IT mentori ro\'yxatida',
+            en: 'Top 10 IT Mentors list in Uzbekistan',
+            ru: 'В списке топ-10 IT-менторов Узбекистана'
+        },
+        rating: 5.0,
+        students: 50,
+        duration: '5 Oy',
+        price: '1 500 000 UZS',
+        oldPrice: '2 500 000 UZS',
+        category: ['Backend', 'Frontend'],
+        image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
+        instructorImg: img3213
+    },
     {
         id: 6,
         title: 'Buxgalteriya',
@@ -300,7 +371,7 @@ export const coursesData = [
         duration: '9 Oy',
         price: '399 000 UZS',
         oldPrice: '700 000 UZS',
-        category: ['Dasturlash'],
+        category: ['Frontend'],
         image: 'https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
         instructorImg: imgFrontEnd
     },
@@ -336,7 +407,7 @@ export const coursesData = [
         duration: '9 Oy',
         price: '399 000 UZS',
         oldPrice: '700 000 UZS',
-        category: ['Dasturlash'],
+        category: ['Frontend'],
         image: 'https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
         instructorImg: imgibo
     },
@@ -446,9 +517,8 @@ export const coursesData = [
         duration: '9 Oy',
         price: '399 000 UZS',
         oldPrice: '700 000 UZS',
-        category: ['Dasturlash'],
+        category: ['Frontend'],
         image: 'https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
         instructorImg: imgMuhammad
     },
-
 ];

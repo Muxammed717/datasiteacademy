@@ -23,7 +23,7 @@
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 99px;
     pointer-events: auto;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
     animation: slideInLeft 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 

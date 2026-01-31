@@ -22,7 +22,7 @@ const AdminDashboard = () => {
     const [groups, setGroups] = useState([]);
     const [paymentHistory, setPaymentHistory] = useState([]);
 
-    const [activeTab, setActiveTab] = useState('students'); // 'students', 'groups', or 'search'
+    const [activeTab, setActiveTab] = useState('students');
     const [filterGroup, setFilterGroup] = useState('all');
     const [isAdding, setIsAdding] = useState(false);
     const [isAddingGroup, setIsAddingGroup] = useState(false);
@@ -31,7 +31,7 @@ const AdminDashboard = () => {
     const [formData, setFormData] = useState({ name: '', groupId: '' });
     const [groupFormData, setGroupFormData] = useState({ name: '', courseId: '', teacherName: '' });
 
-    // Status Search states
+
     const [searchId, setSearchId] = useState('');
     const [searchResult, setSearchResult] = useState(null);
     const [searchError, setSearchError] = useState(false);
@@ -41,11 +41,11 @@ const AdminDashboard = () => {
     const [historyModal, setHistoryModal] = useState({ show: false, studentId: null });
     const [deleteModal, setDeleteModal] = useState({ show: false, id: null, type: 'student' });
 
-    // History Editing
+
     const [editingHistoryId, setEditingHistoryId] = useState(null);
     const [historyFormData, setHistoryFormData] = useState({ month: '', amount: '', comment: '' });
 
-    // Super Admin & Maintenance
+
     const [isSuperAdmin, setIsSuperAdmin] = useState(false);
     const [maintenanceMode, setMaintenanceMode] = useState(false);
 
@@ -58,13 +58,13 @@ const AdminDashboard = () => {
             setIsSuperAdmin(true);
         }
 
-        // Check Maintenance Status
+
         const maintenanceRef = ref(db, 'settings/maintenance');
         onValue(maintenanceRef, (snapshot) => {
             setMaintenanceMode(snapshot.val() === true);
         });
 
-        // Sync Students from Firebase
+
         const studentsRef = ref(db, 'students');
         onValue(studentsRef, (snapshot) => {
             const data = snapshot.val();
@@ -72,11 +72,11 @@ const AdminDashboard = () => {
                 const studentsList = Array.isArray(data) ? data : Object.values(data);
                 setStudents(studentsList);
             } else {
-                setStudents([]); // Start empty if no data
+                setStudents([]);
             }
         });
 
-        // Sync Groups from Firebase
+
         const groupsRef = ref(db, 'groups');
         onValue(groupsRef, (snapshot) => {
             const data = snapshot.val();
@@ -84,11 +84,11 @@ const AdminDashboard = () => {
                 const groupsList = Array.isArray(data) ? data : Object.values(data);
                 setGroups(groupsList);
             } else {
-                setGroups([]); // Start empty if no data
+                setGroups([]);
             }
         });
 
-        // Sync History from Firebase
+
         const historyRef = ref(db, 'history');
         onValue(historyRef, (snapshot) => {
             const data = snapshot.val();
@@ -115,7 +115,7 @@ const AdminDashboard = () => {
         const entryWithTimestamp = { ...newEntry, timestamp: Date.now() };
         set(historyRef, entryWithTimestamp);
 
-        // Update group revenue
+
         const student = students.find(s => s.id === newEntry.studentId);
         if (student && student.groupId) {
             const updatedGroups = groups.map(g =>
@@ -232,9 +232,9 @@ const AdminDashboard = () => {
         let studentRef = null;
         const updatedStudents = students.map(s => {
             if (s.id === paymentModal.id) {
-                // Find course price dynamically
+
                 const courseObj = coursesData.find(c => c.title === s.course);
-                const coursePrice = courseObj ? parseInt(courseObj.price.replace(/\D/g, '')) : 500000; // Fallback to 500k
+                const coursePrice = courseObj ? parseInt(courseObj.price.replace(/\D/g, '')) : 500000;
 
                 const newStatus = amount < coursePrice ? 'partial' : 'paid';
 
@@ -243,7 +243,7 @@ const AdminDashboard = () => {
                     status: newStatus,
                     lastPayment: today,
                     lastPaymentMonth: paymentModal.month,
-                    lastPaymentAmount: amount, // Store exact amount paid
+                    lastPaymentAmount: amount,
                     totalPaid: (s.totalPaid || 0) + amount
                 };
                 return studentRef;
@@ -306,7 +306,7 @@ const AdminDashboard = () => {
                     </div>
                 </div>
 
-                {/* Tabs */}
+
                 <div style={{ display: 'flex', gap: '1rem', marginBottom: '2rem', borderBottom: '1px solid var(--border)', paddingBottom: '1rem' }}>
                     <button
                         onClick={() => setActiveTab('students')}
@@ -415,8 +415,7 @@ const AdminDashboard = () => {
                                                 {(() => {
                                                     const currentMonthIndex = new Date().getMonth();
                                                     const currentMonthName = t.admin.months[currentMonthIndex];
-                                                    // Status logic: If last payment month is NOT current month, show 'unpaid'
-                                                    // But keep the 'partial' logic if it WAS paid this month
+
                                                     const isPaidThisMonth = student.lastPaymentMonth === currentMonthName;
                                                     const effectiveStatus = isPaidThisMonth ? student.status : 'unpaid';
 
@@ -602,7 +601,7 @@ const AdminDashboard = () => {
                     </div>
                 )}
 
-                {/* Student History Modal */}
+
                 {historyModal.show && (
                     <ModalPortal>
                         <div className="modal-overlay" style={modalOverlayStyle}>
@@ -687,7 +686,7 @@ const AdminDashboard = () => {
                     </ModalPortal>
                 )}
 
-                {/* Reuse existing Payment & Receipt Modals logic... */}
+
                 {paymentModal.show && (
                     <ModalPortal>
                         <div className="modal-overlay" style={modalOverlayStyle}>
@@ -733,7 +732,7 @@ const AdminDashboard = () => {
                     </ModalPortal>
                 )}
 
-                {/* Receipt Modal */}
+
                 {receiptModal.show && (
                     <ModalPortal>
                         <div className="modal-overlay" style={modalOverlayStyle}>
@@ -760,7 +759,7 @@ const AdminDashboard = () => {
                     </ModalPortal>
                 )}
 
-                {/* Custom Delete Modal */}
+
                 {deleteModal.show && (
                     <ModalPortal>
                         <div className="modal-overlay" style={modalOverlayStyle}>
@@ -796,7 +795,7 @@ const AdminDashboard = () => {
     );
 };
 
-// Styles
+
 const tabBtn = { background: 'none', border: 'none', padding: '0.75rem 1.5rem', cursor: 'pointer', fontWeight: 700, fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '0.5rem', transition: '0.2s' };
 const formBox = { backgroundColor: 'var(--bg-secondary)', padding: '2rem', borderRadius: 'var(--radius-lg)', marginBottom: '3rem', border: '1px solid var(--border)' };
 const formGrid = { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.5rem' };

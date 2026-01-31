@@ -18,14 +18,12 @@ const MonitoringDashboard = () => {
         totalRevenue: 0,
         activeCourses: 0,
         paidCount: 0,
-
-
         unpaidCount: 0,
         courseDistribution: {},
         groupPerformance: [],
         paymentHistory: [],
-        students: [], // Added raw students
-        groups: []    // Added raw groups
+        students: [],
+        groups: []
     });
 
     const [selectedMonth, setSelectedMonth] = useState('Dekabr');
@@ -59,7 +57,7 @@ const MonitoringDashboard = () => {
 
                 const totalRev = students.reduce((acc, s) => acc + (parseInt(s.totalPaid) || 0), 0);
 
-                // Fetch History for Monthly Stats
+
                 const historyRef = ref(db, 'history');
                 onValue(historyRef, (historySnapshot) => {
                     const hData = historySnapshot.val();
@@ -74,7 +72,7 @@ const MonitoringDashboard = () => {
                         courseDistribution: dist,
                         unpaidCount: students.length - paid.length,
                         courseDistribution: dist,
-                        groupPerformance: groups, // Store raw groups, we'll calc revenue in render
+                        groupPerformance: groups,
                         paymentHistory: historyList.sort((a, b) => b.timestamp - a.timestamp),
                         students: students,
                         groups: groups
@@ -88,11 +86,11 @@ const MonitoringDashboard = () => {
     const monthlyTotal = monthlyPayments.reduce((acc, curr) => acc + (parseInt(curr.amount) || 0), 0);
     const allTimeTotal = stats.paymentHistory.reduce((acc, curr) => acc + (parseInt(curr.amount) || 0), 0);
 
-    // Calculate Dynamic Monthly Group Revenue
+
     const monthlyGroupStats = stats.groups.map(g => {
         // Find revenue for this group in this month
-        // 1. Find students in this group
-        // 2. Find payments by these students in this month
+
+
         const groupRevenue = monthlyPayments.reduce((acc, pay) => {
             const student = stats.students.find(s => s.id === pay.studentId);
             if (student && student.groupId === g.id) {
@@ -163,11 +161,11 @@ const MonitoringDashboard = () => {
                             </thead>
                             <tbody>
                                 {(() => {
-                                    // Group payments by Group ID
+
                                     const paymentsByGroup = {};
 
-                                    // 1. Initialize groups including "No Group"
-                                    // We need to know ALL students distribution first to get total counts correct
+
+
                                     const studentsByGroup = {};
                                     stats.students.forEach(s => {
                                         const gId = s.groupId || 'nogroup';
@@ -175,7 +173,7 @@ const MonitoringDashboard = () => {
                                         studentsByGroup[gId]++;
                                     });
 
-                                    // 2. Initialize paymentsByGroup with ALL active groups
+
                                     stats.groups.forEach(g => {
                                         const gId = g.id;
                                         paymentsByGroup[gId] = {
@@ -196,7 +194,7 @@ const MonitoringDashboard = () => {
                                         let groupName = 'Guruhsiz (Unassigned)';
                                         let isDeleted = false;
 
-                                        // Resolve Student Name if missing in payment (e.g. old record)
+
                                         if (!p.studentName && student) {
                                             p.studentName = student.name;
                                         }
@@ -210,7 +208,7 @@ const MonitoringDashboard = () => {
                                             const gInfo = stats.groups.find(g => g.id === groupId);
 
                                             if (!gInfo) {
-                                                // Group is deleted. Try to get name from student record if available, else generic.
+
                                                 const oldName = student.groupName ? `${student.groupName} (O'chirilgan)` : 'O\'chirilgan Guruh';
                                                 groupName = oldName;
                                             }
@@ -261,7 +259,7 @@ const MonitoringDashboard = () => {
                                                     {group.paidCount} / {group.totalStudents} ({group.totalStudents > 0 ? Math.round((group.paidCount / group.totalStudents) * 100) : 0}%)
                                                 </td>
                                                 <td style={{ padding: '1rem', color: '#94a3b8', fontSize: '0.75rem' }}>
-                                                    {/* Date column placeholder or empty for group row */}
+
                                                 </td>
                                                 <td style={{ padding: '1rem', textAlign: 'right', color: '#10b981', fontWeight: 'bold' }}>
                                                     {new Intl.NumberFormat('uz-UZ').format(group.totalAmount)}
@@ -342,7 +340,7 @@ const MonitoringDashboard = () => {
     );
 };
 
-// Sub-components
+
 const QuickStat = ({ label, value, sub, color, icon }) => (
     <div style={card}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
@@ -353,7 +351,7 @@ const QuickStat = ({ label, value, sub, color, icon }) => (
     </div>
 );
 
-// Styles
+
 const pageStyle = {
     backgroundColor: '#0a0a0a',
     color: '#e2e8f0',

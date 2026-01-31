@@ -17,7 +17,7 @@ const AdminLogin = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        // Hardcoded admin credentials
+
         const adminUser = "admin";
         const adminPass = "orifatun";
         const superAdminPass = "0085";
@@ -26,7 +26,7 @@ const AdminLogin = () => {
 
         if (credentials.username === adminUser) {
             if (credentials.password === superAdminPass) {
-                // SUPER ADMIN LOGIN
+
                 localStorage.setItem('adminSession', JSON.stringify({
                     authenticated: true,
                     role: 'superadmin',
@@ -34,7 +34,7 @@ const AdminLogin = () => {
                 }));
                 navigate('/admin/dashboard');
             } else if (credentials.password === adminPass) {
-                // REGULAR ADMIN LOGIN
+
                 localStorage.setItem('adminSession', JSON.stringify({
                     authenticated: true,
                     role: 'admin',

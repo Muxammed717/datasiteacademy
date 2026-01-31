@@ -11,7 +11,7 @@ const MaintenanceGuard = ({ children }) => {
     const [isSuperAdmin, setIsSuperAdmin] = useState(false);
 
     useEffect(() => {
-        // Check Admin Session
+
         const session = localStorage.getItem('adminSession');
         if (session) {
             const parsed = JSON.parse(session);
@@ -23,7 +23,7 @@ const MaintenanceGuard = ({ children }) => {
             }
         }
 
-        // Check Maintenance Status from Firebase
+
         const maintenanceRef = ref(db, 'settings/maintenance');
         const unsubscribe = onValue(maintenanceRef, (snapshot) => {
             setMaintenanceMode(snapshot.val() === true);
@@ -35,11 +35,7 @@ const MaintenanceGuard = ({ children }) => {
 
     if (loading) return <Preloader />;
 
-    // Logic:
-    // If Maintenance is OFF -> Show Site
-    // If Maintenance is ON:
-    //    If User is SUPER ADMIN -> Show Site (Bypass)
-    //    Else -> Show Maintenance Page
+
     if (maintenanceMode && !isSuperAdmin) {
         return <Maintenance />;
     }

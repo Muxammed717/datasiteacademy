@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useLanguage } from '../context/LanguageContext';
-import { FaChevronRight, FaChartLine, FaGlobe, FaMobileAlt, FaDesktop, FaFileAlt, FaUsers, FaMapMarkerAlt, FaPhoneAlt } from 'react-icons/fa';
+import { FaChevronRight, FaChartLine, FaGlobe, FaMobileAlt, FaDesktop, FaFileAlt, FaUsers } from 'react-icons/fa';
 import './About.css';
 
 import compass from '../assets/partners/compass.png';
@@ -15,7 +15,6 @@ import atlas from '../assets/partners/atlas.png';
 import shipox from '../assets/partners/shipox.png';
 import kpi from '../assets/partners/kpi.png';
 import helpa from '../assets/partners/helpa.png';
-// import your_icon from '../assets/icons/your_icon.png'; // Example of how to import your image icons
 
 const StatCounter = ({ targetValue, duration = 2000, label = '' }) => {
     const [displayValue, setDisplayValue] = useState(0);
@@ -71,9 +70,8 @@ const StatCounter = ({ targetValue, duration = 2000, label = '' }) => {
 const About = () => {
     const { t, language } = useLanguage();
 
-    // 1. Partners Section State & Constants
     const [currentIndex, setCurrentIndex] = useState(0);
-    const itemWidth = 360; // Adjusted for 4 logos: 320px width + 40px gap = 360px
+    const itemWidth = 400;
     const lastPartnersInteraction = useRef(0);
 
     const partners = [
@@ -91,7 +89,6 @@ const About = () => {
 
     const partnerTitle = t.aboutPage.partnerTitle;
 
-    // 2. Products Section State & Constants
     const [scrollOffset, setScrollOffset] = useState(0);
     const [isDragging, setIsDragging] = useState(false);
     const [startX, setStartX] = useState(0);
@@ -129,13 +126,11 @@ const About = () => {
         }
     ];
 
-    const cardWidth = 366.66 + 40; // width + gap
+    const cardWidth = 366.66 + 40;
     const totalSetWidth = products.length * cardWidth;
 
-    // 15 sets for an absolute "never-ending" feel
     const displayProducts = [...Array(15)].flatMap(() => products);
 
-    // 3. Services Section State & Constants
     const [servicesScrollOffset, setServicesScrollOffset] = useState(0);
     const [servicesIsDragging, setServicesIsDragging] = useState(false);
     const [servicesStartX, setServicesStartX] = useState(0);
@@ -203,11 +198,10 @@ const About = () => {
         }
     ];
 
-    const servicesCardWidth = 240; // Circular cards size
+    const servicesCardWidth = 240;
     const servicesGap = 40;
     const servicesTotalItemWidth = servicesCardWidth + servicesGap;
     const servicesTotalWidth = services.length * servicesTotalItemWidth;
-    // 15 sets for absolute seamlessness
     const displayServices = [...Array(15)].flatMap(() => services);
 
 
@@ -216,7 +210,6 @@ const About = () => {
         setIsDragging(true);
         const x = e.pageX || e.touches?.[0].pageX;
 
-        // RE-CENTER before starting drag if drifted far from center (sets 7-8)
         const current = scrollPos.current;
         if (current < -totalSetWidth * 10 || current > -totalSetWidth * 4) {
             const normalized = ((current % totalSetWidth) - totalSetWidth);
@@ -235,7 +228,6 @@ const About = () => {
         const walk = (x - startX);
         let newPos = lastX + walk;
 
-        // Real-time wrap while dragging to prevent gaps
         if (newPos > -totalSetWidth * 2) {
             newPos -= totalSetWidth * 5;
             setStartX(x);
@@ -260,14 +252,12 @@ const About = () => {
         setIsDragging(false);
         const nextPos = scrollPos.current - cardWidth;
 
-        // If we go past set 10, snap back to middle (set 5-6)
         if (nextPos < -totalSetWidth * 10) {
             const track = productsTrackRef.current;
             if (track) track.style.transition = 'none';
             const snappedPos = nextPos + totalSetWidth * 5;
             scrollPos.current = snappedPos;
             setScrollOffset(snappedPos);
-            // Re-enable transition on next frame
             requestAnimationFrame(() => {
                 if (track) track.style.transition = 'transform 0.8s cubic-bezier(0.2, 0, 0, 1)';
             });
@@ -297,13 +287,11 @@ const About = () => {
         }
     };
 
-    // Services slider handlers
     const handleServicesDragStart = (e) => {
         lastServicesInteraction.current = Date.now();
         setServicesIsDragging(true);
         const x = e.pageX || e.touches?.[0].pageX;
 
-        // RE-CENTER before starting drag if drifted far from center
         const current = servicesScrollPos.current;
         if (current < -servicesTotalWidth * 10 || current > -servicesTotalWidth * 4) {
             const track = servicesTrackRef.current;
@@ -311,7 +299,6 @@ const About = () => {
             const normalized = ((current % servicesTotalWidth) - servicesTotalWidth);
             servicesScrollPos.current = normalized - servicesTotalWidth * 6;
             setServicesScrollOffset(servicesScrollPos.current);
-            // No need to re-enable here as dragging sets transition to none anyway
         }
 
         setServicesStartX(x);
@@ -325,7 +312,6 @@ const About = () => {
         const walk = (x - servicesStartX);
         let newPos = servicesLastX + walk;
 
-        // Real-time wrap while dragging for infinite feel
         if (newPos > -servicesTotalWidth * 2) {
             newPos -= servicesTotalWidth * 5;
             setServicesStartX(x);
@@ -395,16 +381,13 @@ const About = () => {
         setCurrentIndex((prev) => prev - 1);
     };
 
-    // Seamless loop reset logic for Partners
     useEffect(() => {
         const track = document.querySelector('.partners-track.pagination-controlled');
 
-        // Snap happens after the animation finishes (0.4s)
         if (currentIndex >= partners.length * 4) {
             const timer = setTimeout(() => {
                 if (track) track.style.transition = 'none';
                 setCurrentIndex(partners.length * 2);
-                // Trigger reflow
                 track?.offsetHeight;
                 setTimeout(() => {
                     if (track) track.style.transition = 'transform 0.4s cubic-bezier(0.2, 0, 0, 1)';
@@ -426,40 +409,29 @@ const About = () => {
         }
     }, [currentIndex, partners.length]);
 
-    // Initial position
     useEffect(() => {
-        // Start Partners in the middle set (Set 3)
         setCurrentIndex(partners.length * 2);
 
-        // Initial position for products - start at set 7 (middle)
         scrollPos.current = -totalSetWidth * 7;
         setScrollOffset(scrollPos.current);
 
-        // Initial position for services - start at set 7 (middle)
         servicesScrollPos.current = -servicesTotalWidth * 7;
         setServicesScrollOffset(servicesScrollPos.current);
     }, [partners.length, servicesTotalWidth, totalSetWidth]);
 
-    // 4. Auto-rotation for all sliders
     useEffect(() => {
-        // Partners auto-rotation
         const partnersInterval = setInterval(() => {
             if (Date.now() - lastPartnersInteraction.current > 3000) {
-                setCurrentIndex((prev) => prev + 1); // Use direct update to avoid triggering ref interaction again if possible
+                setCurrentIndex((prev) => prev + 1);
             }
         }, 3000);
 
-        // Products auto-rotation
         const productsInterval = setInterval(() => {
             if (!isDragging && (Date.now() - lastProductsInteraction.current > 3000)) {
-                // We call nextProduct but that will update the interaction time. 
-                // To keep it simple, we can just use a modified version or just let it reset the wait.
-                // Resetting the wait is actually good behavior.
                 nextProduct();
             }
         }, 3000);
 
-        // Services auto-rotation
         const servicesInterval = setInterval(() => {
             if (!servicesIsDragging && (Date.now() - lastServicesInteraction.current > 3000)) {
                 nextService();
@@ -472,13 +444,11 @@ const About = () => {
             clearInterval(servicesInterval);
         };
     }, [isDragging, servicesIsDragging]);
-    // Re-subscribe when dragging state changes to ensure fresh closures
 
     const goToSiteText = t.aboutPage.goToSite;
 
     return (
         <div className="academy-about">
-            {/* Mahsulotlar bo'limi */}
             <section className="products-section">
                 <div className="container">
                     <h2 className="section-title centered-title">{productsTitle}</h2>
@@ -527,7 +497,6 @@ const About = () => {
                 </div>
             </section>
 
-            {/* Xizmatlar bo'limi */}
             <section className="services-section">
                 <div className="container">
                     <h2 className="section-title centered-title">{servicesTitle}</h2>
@@ -582,7 +551,6 @@ const About = () => {
                 </div>
             </section>
 
-            {/* Hamkorlar bo'limi */}
             <section className="partners-section">
                 <div className="container">
                     <h2 className="section-title centered-title">{partnerTitle}</h2>
@@ -616,7 +584,6 @@ const About = () => {
                 </div>
             </section>
 
-            {/* Biz haqimizda bo'limi (Xarita) */}
             <section className="about-us-section">
                 <div className="container">
                     <div className="about-us-map-container">

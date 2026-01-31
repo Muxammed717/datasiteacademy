@@ -78,7 +78,6 @@ main {
   z-index: 2;
   background: transparent;
   padding-top: 85px;
-  /* Added padding to compensate for fixed navbar */
 }
 
 a {

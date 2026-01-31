@@ -8,7 +8,7 @@ const Preloader = () => {
     useEffect(() => {
         const timer = setTimeout(() => {
             setFadeOut(true);
-            setTimeout(() => setLoading(false), 800); // Wait for fade out animation
+            setTimeout(() => setLoading(false), 800);
         }, 1500);
 
         return () => clearTimeout(timer);

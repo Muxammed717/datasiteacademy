@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FaClock, FaUsers, FaStar, FaStarHalfAlt, FaRegStar } from 'react-icons/fa';
 import { useLanguage } from '../context/LanguageContext';
-import { coursesData } from '../data/courses'; // Ma'lumotlarni olib kelamiz
+import { coursesData } from '../data/courses';
 import { useNavigate } from 'react-router-dom';
 import './Courses.css';
 
@@ -9,16 +9,13 @@ const Courses = () => {
     const { t, language } = useLanguage();
     const navigate = useNavigate();
 
-    // 1. Filtr (tanlangan kategoriya) uchun o'zgaruvchi
     const [filter, setFilter] = useState('All');
 
-    // 2. Slayderda ko'rinib turgan kurs tartib raqami (index)
     const [activeIndex, setActiveIndex] = useState(0);
 
-    // 3. Avtomatik aylanishni to'xtatib turish holati
     const [isPaused, setIsPaused] = useState(false);
 
-    // Filterga qarab kurslarni saralab olamiz
+
     const filteredCourses = filter === 'All'
         ? coursesData
         : coursesData.filter(course =>
@@ -27,7 +24,7 @@ const Courses = () => {
                 : course.category === filter
         );
 
-    // Slayderni har 2.5 soniyada avtomatik keyingisiga surish
+
     useEffect(() => {
         if (filteredCourses.length <= 1 || isPaused) return;
 
@@ -38,26 +35,25 @@ const Courses = () => {
         return () => clearInterval(timer);
     }, [filteredCourses.length, isPaused]);
 
-    // Filtr o'zgarganda birinchi kursga qaytarish
+
     const handleFilterChange = (key) => {
         setFilter(key);
         setActiveIndex(0);
     };
 
-    // Barcha mavjud kategoriyalarni yig'ib olamiz
+
     const dynamicCategories = [
         'All',
         ...new Set(coursesData.flatMap(course => course.category || []))
     ];
 
-    // Inglizcha kategoriyalarni o'zbekcha (yoki ruscha) qilish
+
     const getCategoryLabel = (cat) => {
         const categoryMap = {
             'All': t.courses.filter.all,
             'Kompyuter savodxonligi': t.courses.filter.computerLiteracy,
-            'Dasturlash': t.courses.filter.dev,
+            'Frontend': t.courses.filter.frontend,
             'Backend': t.courses.filter.backend,
-            'Individual': t.courses.filter.individual,
             'Buxgalteriya': t.courses.filter.accounting,
             'Ingliz tili': t.courses.filter.english,
             'Koreys tili': t.courses.filter.korean,
@@ -67,14 +63,14 @@ const Courses = () => {
         return categoryMap[cat] || cat;
     };
 
-    // Tanlangan tilga qarab kurs nomini ko'rsatish
+
     const getCourseTitle = (course) => {
         if (language === 'ru') return course.titleRu || course.titleEn || course.title;
         if (language === 'en') return course.titleEn || course.title;
         return course.title;
     };
 
-    // Yulduzchalarni (rating) chiqarish funksiyasi
+
     const renderStars = (rating) => {
         const stars = [];
         for (let i = 1; i <= 5; i++) {
@@ -97,7 +93,7 @@ const Courses = () => {
                     <p className="courses-subtitle">{t.courses.subtitle}</p>
 
                     <div className="courses-main-layout">
-                        {/* Chap tarafdagi filtr tugmalari */}
+
                         <div className="filter-sidebar left-sidebar">
                             {dynamicCategories.map(catKey => (
                                 <button
@@ -110,7 +106,7 @@ const Courses = () => {
                             ))}
                         </div>
 
-                        {/* Markazdagi 3D slayder sahnasi */}
+
                         <div
                             className="courses-spotlight-scene"
                             onMouseEnter={() => setIsPaused(true)}
@@ -118,7 +114,7 @@ const Courses = () => {
                         >
                             <div className="spotlight-slider">
                                 {filteredCourses.map((course, index) => {
-                                    // Slayder pozitsiyasini hisoblash
+
                                     const isActive = index === activeIndex;
                                     const isPrev = filteredCourses.length > 1 && (index === (activeIndex - 1 + filteredCourses.length) % filteredCourses.length);
                                     const isNext = filteredCourses.length > 1 && (index === (activeIndex + 1) % filteredCourses.length);
@@ -141,7 +137,7 @@ const Courses = () => {
                                                 }
                                             }}
                                         >
-                                            {/* Kurs kartasining o'zi */}
+
                                             <div className="rectangular-card-3d">
                                                 <div className="instructor-hero">
                                                     <img src={course.instructorImg} alt={course.instructor} className="main-instructor-img" />

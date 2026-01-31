@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-// Komponentlarni va Sahifalarni chaqirib olamiz (Import)
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -16,11 +15,9 @@ import Enrollment from './pages/Enrollment';
 import News from './pages/News';
 import InstructorDetails from './pages/InstructorDetails';
 
-// Kontekstlar (Til va Mavzu uchun)
 import { LanguageProvider } from './context/LanguageContext';
 import { ThemeProvider } from './context/ThemeContext';
 
-// Yordamchi komponentlar
 import ScrollToTop from './components/ScrollToTop';
 import PlexusBackground from './components/PlexusBackground';
 import Preloader from './components/Preloader';
@@ -30,35 +27,22 @@ import SocialSidebar from './components/SocialSidebar';
 
 function App() {
   return (
-    // ThemeProvider - saytni qora/oq rejimini boshqaradi
     <ThemeProvider>
-      {/* LanguageProvider - sayt tilini boshqaradi */}
       <LanguageProvider>
-        {/* Preloader - sayt ochilayotganda chiqadigan animatsiya */}
         <Preloader />
 
-        {/* Router - sahifalar o'rtasidagi yo'llarni boshqaradi */}
         <Router>
           <div className="app">
-            {/* PlexusBackground - orqa fondagi animatsiya */}
             <PlexusBackground />
 
-            {/* Navbar - tepa qismdagi menyu */}
             <Navbar />
 
-            {/* SocialSidebar - vertical ijtimoiy tarmoqlar */}
             <SocialSidebar />
 
-            {/* ScrollToTop - har safar sahifa o'zgarganda tepaga chiqaradi */}
             <ScrollToTop />
 
-            {/* Asosiy sahifalar joylashadigan qism */}
             <main>
               <Routes>
-                {/* 
-                  MaintenanceGuard - agar sayt ta'mirlashda bo'lsa, 
-                  faqat admin kiritishini ta'minlaydi.
-                */}
                 <Route path="/" element={<MaintenanceGuard><Home /></MaintenanceGuard>} />
                 <Route path="/courses" element={<MaintenanceGuard><Courses /></MaintenanceGuard>} />
                 <Route path="/about" element={<MaintenanceGuard><About /></MaintenanceGuard>} />
@@ -67,7 +51,6 @@ function App() {
                 <Route path="/news" element={<MaintenanceGuard><News /></MaintenanceGuard>} />
                 <Route path="/instructor/:slug" element={<MaintenanceGuard><InstructorDetails /></MaintenanceGuard>} />
 
-                {/* Alohida (himoyasiz) yo'llar */}
                 <Route path="/maintenance" element={<Maintenance />} />
                 <Route path="/admin" element={<AdminLogin />} />
                 <Route path="/admin/dashboard" element={<AdminDashboard />} />
@@ -76,7 +59,6 @@ function App() {
               </Routes>
             </main>
 
-            {/* Footer - pastki qism */}
             <Footer />
           </div>
         </Router>

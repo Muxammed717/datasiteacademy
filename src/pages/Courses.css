@@ -30,31 +30,38 @@
     margin: 0 auto;
 }
 
-/* Main Layout for side filters */
+
+
 .courses-main-layout {
     display: flex;
     align-items: flex-start;
-    /* Align to top */
+
+
     justify-content: flex-end;
-    /* Push content to the right */
+
+
     gap: 4rem;
     margin-top: 2rem;
     position: relative;
     width: 100%;
     padding: 0 4rem;
-    /* More horizontal padding */
+
+
 }
 
 .filter-sidebar {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    /* Spread buttons to match height */
+
+
     gap: 0.5rem;
-    /* Reduced gap since justify-content will handle spacing */
+
+
     min-width: 220px;
     height: 600px;
-    /* Matching the card scene height */
+
+
     z-index: 1001;
     position: sticky;
     top: 100px;
@@ -123,33 +130,40 @@
     transform: translateX(5px) translateY(-3px);
 }
 
-/* Spotlight Scene */
+
+
 .courses-spotlight-scene {
     position: relative;
     flex-grow: 1;
     height: 600px;
-    /* Increased length as requested */
+
+
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    /* Align cards to the right within their container */
+
+
     justify-content: center;
     perspective: 2000px;
     margin-left: 0;
     padding-right: 0;
     margin-top: 0;
-    /* Lowered back down */
+
+
 }
 
 .spotlight-slider {
     position: relative;
     width: 440px;
-    /* Proportional width increase */
+
+
     height: 580px;
-    /* Further lengthened */
+
+
     transform-style: preserve-3d;
     margin-right: -50px;
-    /* Shifted another 30px to the right as requested (-20 -> -50) */
+
+
 }
 
 .spotlight-card-wrap {
@@ -158,8 +172,8 @@
     height: 100%;
     transition: all 0.2s ease-out;
     cursor: pointer;
-    visibility: visible;
-    opacity: 0.1;
+    visibility: hidden;
+    opacity: 0;
     pointer-events: none;
 }
 
@@ -169,10 +183,10 @@
     pointer-events: auto;
     transform: translateZ(0) translateX(0);
     z-index: 10;
-    animation: fadeInUp 0.6s ease-out;
 }
 
-/* Reduced spread to accommodate sidebars */
+
+
 .spotlight-card-wrap.is-prev {
     visibility: visible !important;
     opacity: 0.3;
@@ -194,7 +208,8 @@
 .rectangular-card-3d {
     background: var(--bg-main);
     border-radius: 40px;
-    /* More rounded premium feel */
+
+
     overflow: hidden;
     box-shadow: 0 40px 100px rgba(0, 0, 0, 0.2);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -211,7 +226,8 @@
     box-shadow: 0 50px 120px rgba(21, 50, 44, 0.3);
 }
 
-/* Instructor Image 100% */
+
+
 .instructor-hero {
     position: absolute;
     top: 0;
@@ -225,11 +241,13 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    /* Darken bottom for text readability */
+
+
     filter: brightness(0.9);
 }
 
-/* The mini thumb stays but is more subtle */
+
+
 .course-mini-thumb {
     position: absolute;
     top: 30px;
@@ -259,7 +277,8 @@
     gap: 8px;
     z-index: 10;
     max-width: 180px;
-    /* Forces long tags like "Kompyuter savodxonligi" to wrap tags below it */
+
+
 }
 
 .card-category-tag {
@@ -303,7 +322,8 @@
 
 .star-icon {
     color: #fbbf24;
-    /* Amber-400 equivalent */
+
+
     font-size: 1rem;
     filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
 }
@@ -312,7 +332,8 @@
     color: rgba(255, 255, 255, 0.3);
 }
 
-/* Overlaid details at the bottom */
+
+
 .card-details {
     position: absolute;
     bottom: 0;
@@ -405,7 +426,12 @@
 @media (max-width: 1100px) {
     .courses-main-layout {
         flex-direction: column;
-        gap: 1.5rem;
+        gap: 2rem;
+        align-items: center;
+        justify-content: flex-start;
+
+
+        padding: 0 1rem;
     }
 
     .filter-sidebar {
@@ -414,7 +440,10 @@
         justify-content: center;
         min-width: unset;
         width: 100%;
-        gap: 0.5rem;
+        height: auto;
+        gap: 0.75rem;
+        position: relative;
+        top: 0;
     }
 
     .left-sidebar,
@@ -429,15 +458,23 @@
     }
 
     .courses-spotlight-scene {
-        height: auto;
+        height: 550px;
         perspective: none;
-        padding: 2rem 0;
+        padding: 0;
+        align-items: center;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        z-index: 5;
     }
 
     .spotlight-slider {
-        width: 100%;
-        max-width: 320px;
+        width: 320px;
         height: 480px;
+        margin-right: 0;
+        position: relative;
+        z-index: 10;
+        display: block;
     }
 
     .spotlight-card-wrap.is-active {
@@ -496,7 +533,46 @@
     }
 }
 
+@media (max-width: 1450px) {
+    .products-viewport {
+        width: 1179.98px;
+
+
+    }
+}
+
+@media (max-width: 1250px) {
+    .products-viewport {
+        width: 773.32px;
+
+
+    }
+}
+
+@media (max-width: 950px) {
+    .products-viewport {
+        width: 366.66px;
+
+
+    }
+
+    .product-card-content {
+        height: auto;
+        min-height: 450px;
+        padding: 40px 20px;
+    }
+}
+
 @media (max-width: 480px) {
+    .products-viewport {
+        width: 280px;
+        /* Extreme mobile */
+    }
+
+    .product-card-item {
+        width: 280px;
+    }
+
     .courses-page {
         padding: 2rem 0;
     }

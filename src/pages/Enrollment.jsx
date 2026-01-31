@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { coursesData } from '../data/courses';
-import { db } from '../firebase'; // Firebase bazasini chaqiramiz
+import { db } from '../firebase';
 import { ref, get, set } from 'firebase/database';
 import { FaCheckCircle, FaUser, FaPhone, FaBookOpen, FaCommentDots, FaPaperPlane } from 'react-icons/fa';
 import './Enrollment.css';
 
 const Enrollment = () => {
     const { t, language } = useLanguage();
-    const [submitted, setSubmitted] = useState(false); // Yuborilganlik holati
-    const [loading, setLoading] = useState(false); // Yuklanish holati
+    const [submitted, setSubmitted] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
         name: '',
         phone: '',
@@ -17,7 +17,7 @@ const Enrollment = () => {
         message: ''
     });
 
-    // Telefon raqamini formatlash (+998 ...)
+
     const formatPhoneNumber = (value) => {
         if (!value) return value;
         const phoneNumber = value.replace(/\D/g, '');
@@ -32,7 +32,7 @@ const Enrollment = () => {
         return formatted;
     };
 
-    // Input o'zgarganda ishlaydi
+
     const handleChange = (e) => {
         let { name, value } = e.target;
         if (name === 'phone') {
@@ -41,7 +41,7 @@ const Enrollment = () => {
         setFormData(prev => ({ ...prev, [name]: value }));
     };
 
-    // Telegram botga xabar yuborish
+
     const sendTelegramMessage = async (message) => {
         const botToken = '8253144291:AAFzaR70Q486aDyeuGSEgPl4mYYmi3-J7UQ';
         const chatId = '7354108107';
@@ -54,7 +54,7 @@ const Enrollment = () => {
         } catch (err) { console.error('Telegram xatosi:', err); }
     };
 
-    // Ariza topshirish funksiyasi
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
@@ -67,16 +67,16 @@ const Enrollment = () => {
 <b>💬 Xabar:</b> ${formData.message || '—'}
         `;
 
-        // Telegramga yuborish
+
         sendTelegramMessage(telegramMessage);
 
-        // 3 soniya kutib, muvaffaqiyat sahifasiga o'tkazish
+
         setTimeout(() => {
             setLoading(false);
             setSubmitted(true);
         }, 3000);
 
-        // Ma'lumotlarni Firebase bazasiga saqlash
+
         const saveToFirebase = async () => {
             try {
                 const studentsRef = ref(db, 'students');
@@ -85,7 +85,7 @@ const Enrollment = () => {
                 const studentsList = Array.isArray(students) ? students : Object.values(students);
 
                 const newStudent = {
-                    id: `DS${Math.floor(1000 + Math.random() * 9000)}`, // Tasodifiy ID yaratish
+                    id: `DS${Math.floor(1000 + Math.random() * 9000)}`,
                     name: formData.name,
                     course: formData.course,
                     status: 'unpaid',
@@ -102,7 +102,7 @@ const Enrollment = () => {
         saveToFirebase();
     };
 
-    // Agar ariza yuborilgan bo'lsa, tabriklash sahifasini ko'rsatadi
+
     if (submitted) {
         return (
             <div className="enrollment-success-page">
@@ -136,7 +136,7 @@ const Enrollment = () => {
                 </div>
 
                 <div className="enrollment-grid">
-                    {/* Chap taraf: Ma'lumot matnlari */}
+
                     <div className="enrollment-info-panel">
                         <div className="info-card">
                             <div className="info-icon"><FaBookOpen /></div>
@@ -152,7 +152,7 @@ const Enrollment = () => {
                         </div>
                     </div>
 
-                    {/* O'ng taraf: Ariza formasi */}
+
                     <div className="enrollment-form-container">
                         <form className="enrollment-form" onSubmit={handleSubmit}>
                             <div className="input-group">

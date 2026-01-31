@@ -2,7 +2,6 @@
     overflow-x: hidden;
     position: relative;
     background-color: transparent;
-    /* Transparent to show global Plexus */
 }
 
 .banner-wrap {
@@ -12,15 +11,9 @@
     display: flex;
     align-items: center;
     background: transparent;
-    /* Transparent to show global Plexus */
     transition: background-color 0.4s ease;
     overflow: hidden;
 }
-
-
-/* Overlay removed to prevent color mismatch and allow true white background in light mode */
-
-/* [data-theme="dark"] .banner-wrap background handled by base class */
 
 .banner-bg-static {
     position: absolute;
@@ -41,7 +34,6 @@
 
 [data-theme="dark"] .mesh-img {
     opacity: 0.6;
-    /* Slightly darker mesh in dark mode */
 }
 
 .banner-inner {
@@ -112,7 +104,7 @@
 }
 
 .banner-heading {
-    font-size: 5rem;
+    font-size: clamp(2.2rem, 8vw, 5rem);
     font-weight: 950;
     line-height: 1.1;
     margin-bottom: 24px;
@@ -122,13 +114,13 @@
     align-items: center;
     gap: 8px;
     color: #15322c !important;
-    /* Dark green in light mode */
     transition: color 0.4s ease;
+    width: 100%;
+    padding: 0 10px;
 }
 
 [data-theme="dark"] .banner-heading {
     color: #FFFFFF !important;
-    /* White in dark mode */
 }
 
 .banner-row-top,
@@ -139,9 +131,6 @@
     gap: 16px;
     color: inherit;
 }
-
-/* Nudge for better visibility */
-/* Shift removed for better centering */
 
 .phrase-slider {
     position: relative;
@@ -157,7 +146,6 @@
     overflow: visible;
     z-index: 20;
 }
-
 
 .phrase-item {
     position: absolute;
@@ -175,21 +163,15 @@
     font-weight: 900;
     white-space: nowrap;
     padding: 0 20px;
-    /* Moderate padding */
     margin: 0 -5px;
-    /* Slight negative margin */
-
-    /* Gradient Text Styling */
     background: linear-gradient(135deg, #10b981 0%, #15322C 100%);
     background-size: 200% 200%;
-    /* Ensure gradient covers full area */
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     color: transparent !important;
     text-shadow: none;
     z-index: 20;
-    /* Ensure on top */
 }
 
 [data-theme="dark"] .phrase-item {
@@ -203,30 +185,23 @@
 
 .phrase-item.is-visible {
     position: relative;
-    /* Take up flow space */
     left: auto;
     transform: none;
-    /* Reset transforms */
     opacity: 1;
+    display: inline-block;
 }
 
 .lead-text {
     animation: fadeInUp 0.8s ease-out both;
     position: relative;
     z-index: 20;
-
-    /* Font & Layout */
     font-size: inherit;
     font-weight: 900;
     letter-spacing: -0.04em;
     line-height: 1.2;
     display: inline-block;
-
-    /* Padding to prevent clipping (Important!) */
     padding: 10px 30px;
     margin: 0 -15px;
-
-    /* Gradient Text Styling */
     background: linear-gradient(135deg, #10b981 0%, #15322C 100%);
     background-size: 200% auto;
     -webkit-background-clip: text;
@@ -246,10 +221,8 @@
 .banner-subtext {
     font-size: clamp(1rem, 2vw, 1.25rem);
     color: var(--text-main) !important;
-    /* Theme-aware for legibility */
     opacity: 0.9;
     max-width: 850px;
-    /* Slightly wider for the long text */
     margin: 0 auto 3.5rem;
     line-height: 1.6;
     transition: color 0.4s ease;
@@ -299,7 +272,6 @@
     opacity: 1;
 }
 
-/* Remove conflicting styles for specific button types since both should be gradient */
 .btn-banner.btn-primary,
 .btn-banner.btn-outline {
     background: linear-gradient(135deg, #10b981 0%, #15322C 100%);
@@ -310,11 +282,9 @@
 .btn-banner.btn-primary:hover,
 .btn-banner.btn-outline:hover {
     background: linear-gradient(135deg, #10b981 0%, #15322C 100%);
-    /* Maintain base for ::before to work */
     color: #FFFFFF !important;
     border: none;
 }
-
 
 @keyframes slideUpFade {
     from {
@@ -396,8 +366,6 @@
     z-index: 0;
 }
 
-
-
 .roadmap-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
@@ -430,7 +398,6 @@
     margin: 0 auto;
 }
 
-/* Symmetrical Layout: Left (stacked), Center (spanning), Right (stacked) */
 .item-support {
     grid-column: 1;
     grid-row: 1;
@@ -456,7 +423,6 @@
     grid-row: 2;
 }
 
-/* Simple Clean Highlight Cards */
 .highlight-card {
     background: var(--bg-secondary);
     border: 1px solid var(--border);
@@ -518,7 +484,6 @@
     line-height: 1.6;
 }
 
-/* Simple Mentors Card Refinement */
 .item-mentors {
     background-color: var(--bg-secondary);
     justify-content: center;
@@ -554,24 +519,29 @@
 
 @media screen and (max-width: 768px) {
     .banner-wrap {
-        padding: 80px 0 60px;
-        /* Reduced padding for mobile */
+        padding: 100px 0 60px;
+        min-height: auto;
     }
 
     .banner-heading {
-        font-size: 3.8rem;
+        font-size: clamp(2.2rem, 10vw, 3.2rem);
+        gap: 5px;
     }
 
     .banner-row-top,
     .banner-row-bottom {
         flex-direction: column;
         height: auto;
-        gap: 10px;
+        gap: 5px;
+        text-align: center;
     }
 
     .banner-btns {
         flex-direction: column;
         gap: 12px;
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
     }
 
     .btn-banner {
@@ -580,17 +550,24 @@
     }
 
     .phrase-slider {
-        margin: 5px 0 !important;
+        margin: 2px 0 !important;
+        height: auto;
+        min-height: 1.2em;
     }
 
     .phrase-item {
-        font-size: 3.8rem;
-        /* Same as banner heading on mobile */
+        font-size: inherit;
+        position: relative;
+        left: auto;
+        transform: none;
+        padding: 0 10px;
     }
 
     .highlights-grid {
         grid-template-columns: 1fr;
         grid-template-rows: auto;
+        gap: 20px;
+        padding: 0 20px;
     }
 
     .item-support,
@@ -603,11 +580,14 @@
     }
 
     .title-text {
-        font-size: 2.5rem;
+        font-size: 2.2rem;
+    }
+
+    .highlight-card {
+        padding: 30px 20px;
     }
 }
 
-/* Home Courses Slider Styles */
 .home-courses-section {
     padding: 100px 0;
     background: var(--bg-main);

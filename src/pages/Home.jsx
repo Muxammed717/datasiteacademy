@@ -5,7 +5,6 @@ import { useLanguage } from '../context/LanguageContext';
 import { useTheme } from '../context/ThemeContext';
 import './Home.css';
 
-// 1. Roadmap qismidagi kichik kartalar (Qadamlar)
 const RoadmapStep = ({ icon: Icon, title, desc, stepNumber }) => (
     <div className="roadmap-card">
         <div className="step-count">{stepNumber}</div>
@@ -17,12 +16,10 @@ const RoadmapStep = ({ icon: Icon, title, desc, stepNumber }) => (
     </div>
 );
 
-// 2. Asosiy Banner (Hero section)
 const MainBanner = ({ t, language }) => {
-    const [activePhrase, setActivePhrase] = useState(0); // Qaysi so'z chiqib turishi
+    const [activePhrase, setActivePhrase] = useState(0);
     const phrases = t.home.hero.keywords || [];
 
-    // Har 5 soniyada tepadagi harakatlanuvchi so'zni o'zgartirish
     useEffect(() => {
         if (phrases.length === 0) return;
         const interval = setInterval(() => {
@@ -31,7 +28,6 @@ const MainBanner = ({ t, language }) => {
         return () => clearInterval(interval);
     }, [phrases.length]);
 
-    // Til o'zgarganda so'zni birinchisidan boshlash
     useEffect(() => {
         setActivePhrase(0);
     }, [language]);
@@ -44,7 +40,6 @@ const MainBanner = ({ t, language }) => {
                         <span className="lead-text">{t.home.hero.titlePrefix}</span>
                     </div>
                     <div className="banner-row-bottom">
-                        {/* Harakatlanuvchi so'zlar slideri */}
                         <div className="phrase-slider">
                             {phrases.map((phrase, idx) => (
                                 <span
@@ -71,7 +66,6 @@ const MainBanner = ({ t, language }) => {
 const Home = () => {
     const { t, language } = useLanguage();
 
-    // Yo'l xaritasi qadamlari ro'yxati
     const ROADMAP_STEPS = [
         { icon: FaRocket, title: t.home.path.step1, desc: t.home.path.step1Desc },
         { icon: FaProjectDiagram, title: t.home.path.step2, desc: t.home.path.step2Desc },
@@ -81,10 +75,8 @@ const Home = () => {
 
     return (
         <div className="home-layout">
-            {/* Banner qismi */}
             <MainBanner t={t} language={language} />
 
-            {/* Muvaffaqiyat yo'li bo'limi */}
             <section className="academy-roadmap">
                 <div className="container">
                     <div className="roadmap-header">
@@ -106,7 +98,6 @@ const Home = () => {
                 </div>
             </section>
 
-            {/* Nega biz? (Highlights) bo'limi */}
             <section className="academy-highlights">
                 <div className="container">
                     <div className="highlights-header">

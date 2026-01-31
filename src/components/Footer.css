@@ -258,6 +258,13 @@
 
 
 
+@media (max-width: 1024px) {
+    .footer-container {
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+    }
+}
+
 @media (max-width: 960px) {
     .footer-container {
         grid-template-columns: 1fr;
